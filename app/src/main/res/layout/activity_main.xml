@@ -39,22 +39,24 @@
                 android:padding="18dp"
                 android:src="@drawable/ic_logo"
                 android:elevation="10dp"
+                android:layout_marginTop="80dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="40dp"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <!-- TITLE -->
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="Discipline Arena"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:textColor="#2C2C2C"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/subtitle"
+
+                app:layout_constraintTop_toBottomOf="@id/logo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -63,10 +65,12 @@
                 android:id="@+id/subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="Build Discipline. Build Yourself."
                 android:textSize="14sp"
                 android:textColor="#8E8E93"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
+
                 app:layout_constraintTop_toBottomOf="@id/title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -79,8 +83,8 @@
                 android:background="@drawable/bg_toggle"
                 android:orientation="horizontal"
                 android:padding="6dp"
-                android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@id/logo"
+                android:layout_marginTop="28dp"
+                app:layout_constraintTop_toBottomOf="@id/subtitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -91,7 +95,8 @@
                     android:background="@drawable/bg_toggle_active"
                     android:gravity="center"
                     android:text="Log In"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#2C2C2C"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -102,6 +107,20 @@
                     android:textColor="#9E9E9E"/>
             </LinearLayout>
 
+            <!-- EMAIL LABEL -->
+            <TextView
+                android:id="@+id/emailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Email"
+                android:textSize="13sp"
+                android:textColor="#6B7280"
+                android:layout_marginTop="24dp"
+
+                app:layout_constraintTop_toBottomOf="@id/toggle"
+                app:layout_constraintStart_toStartOf="parent"/>
+
             <!-- EMAIL -->
             <EditText
                 android:id="@+id/email"
@@ -110,10 +129,24 @@
                 android:hint="you@email.com"
                 android:background="@drawable/bg_input"
                 android:padding="16dp"
-                android:layout_marginTop="28dp"
-                app:layout_constraintTop_toBottomOf="@id/toggle"
+                android:layout_marginTop="6dp"
+                app:layout_constraintTop_toBottomOf="@id/emailLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- PASSWORD LABEL -->
+            <TextView
+                android:id="@+id/passwordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Password"
+                android:textSize="13sp"
+                android:textColor="#6B7280"
+                android:layout_marginTop="18dp"
+
+                app:layout_constraintTop_toBottomOf="@id/email"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <!-- PASSWORD -->
             <EditText
@@ -124,8 +157,8 @@
                 android:background="@drawable/bg_input"
                 android:padding="16dp"
                 android:inputType="textPassword"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/email"
+                android:layout_marginTop="6dp"
+                app:layout_constraintTop_toBottomOf="@id/passwordLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -134,24 +167,94 @@
                 android:id="@+id/forgot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="Forgot Password?"
                 android:textColor="#5B3EFF"
                 android:textSize="13sp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
+
                 app:layout_constraintTop_toBottomOf="@id/password"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <!-- LOGIN BUTTON -->
             <Button
+                android:id="@+id/loginBtn"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:text="Log In"
-                android:elevation="10dp"
+                android:elevation="8dp"
                 android:textColor="#FFF"
                 android:textAllCaps="false"
                 android:background="@drawable/bg_button"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintTop_toBottomOf="@id/forgot"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- DIVIDER -->
+            <LinearLayout
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/loginBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#E5E7EB"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="or continue with"
+                    android:textSize="12sp"
+                    android:textColor="#6B7280"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#E5E7EB"/>
+            </LinearLayout>
+
+            <!-- GOOGLE BUTTON -->
+            <Button
+                android:id="@+id/googleBtn"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:text="Continue with Google"
+                android:textAllCaps="false"
+                android:textColor="#374151"
+                android:background="@drawable/bg_input"
+                android:drawableStart="@drawable/ic_google"
+                android:drawablePadding="12dp"
+                android:drawableTint="@null"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- TERMS -->
+            <TextView
+                android:id="@+id/terms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="By continuing, you agree to our Terms &amp; Privacy Policy"
+                android:textSize="11sp"
+                android:textColor="#9CA3AF"
+                android:layout_marginTop="14dp"
+
+                app:layout_constraintTop_toBottomOf="@id/googleBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
