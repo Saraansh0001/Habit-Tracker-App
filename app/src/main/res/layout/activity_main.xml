@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light">
+
+    <!-- blob top left purple -->
+    <ImageView
+        android:id="@+id/blob_top_left"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/blob_purple"
+        android:alpha="0.35"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="-30dp"
+        android:layout_marginStart="-40dp" />
+
+    <!-- blob bottom left purple -->
+    <ImageView
+        android:id="@+id/blob_bottom_left"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/blob_purple"
+        android:alpha="0.25"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="-30dp" />
+
+    <!-- blob right teal -->
+    <ImageView
+        android:id="@+id/blob_right"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@drawable/blob_teal"
+        android:alpha="0.40"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="-20dp" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="60dp"
+            android:paddingBottom="32dp">
+
+            <!-- app icon card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/purple_primary">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_bolt"
+                    android:tint="@android:color/white" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="Discipline Arena"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_dark"
+                android:fontFamily="@font/poppins_bold" />
+
+            <!-- subtitle -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:text="Build Discipline. Build Yourself."
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="@font/poppins_regular" />
+
+            <!-- tab toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_tab_container"
+                android:padding="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tab_login"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Log In"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_dark"
+                    android:background="@drawable/bg_tab_selected"
+                    android:fontFamily="@font/poppins_semibold" />
+
+                <TextView
+                    android:id="@+id/tab_sign_up"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Sign Up"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_secondary"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/poppins_regular" />
+
+            </LinearLayout>
+
+            <!-- email label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Email"
+                android:textSize="14sp"
+                android:textColor="@color/text_dark"
+                android:fontFamily="@font/poppins_medium" />
+
+            <!-- email input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                style="@style/input_field_style">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:hint="you@email.com"
+                    android:inputType="textEmailAddress"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_dark"
+                    android:fontFamily="@font/poppins_regular"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:background="@drawable/bg_input_field" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- password label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Password"
+                android:textSize="14sp"
+                android:textColor="@color/text_dark"
+                android:fontFamily="@font/poppins_medium" />
+
+            <!-- password input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                style="@style/input_field_style"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/text_secondary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:hint="Enter password"
+                    android:inputType="textPassword"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_dark"
+                    android:fontFamily="@font/poppins_regular"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="48dp"
+                    android:background="@drawable/bg_input_field" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- forgot password -->
+            <TextView
+                android:id="@+id/tv_forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:text="Forgot Password?"
+                android:textSize="13sp"
+                android:textColor="@color/purple_primary"
+                android:fontFamily="@font/poppins_medium" />
+
+            <!-- login button -->
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:text="Log In"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_btn_primary"
+                android:fontFamily="@font/poppins_semibold"
+                android:stateListAnimator="@null" />
+
+            <!-- or continue with -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="or continue with"
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="@font/poppins_regular" />
+
+            <!-- google button -->
+            <Button
+                android:id="@+id/btn_google"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="14dp"
+                android:text="Continue with Google"
+                android:textSize="15sp"
+                android:textColor="@color/text_dark"
+                android:background="@drawable/bg_btn_google"
+                android:drawableStart="@drawable/ic_google"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:stateListAnimator="@null"
+                android:paddingStart="20dp"
+                android:gravity="center" />
+
+            <!-- terms -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="By continuing, you agree to our Terms &amp; Privacy Policy"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_regular" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginTop="12dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
