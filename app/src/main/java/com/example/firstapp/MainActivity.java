@@ -11,6 +11,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
 
+    // remove thie later on
     private TextView tab_login, tab_sign_up, tv_forgot_password;
     private TextInputEditText et_email, et_password;
     private View btn_login, btn_google;
