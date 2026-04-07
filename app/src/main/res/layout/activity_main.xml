@@ -9,38 +9,26 @@
     <!-- blob top left purple -->
     <ImageView
         android:id="@+id/blob_top_left"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         android:src="@drawable/blob_purple"
-        android:alpha="0.35"
+        android:alpha="0.3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="-30dp"
-        android:layout_marginStart="-40dp" />
-
-    <!-- blob bottom left purple -->
-    <ImageView
-        android:id="@+id/blob_bottom_left"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:src="@drawable/blob_purple"
-        android:alpha="0.25"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="60dp"
-        android:layout_marginStart="-30dp" />
+        android:layout_marginTop="-40dp"
+        android:layout_marginStart="-60dp" />
 
     <!-- blob right teal -->
     <ImageView
         android:id="@+id/blob_right"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:src="@drawable/blob_teal"
-        android:alpha="0.40"
+        android:alpha="0.3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="-20dp" />
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="-50dp" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -71,11 +59,11 @@
                 app:cardBackgroundColor="@color/purple_primary">
 
                 <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_bolt"
-                    android:tint="@android:color/white" />
+                    app:tint="@android:color/white" />
 
             </androidx.cardview.widget.CardView>
 
@@ -86,10 +74,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
                 android:text="Discipline Arena"
-                android:textSize="26sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
-                android:textColor="@color/text_dark"
-                android:fontFamily="@font/poppins_bold" />
+                android:textColor="@color/text_dark" />
 
             <!-- subtitle -->
             <TextView
@@ -98,14 +85,13 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
                 android:text="Build Discipline. Build Yourself."
-                android:textSize="13sp"
-                android:textColor="@color/text_secondary"
-                android:fontFamily="@font/poppins_regular" />
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary" />
 
             <!-- tab toggle -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="56dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/bg_tab_container"
                 android:padding="4dp"
@@ -118,11 +104,10 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Log In"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_dark"
-                    android:background="@drawable/bg_tab_selected"
-                    android:fontFamily="@font/poppins_semibold" />
+                    android:background="@drawable/bg_tab_selected" />
 
                 <TextView
                     android:id="@+id/tab_sign_up"
@@ -131,22 +116,57 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Sign Up"
-                    android:textSize="15sp"
-                    android:textColor="@color/text_secondary"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="@font/poppins_regular" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_secondary" />
 
+            </LinearLayout>
+
+            <!-- Full Name (Hidden by default for Login) -->
+            <LinearLayout
+                android:id="@+id/ll_full_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Full Name"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    style="@style/input_field_style">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:hint="Enter your name"
+                        android:inputType="textPersonName"
+                        android:textSize="14sp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:background="@drawable/bg_input_field" />
+
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <!-- email label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="24dp"
                 android:text="Email"
                 android:textSize="14sp"
                 android:textColor="@color/text_dark"
-                android:fontFamily="@font/poppins_medium" />
+                android:textStyle="bold" />
 
             <!-- email input -->
             <com.google.android.material.textfield.TextInputLayout
@@ -162,8 +182,6 @@
                     android:hint="you@email.com"
                     android:inputType="textEmailAddress"
                     android:textSize="14sp"
-                    android:textColor="@color/text_dark"
-                    android:fontFamily="@font/poppins_regular"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:background="@drawable/bg_input_field" />
@@ -178,7 +196,7 @@
                 android:text="Password"
                 android:textSize="14sp"
                 android:textColor="@color/text_dark"
-                android:fontFamily="@font/poppins_medium" />
+                android:textStyle="bold" />
 
             <!-- password input -->
             <com.google.android.material.textfield.TextInputLayout
@@ -186,8 +204,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 style="@style/input_field_style"
-                app:endIconMode="password_toggle"
-                app:endIconTint="@color/text_secondary">
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/text_hint">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_password"
@@ -196,8 +214,6 @@
                     android:hint="Enter password"
                     android:inputType="textPassword"
                     android:textSize="14sp"
-                    android:textColor="@color/text_dark"
-                    android:fontFamily="@font/poppins_regular"
                     android:paddingStart="16dp"
                     android:paddingEnd="48dp"
                     android:background="@drawable/bg_input_field" />
@@ -210,70 +226,69 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 android:text="Forgot Password?"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textColor="@color/purple_primary"
-                android:fontFamily="@font/poppins_medium" />
+                android:textStyle="bold" />
 
-            <!-- login button -->
+            <!-- submit button -->
             <Button
-                android:id="@+id/btn_login"
+                android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="24dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
                 android:text="Log In"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:background="@drawable/bg_btn_primary"
-                android:fontFamily="@font/poppins_semibold"
-                android:stateListAnimator="@null" />
+                android:textAllCaps="false" />
 
             <!-- or continue with -->
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:text="or continue with"
-                android:textSize="13sp"
-                android:textColor="@color/text_secondary"
-                android:fontFamily="@font/poppins_regular" />
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="24dp">
+                <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:background="@color/input_border" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="or continue with"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary" />
+                <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:background="@color/input_border" />
+            </LinearLayout>
 
             <!-- google button -->
             <Button
                 android:id="@+id/btn_google"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="14dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
                 android:text="Continue with Google"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textColor="@color/text_dark"
                 android:background="@drawable/bg_btn_google"
                 android:drawableStart="@drawable/ic_google"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/poppins_medium"
-                android:stateListAnimator="@null"
-                android:paddingStart="20dp"
-                android:gravity="center" />
+                android:drawablePadding="-20dp"
+                android:paddingStart="24dp"
+                android:textAllCaps="false" />
 
             <!-- terms -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="24dp"
                 android:text="By continuing, you agree to our Terms &amp; Privacy Policy"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textColor="@color/text_secondary"
-                android:gravity="center"
-                android:fontFamily="@font/poppins_regular" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="12dp"
-                android:layout_marginTop="12dp" />
+                android:gravity="center" />
 
         </LinearLayout>
     </ScrollView>
