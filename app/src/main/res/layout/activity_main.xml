@@ -6,29 +6,38 @@
     android:layout_height="match_parent"
     android:background="@color/bg_light">
 
-    <!-- blob top left purple -->
     <ImageView
         android:id="@+id/blob_top_left"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
         android:src="@drawable/blob_purple"
-        android:alpha="0.3"
+        android:alpha="0.4"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="-40dp"
-        android:layout_marginStart="-60dp" />
+        android:layout_marginTop="-60dp"
+        android:layout_marginStart="-80dp" />
 
-    <!-- blob right teal -->
     <ImageView
         android:id="@+id/blob_right"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
         android:src="@drawable/blob_teal"
         android:alpha="0.3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="-50dp" />
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="-80dp" />
+
+    <ImageView
+        android:id="@+id/blob_bottom_left"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/blob_purple"
+        android:alpha="0.3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="-60dp" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -49,7 +58,6 @@
             android:paddingTop="60dp"
             android:paddingBottom="32dp">
 
-            <!-- app icon card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
@@ -67,18 +75,16 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
                 android:text="Discipline Arena"
-                android:textSize="28sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_dark" />
 
-            <!-- subtitle -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,7 +94,6 @@
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary" />
 
-            <!-- tab toggle -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
@@ -106,8 +111,8 @@
                     android:text="Log In"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/text_dark"
-                    android:background="@drawable/bg_tab_selected" />
+                    android:textColor="@color/text_secondary"
+                    android:background="@android:color/transparent" />
 
                 <TextView
                     android:id="@+id/tab_sign_up"
@@ -117,17 +122,17 @@
                     android:gravity="center"
                     android:text="Sign Up"
                     android:textSize="16sp"
-                    android:textColor="@color/text_secondary" />
+                    android:textStyle="bold"
+                    android:textColor="@color/text_dark"
+                    android:background="@drawable/bg_tab_selected" />
 
             </LinearLayout>
 
-            <!-- Full Name (Hidden by default for Login) -->
             <LinearLayout
                 android:id="@+id/ll_full_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -135,14 +140,14 @@
                     android:layout_marginTop="24dp"
                     android:text="Full Name"
                     android:textSize="14sp"
-                    android:textColor="@color/text_dark"
+                    android:textColor="@color/text_secondary"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    style="@style/input_field_style">
+                    app:hintEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_name"
@@ -158,22 +163,20 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
-            <!-- email label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Email"
                 android:textSize="14sp"
-                android:textColor="@color/text_dark"
+                android:textColor="@color/text_secondary"
                 android:textStyle="bold" />
 
-            <!-- email input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                style="@style/input_field_style">
+                app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_email"
@@ -188,24 +191,22 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- password label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Password"
                 android:textSize="14sp"
-                android:textColor="@color/text_dark"
+                android:textColor="@color/text_secondary"
                 android:textStyle="bold" />
 
-            <!-- password input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                style="@style/input_field_style"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/text_hint">
+                app:passwordToggleTint="@color/text_hint"
+                app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_password"
@@ -220,7 +221,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- forgot password -->
             <TextView
                 android:id="@+id/tv_forgot_password"
                 android:layout_width="wrap_content"
@@ -230,22 +230,22 @@
                 android:text="Forgot Password?"
                 android:textSize="14sp"
                 android:textColor="@color/purple_primary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-            <!-- submit button -->
             <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="32dp"
-                android:text="Log In"
+                android:text="Create Account"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:background="@drawable/bg_btn_primary"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:elevation="8dp" />
 
-            <!-- or continue with -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -264,22 +264,40 @@
                 <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:background="@color/input_border" />
             </LinearLayout>
 
-            <!-- google button -->
-            <Button
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btn_google"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
-                android:text="Continue with Google"
-                android:textSize="16sp"
-                android:textColor="@color/text_dark"
-                android:background="@drawable/bg_btn_google"
-                android:drawableStart="@drawable/ic_google"
-                android:drawablePadding="-20dp"
-                android:paddingStart="24dp"
-                android:textAllCaps="false" />
+                app:cardCornerRadius="30dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
 
-            <!-- terms -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_google" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Continue with Google"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_dark" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
