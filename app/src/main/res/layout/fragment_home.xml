@@ -48,7 +48,7 @@
                         android:id="@+id/tv_user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Angad 👋"
+                        android:text="Team MAD 👋"
                         android:textColor="@android:color/white"
                         android:textSize="28sp"
                         android:textStyle="bold"
