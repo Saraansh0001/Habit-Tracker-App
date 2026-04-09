@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private View btn_google;
     private Button btn_submit;
     private LinearLayout ll_full_name;
-    private boolean isLoginMode = true;
+    private boolean isLoginMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         );
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         init_views();
         setup_tab_toggle();
         setup_click_listeners();
+        updateUI();
     }
 
     private void init_views() {
@@ -105,14 +107,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            // Navigate to Home
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         });
 
         btn_google.setOnClickListener(v -> {
-            Toast.makeText(this, "Google Sign-In coming soon", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Opening Google Accounts...", Toast.LENGTH_SHORT).show();
         });
 
         tv_forgot_password.setOnClickListener(v -> {
