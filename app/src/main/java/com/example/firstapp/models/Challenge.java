@@ -9,8 +9,9 @@ public class Challenge {
     private boolean isActive;
     private int iconRes;     // Drawable resource ID
     private String type;     // e.g. "Meditation", "Workout"
+    private String color;    // Hex color string, e.g. "#FF0000"
 
-    public Challenge(String id, String title, int participants, String duration, int progress, boolean isActive, int iconRes, String type) {
+    public Challenge(String id, String title, int participants, String duration, int progress, boolean isActive, int iconRes, String type, String color) {
         this.id = id;
         this.title = title;
         this.participants = participants;
@@ -19,6 +20,7 @@ public class Challenge {
         this.isActive = isActive;
         this.iconRes = iconRes;
         this.type = type;
+        this.color = color;
     }
 
     public String getId() { return id; }
@@ -29,6 +31,8 @@ public class Challenge {
     public boolean isActive() { return isActive; }
     public int getIconRes() { return iconRes; }
     public String getType() { return type; }
+    public String getColor() { return color; }
 
     public void setActive(boolean active) { isActive = active; }
+    public void setColor(String color) { this.color = color; }
 }

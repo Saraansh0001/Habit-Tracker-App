@@ -36,13 +36,14 @@ public class HomeActivity extends AppCompatActivity {
 
             if (itemId == R.id.navigation_home) {
                 selectedFragment = new HomeFragment();
+            } else if (itemId == R.id.navigation_search) {
+                selectedFragment = new SearchFragment();
             } else if (itemId == R.id.navigation_arena) {
                 selectedFragment = new ArenaFragment();
-            } else if (itemId == R.id.navigation_search || 
-                       itemId == R.id.navigation_analytics || 
-                       itemId == R.id.navigation_profile) {
-                // For now, these can show a placeholder or just stay on current
-                return true; 
+            } else if (itemId == R.id.navigation_analytics) {
+                selectedFragment = new AnalyticsFragment();
+            } else if (itemId == R.id.navigation_profile) {
+                selectedFragment = new ProfileFragment();
             }
 
             if (selectedFragment != null) {
@@ -53,10 +54,11 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 }
