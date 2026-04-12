@@ -37,13 +37,13 @@ public class HomeActivity extends AppCompatActivity {
             if (itemId == R.id.navigation_home) {
                 selectedFragment = new HomeFragment();
             } else if (itemId == R.id.navigation_search) {
-                selectedFragment = new SearchFragment();
+                selectedFragment = new NavigationFragments.SearchFragment();
             } else if (itemId == R.id.navigation_arena) {
                 selectedFragment = new ArenaFragment();
             } else if (itemId == R.id.navigation_analytics) {
-                selectedFragment = new AnalyticsFragment();
+                selectedFragment = new NavigationFragments.AnalyticsFragment();
             } else if (itemId == R.id.navigation_profile) {
-                selectedFragment = new ProfileFragment();
+                selectedFragment = new NavigationFragments.ProfileFragment();
             }
 
             if (selectedFragment != null) {
