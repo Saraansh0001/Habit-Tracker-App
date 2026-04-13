@@ -13,7 +13,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Make status bar transparent and handle light/dark icons
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
@@ -25,7 +24,6 @@ public class HomeActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         
-        // Set default fragment
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment());
         }
@@ -37,13 +35,13 @@ public class HomeActivity extends AppCompatActivity {
             if (itemId == R.id.navigation_home) {
                 selectedFragment = new HomeFragment();
             } else if (itemId == R.id.navigation_search) {
-                selectedFragment = new SearchFragment();
+                selectedFragment = PlaceholderFragment.newInstance("Search Screen");
             } else if (itemId == R.id.navigation_arena) {
                 selectedFragment = new ArenaFragment();
             } else if (itemId == R.id.navigation_analytics) {
-                selectedFragment = new AnalyticsFragment();
+                selectedFragment = PlaceholderFragment.newInstance("Analytics");
             } else if (itemId == R.id.navigation_profile) {
-                selectedFragment = new ProfileFragment();
+                selectedFragment = PlaceholderFragment.newInstance("Profile");
             }
 
             if (selectedFragment != null) {

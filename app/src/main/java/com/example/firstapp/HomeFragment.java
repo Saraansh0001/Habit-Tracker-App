@@ -16,7 +16,6 @@ public class HomeFragment extends Fragment {
 
     private boolean isHabit1Done = true;
     private boolean isHabit2Done = false;
-
     private ImageView ivCheck1, ivCheck2;
     private ProgressBar pbMain;
     private TextView tvPercentage;
