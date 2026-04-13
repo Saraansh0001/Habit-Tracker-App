@@ -26,4 +26,6 @@
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color" />
 
+<!--    // Testing my new branch - Sameer-->
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
