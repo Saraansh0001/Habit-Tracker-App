@@ -51,8 +51,8 @@ public class ArenaFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(ArenaViewModel.class);
         viewModel.getUiState().observe(getViewLifecycleOwner(), state -> {
             if (state != null) {
-                tvRankValue.setText(String.format("#%d", state.getUserRank().getRank()));
-                tvPercentile.setText(state.getUserRank().getPercentile());
+                tvRankValue.setText(getString(R.string.rank_format, state.getUserRank().getRank()));
+                tvPercentile.setText(getString(R.string.percentile_format, state.getUserRank().getPercentile()));
                 ongoingAdapter.setItems(state.getOngoingChallenges());
                 availableAdapter.setItems(state.getAvailableChallenges());
             }
@@ -60,13 +60,13 @@ public class ArenaFragment extends Fragment {
 
         btnCreate.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(PlaceholderFragment.newInstance("Create Challenge"));
+                ((HomeActivity) getActivity()).loadFragment(PlaceholderFragment.newInstance(R.string.create_challenge));
             }
         });
 
         btnLeaderboard.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(PlaceholderFragment.newInstance("Leaderboard"));
+                ((HomeActivity) getActivity()).loadFragment(PlaceholderFragment.newInstance(R.string.leaderboard));
             }
         });
     }
@@ -91,10 +91,10 @@ public class ArenaFragment extends Fragment {
 
     public static class UserRank {
         private int rank;
-        private String percentile;
-        public UserRank(int rank, String percentile) { this.rank = rank; this.percentile = percentile; }
+        private int percentile;
+        public UserRank(int rank, int percentile) { this.rank = rank; this.percentile = percentile; }
         public int getRank() { return rank; }
-        public String getPercentile() { return percentile; }
+        public int getPercentile() { return percentile; }
     }
 
     public static class Challenge {
@@ -130,7 +130,7 @@ public class ArenaFragment extends Fragment {
         public LiveData<ArenaUiState> getUiState() { return _uiState; }
         public ArenaViewModel() { loadMockData(); }
         private void loadMockData() {
-            UserRank rank = new UserRank(42, "Top 15% of all players");
+            UserRank rank = new UserRank(42, 15);
             List<Challenge> ongoing = new ArrayList<>();
             ongoing.add(new Challenge("1", "30-Day Meditation", 128, "18d left", 40, true, 0, "Meditation", "#6B3FD4"));
             ongoing.add(new Challenge("2", "Morning Workout", 85, "6d left", 60, true, 0, "Workout", "#6B3FD4"));
@@ -187,8 +187,10 @@ public class ArenaFragment extends Fragment {
                 tvDuration = itemView.findViewById(R.id.tv_duration); progressBar = itemView.findViewById(R.id.progress_bar);
             }
             void bind(Challenge challenge) {
-                tvTitle.setText(challenge.getTitle()); tvParticipants.setText("👤 " + challenge.getParticipants());
-                tvDuration.setText("🕒 " + challenge.getDuration()); progressBar.setProgress(challenge.getProgress());
+                tvTitle.setText(challenge.getTitle());
+                tvParticipants.setText(itemView.getContext().getString(R.string.participants_format, challenge.getParticipants()));
+                tvDuration.setText(itemView.getContext().getString(R.string.duration_format, challenge.getDuration()));
+                progressBar.setProgress(challenge.getProgress());
             }
         }
         static class AvailableViewHolder extends RecyclerView.ViewHolder {
@@ -200,7 +202,8 @@ public class ArenaFragment extends Fragment {
                 btnJoin = itemView.findViewById(R.id.btn_join);
             }
             void bind(Challenge challenge, OnChallengeClickListener listener) {
-                tvTitle.setText(challenge.getTitle()); tvSubtitle.setText("👤 " + challenge.getParticipants() + " · " + challenge.getDuration());
+                tvTitle.setText(challenge.getTitle());
+                tvSubtitle.setText(itemView.getContext().getString(R.string.subtitle_format, challenge.getParticipants(), challenge.getDuration()));
                 if (challenge.getIconRes() != 0) ivIcon.setImageResource(challenge.getIconRes());
                 if (challenge.getColor() != null) {
                     int c = Color.parseColor(challenge.getColor());

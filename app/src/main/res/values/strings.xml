@@ -8,4 +8,105 @@
     <string name="enter_name">Please enter your name</string>
     <string name="google_sign_in">Google Sign-In coming soon</string>
     <string name="reset_password">Reset password link sent</string>
+
+    <!-- Main Page -->
+    <string name="app_title">Discipline Arena</string>
+    <string name="app_subtitle">Build Discipline. Build Yourself.</string>
+    <string name="email_hint">you@email.com</string>
+    <string name="password_hint">Enter password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="google_continue">Continue with Google</string>
+    <string name="terms_policy">By continuing, you agree to our Terms &amp; Privacy Policy</string>
+    <string name="full_name_label">Full Name</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="or_continue">or continue with</string>
+
+    <!-- Home Page -->
+    <string name="greeting">Good Morning</string>
+    <string name="user_name_default">Team MAD 👋</string>
+    <string name="completed_label">completed</string>
+    <string name="day_streak_label">Day Streak 🔥</string>
+    <string name="features_title">Features</string>
+    <string name="see_all_link">See All</string>
+    <string name="all_link">All ></string>
+    <string name="feature_streaks">Streaks</string>
+    <string name="feature_timer">Timer</string>
+    <string name="feature_goals">Goals</string>
+    <string name="feature_journal">Journal</string>
+    <string name="todays_habits_title">Today\'s Habits</string>
+    <string name="habit_meditation">Morning Meditation</string>
+    <string name="habit_reading">Read 30 Minutes</string>
+    <string name="habit_water">Drink 2L Water</string>
+
+    <!-- Navigation Labels -->
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_arena">Arena</string>
+    <string name="nav_analytics">Analytics</string>
+    <string name="nav_profile">Profile</string>
+    <string name="create_challenge">Create Challenge</string>
+    <string name="leaderboard">Leaderboard</string>
+
+    <!-- Formatting -->
+    <string name="percentage_format">%1$d%%</string>
+    <string name="rank_format">#%1$d</string>
+    <string name="participants_format">👤 %1$d</string>
+    <string name="duration_format">🕒 %1$s</string>
+    <string name="subtitle_format">👤 %1$d · %2$s</string>
+    <string name="arena_title">Arena Challenges 🔥</string>
+    <string name="arena_subtitle">Compete with others and build habits together</string>
+    <string name="create_btn">+ Create</string>
+    <string name="leaderboard_btn">Leaderboard</string>
+    <string name="global_rank_title">Your Global Rank</string>
+    <string name="percentile_format">Top %1$d%% of all players</string>
+    <string name="ongoing_competitions">Ongoing Competitions</string>
+    <string name="join_new_challenge">Join New Challenge</string>
+    <string name="see_all_with_arrow">See All ></string>
+    <string name="rank_icon_desc">Rank Icon</string>
+    <string name="discover_habits_title">Discover Habits</string>
+    <string name="discover_habits_subtitle">Find new habits to build your routine</string>
+    <string name="search_habits_hint">Search habits...</string>
+    <string name="categories_title">Categories</string>
+    <string name="cat_fitness_label">Fitness</string>
+    <string name="cat_study_label">Study</string>
+    <string name="cat_meditation_label">Meditation</string>
+    <string name="popular_habits_title">Popular Habits</string>
+    <string name="view_all_with_arrow">View All ></string>
+    <string name="search_icon_desc">Search Icon</string>
+    <string name="fitness_icon_desc">Fitness Icon</string>
+    <string name="study_icon_desc">Study Icon</string>
+    <string name="meditation_icon_desc">Meditation Icon</string>
+    <string name="create_challenge_title">Create Challenge</string>
+    <string name="challenge_name_label">Challenge Name</string>
+    <string name="challenge_name_hint">e.g., 30-Day Meditation</string>
+    <string name="description_label">Description</string>
+    <string name="description_hint">Describe your challenge...</string>
+    <string name="habit_type_label">Habit Type</string>
+    <string name="duration_label">Duration</string>
+    <string name="max_participants_label">Max Participants</string>
+    <string name="participants_hint">50</string>
+    <string name="public_label">Public</string>
+    <string name="anyone_can_join">Anyone can join</string>
+    <string name="create_challenge_btn">Create Challenge</string>
+    <string name="cat_fitness">Fitness</string>
+    <string name="cat_meditation">Meditation</string>
+    <string name="cat_study">Study</string>
+    <string name="cat_productivity">Productivity</string>
+    <string name="cat_health">Health</string>
+    <string name="cat_custom">Custom</string>
+    <string name="duration_7d">7d</string>
+    <string name="duration_14d">14d</string>
+    <string name="duration_21d">21d</string>
+    <string name="duration_30d">30d</string>
+    <string name="leaderboard_title">Leaderboard</string>
+    <string name="my_rank_format">#%1$d</string>
+    <string name="xp_format">%1$s XP</string>
+    <string name="streak_format">🔥 %1$d</string>
+    <string name="you_team_mad">You (Team MAD)</string>
+    <string name="error_challenge_name">Please enter a challenge name</string>
+    <string name="challenge_created">Challenge \'%1$s\' created successfully!</string>
+    <string name="filter_message">Filter: %1$s</string>
+    <string name="showing_all_habits">Showing all habits</string>
+    <string name="habit_added">%1$s added!</string>
 </resources>
