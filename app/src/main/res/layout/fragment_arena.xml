@@ -65,33 +65,35 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_arena_subtitle"
                         app:layout_constraintBottom_toBottomOf="parent">
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_create"
                             android:layout_width="0dp"
                             android:layout_height="56dp"
                             android:layout_weight="1"
                             android:text="+ Create"
                             android:textAllCaps="false"
-                            android:backgroundTint="#4DFFFFFF"
                             android:textColor="@android:color/white"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             app:cornerRadius="16dp"
-                            android:layout_marginEnd="8dp" />
+                            app:backgroundTint="#4DFFFFFF"
+                            android:layout_marginEnd="8dp"
+                            style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_leaderboard"
                             android:layout_width="0dp"
                             android:layout_height="56dp"
                             android:layout_weight="1"
                             android:text="Leaderboard"
                             android:textAllCaps="false"
-                            android:backgroundTint="@android:color/white"
                             android:textColor="@color/purple_primary"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             app:cornerRadius="16dp"
-                            android:layout_marginStart="8dp" />
+                            app:backgroundTint="@android:color/white"
+                            android:layout_marginStart="8dp"
+                            style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -114,7 +116,8 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:src="@android:drawable/btn_star_big_on"
-                        app:tint="#FFC107" />
+                        app:tint="#FFC107"
+                        android:contentDescription="Rank Icon" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -155,6 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp">
                 <TextView
+                    android:id="@+id/tv_ongoing_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ongoing Competitions"
@@ -162,12 +166,15 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/tv_see_all_ongoing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:text="See All >"
                     android:textColor="@color/purple_primary"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true" />
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -178,14 +185,29 @@
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/item_ongoing_challenge" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Join New Challenge"
-                android:textColor="@color/text_dark"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="24dp">
+                <TextView
+                    android:id="@+id/tv_available_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Join New Challenge"
+                    android:textColor="@color/text_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_see_all_available"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="See All >"
+                    android:textColor="@color/purple_primary"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_available"
