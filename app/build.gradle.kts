@@ -37,10 +37,11 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     
-    // Added for MVVM and UI
+    // Added for MVVM, Serialization, and UI
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
     implementation("androidx.lifecycle:lifecycle-livedata:2.8.7")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("com.google.code.gson:gson:2.11.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
