@@ -17,7 +17,6 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,13 +63,13 @@ public class ArenaFragment extends Fragment {
 
         btnCreate.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(new CreateChallengeFragment());
+                ((HomeActivity) getActivity()).loadFragment(new NavigationFragments.CreateChallengeFragment());
             }
         });
 
         btnLeaderboard.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(new LeaderboardFragment());
+                ((HomeActivity) getActivity()).loadFragment(new NavigationFragments.LeaderboardFragment());
             }
         });
     }
@@ -110,7 +109,7 @@ public class ArenaFragment extends Fragment {
         private void loadData() {
             java.util.Set<String> joinedIds = prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>());
             
-            UserRank rank = new UserRank(42, 15);
+            UserRank rank = new UserRank(42, "15");
             
             List<Challenge> allChallenges = new ArrayList<>();
             allChallenges.add(new Challenge("1", "30-Day Meditation", 128, "18d left", 40, false, R.drawable.ic_meditation, "Meditation", "#6B3FD4"));
