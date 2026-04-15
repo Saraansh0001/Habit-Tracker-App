@@ -8,4 +8,46 @@
     <string name="enter_name">Please enter your name</string>
     <string name="google_sign_in">Google Sign-In coming soon</string>
     <string name="reset_password">Reset password link sent</string>
+
+    <!-- Profile Strings -->
+    <string name="profile_name">Team MAD</string>
+    <string name="profile_rank">Warrior 🎖️</string>
+    <string name="streak_count">12 streak</string>
+    <string name="xp_count">2,450 XP</string>
+    <string name="badges_title">🎖️ Badges (4)</string>
+    <string name="see_all">See all</string>
+    <string name="your_features">✨ Your Features</string>
+    <string name="all_features">All features</string>
+    <string name="streak_calendar">Streak Calendar</string>
+    <string name="streak_calendar_desc">Visual habit history</string>
+    <string name="focus_timer">Focus Timer</string>
+    <string name="focus_timer_desc">Deep work session</string>
+    <string name="weekly_goals">Weekly Goals</string>
+    <string name="weekly_goals_desc">Set habit target</string>
+    <string name="daily_journal">Daily Journal</string>
+    <string name="daily_journal_desc">Reflect &amp; grow</string>
+    <string name="mood_tracker">Mood Tracker</string>
+    <string name="mood_tracker_desc">Track how you feel</string>
+    <string name="friends">Friends</string>
+    <string name="friends_desc">Social accountability</string>
+    <string name="rewards">Rewards</string>
+    <string name="rewards_desc">Badges &amp; milestones</string>
+    <string name="weekly_report">Weekly Report</string>
+    <string name="weekly_report_desc">Sunday summary</string>
+    <string name="your_stats">📊 Your Stats</string>
+    <string name="best_streak">🔥 Best Streak</string>
+    <string name="best_streak_val">18 days</string>
+    <string name="total_xp">⭐ Total XP Earned</string>
+    <string name="total_xp_val">8,240 XP</string>
+    <string name="challenges_won">🛡️ Challenges Won</string>
+    <string name="challenges_won_val">7</string>
+    <string name="focus_minutes">⏰ Focus Minutes</string>
+    <string name="focus_minutes_val">80 min</string>
+    <string name="badges_earned">🎖️ Badges Earned</string>
+    <string name="badges_earned_val">4</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="privacy_security">Privacy &amp; Security</string>
+    <string name="about_app">About Discipline Arena</string>
+    <string name="logout">↪ Log Out</string>
 </resources>
