@@ -26,19 +26,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 app:cardCornerRadius="32dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/purple_primary">
+                app:cardElevation="8dp"
+                app:cardMaxElevation="12dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="24dp">
+                    android:padding="24dp"
+                    android:background="@drawable/bg_header_gradient">
 
                     <TextView
                         android:id="@+id/tv_arena_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Arena Challenges 🔥"
+                        android:text="@string/arena_title"
                         android:textColor="@android:color/white"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -49,7 +50,7 @@
                         android:id="@+id/tv_arena_subtitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Compete with others and build habits together"
+                        android:text="@string/arena_subtitle"
                         android:textColor="#E0E0E0"
                         android:textSize="14sp"
                         android:layout_marginTop="8dp"
@@ -70,7 +71,7 @@
                             android:layout_width="0dp"
                             android:layout_height="56dp"
                             android:layout_weight="1"
-                            android:text="+ Create"
+                            android:text="@string/create_btn"
                             android:textAllCaps="false"
                             android:textColor="@android:color/white"
                             android:textSize="14sp"
@@ -85,7 +86,7 @@
                             android:layout_width="0dp"
                             android:layout_height="56dp"
                             android:layout_weight="1"
-                            android:text="Leaderboard"
+                            android:text="@string/leaderboard_btn"
                             android:textAllCaps="false"
                             android:textColor="@color/purple_primary"
                             android:textSize="14sp"
@@ -115,9 +116,9 @@
                         android:id="@+id/iv_rank_icon"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@android:drawable/btn_star_big_on"
+                        android:src="@drawable/ic_nav_arena"
                         app:tint="#FFC107"
-                        android:contentDescription="Rank Icon" />
+                        android:contentDescription="@string/rank_icon_desc" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -128,7 +129,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Your Global Rank"
+                            android:text="@string/global_rank_title"
                             android:textColor="@color/text_dark"
                             android:textStyle="bold"
                             android:textSize="16sp" />
@@ -161,7 +162,7 @@
                     android:id="@+id/tv_ongoing_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ongoing Competitions"
+                    android:text="@string/ongoing_competitions"
                     android:textColor="@color/text_dark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -170,7 +171,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="See All >"
+                    android:text="@string/see_all_with_arrow"
                     android:textColor="@color/purple_primary"
                     android:textStyle="bold"
                     android:clickable="true"
@@ -193,7 +194,7 @@
                     android:id="@+id/tv_available_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Join New Challenge"
+                    android:text="@string/join_new_challenge"
                     android:textColor="@color/text_dark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -202,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="See All >"
+                    android:text="@string/see_all_with_arrow"
                     android:textColor="@color/purple_primary"
                     android:textStyle="bold"
                     android:clickable="true"
