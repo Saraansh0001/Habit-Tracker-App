@@ -1,5 +1,7 @@
 package com.example.firstapp.models;
 
+import java.util.UUID;
+
 public class Habit {
     private String id;
     private String title;
@@ -7,14 +9,16 @@ public class Habit {
     private String difficulty; // "Easy", "Medium", "Hard"
     private int iconRes;
     private String color; // Hex color string
+    private boolean isCompleted;
 
-    public Habit(String id, String title, String category, String difficulty, int iconRes, String color) {
-        this.id = id;
+    public Habit(String title, String category, String difficulty, String color, int iconRes) {
+        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.category = category;
         this.difficulty = difficulty;
         this.iconRes = iconRes;
         this.color = color;
+        this.isCompleted = false;
     }
 
     public String getId() { return id; }
@@ -23,4 +27,6 @@ public class Habit {
     public String getDifficulty() { return difficulty; }
     public int getIconRes() { return iconRes; }
     public String getColor() { return color; }
+    public boolean isCompleted() { return isCompleted; }
+    public void setCompleted(boolean completed) { isCompleted = completed; }
 }
