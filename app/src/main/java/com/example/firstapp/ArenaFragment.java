@@ -21,10 +21,13 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.firstapp.models.ArenaUiState;
 import com.example.firstapp.models.Challenge;
 import com.example.firstapp.models.UserRank;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +42,6 @@ public class ArenaFragment extends Fragment {
     private TextView tvPercentile;
     private Button btnCreate;
     private Button btnLeaderboard;
-    private TextView tvSeeAllOngoing;
-    private TextView tvSeeAllAvailable;
 
     @Nullable
     @Override
@@ -64,18 +65,6 @@ public class ArenaFragment extends Fragment {
             }
         });
 
-        tvSeeAllOngoing.setOnClickListener(v -> {
-            if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_analytics);
-            }
-        });
-
-        tvSeeAllAvailable.setOnClickListener(v -> {
-            if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_search);
-            }
-        });
-
         btnCreate.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
                 ((HomeActivity) getActivity()).loadFragment(new CreateChallengeFragment());
@@ -94,19 +83,39 @@ public class ArenaFragment extends Fragment {
         tvPercentile = view.findViewById(R.id.tv_percentile);
         btnCreate = view.findViewById(R.id.btn_create);
         btnLeaderboard = view.findViewById(R.id.btn_leaderboard);
-        tvSeeAllOngoing = view.findViewById(R.id.tv_see_all_ongoing);
-        tvSeeAllAvailable = view.findViewById(R.id.tv_see_all_available);
     }
 
     private void setupRecyclerViews(View view) {
-        RecyclerView rvOngoing = view.findViewById(R.id.rv_ongoing);
-        RecyclerView rvAvailable = view.findViewById(R.id.rv_available);
         ongoingAdapter = new ArenaAdapter(true, null);
         availableAdapter = new ArenaAdapter(false, challenge -> viewModel.joinChallenge(challenge));
-        rvOngoing.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvOngoing.setAdapter(ongoingAdapter);
-        rvAvailable.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvAvailable.setAdapter(availableAdapter);
+
+        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+        ViewPager2 viewPager = view.findViewById(R.id.view_pager);
+
+        viewPager.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+            @NonNull
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                RecyclerView rv = new RecyclerView(parent.getContext());
+                rv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                rv.setLayoutManager(new LinearLayoutManager(parent.getContext()));
+                rv.setPadding(0, 20, 0, 200);
+                rv.setClipToPadding(false);
+                return new RecyclerView.ViewHolder(rv) {};
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                ((RecyclerView) holder.itemView).setAdapter(position == 0 ? ongoingAdapter : availableAdapter);
+            }
+
+            @Override
+            public int getItemCount() { return 2; }
+        });
+
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            tab.setText(position == 0 ? R.string.ongoing_competitions : R.string.join_new_challenge);
+        }).attach();
     }
 
     public static class ArenaViewModel extends androidx.lifecycle.AndroidViewModel {
