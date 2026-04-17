@@ -1,0 +1,102 @@
+package com.example.firstapp.adapters;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.firstapp.R;
+import com.example.firstapp.models.Habit;
+import java.util.List;
+
+public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.HabitViewHolder> {
+
+    private List<Habit> habits;
+    private final OnHabitClickListener listener;
+
+    public interface OnHabitClickListener {
+        void onHabitClick(Habit habit);
+    }
+
+    public HomeHabitAdapter(List<Habit> habits, OnHabitClickListener listener) {
+        this.habits = habits;
+        this.listener = listener;
+    }
+
+    public void updateList(List<Habit> newList) {
+        this.habits = newList;
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public HabitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_habit_home, parent, false);
+        return new HabitViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull HabitViewHolder holder, int position) {
+        Habit habit = habits.get(position);
+        holder.bind(habit, listener);
+    }
+
+    @Override
+    public int getItemCount() {
+        return habits.size();
+    }
+
+    static class HabitViewHolder extends RecyclerView.ViewHolder {
+        private final TextView tvTitle;
+        private final TextView tvCategory;
+        private final ImageView ivIcon;
+        private final ImageView ivCheck;
+        private final CardView cvIconContainer;
+
+        public HabitViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvTitle = itemView.findViewById(R.id.tv_habit_title);
+            tvCategory = itemView.findViewById(R.id.tv_habit_category);
+            ivIcon = itemView.findViewById(R.id.iv_habit_icon);
+            ivCheck = itemView.findViewById(R.id.iv_check);
+            cvIconContainer = itemView.findViewById(R.id.cv_icon_container);
+        }
+
+        public void bind(Habit habit, OnHabitClickListener listener) {
+            tvTitle.setText(habit.getTitle());
+            tvCategory.setText(habit.getCategory());
+            
+            try {
+                int color = Color.parseColor(habit.getColor());
+                cvIconContainer.setCardBackgroundColor(adjustAlpha(color, 0.1f));
+                ivIcon.setColorFilter(color);
+            } catch (Exception e) {
+                cvIconContainer.setCardBackgroundColor(Color.LTGRAY);
+            }
+
+            if (habit.isCompleted()) {
+                ivCheck.setImageResource(R.drawable.ic_bolt);
+                ivCheck.setColorFilter(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_green_dark));
+            } else {
+                ivCheck.setImageResource(R.drawable.circle_outline_grey);
+                ivCheck.clearColorFilter();
+            }
+
+            ivCheck.setOnClickListener(v -> listener.onHabitClick(habit));
+        }
+
+        private int adjustAlpha(int color, float factor) {
+            int alpha = Math.round(255 * factor);
+            int red = Color.red(color);
+            int green = Color.green(color);
+            int blue = Color.blue(color);
+            return Color.argb(alpha, red, green, blue);
+        }
+    }
+}

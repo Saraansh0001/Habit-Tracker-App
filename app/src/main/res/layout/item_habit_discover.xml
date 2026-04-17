@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -41,7 +42,7 @@
                 android:layout_alignParentEnd="true"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
-                android:text="Medium"
+                android:text="@string/difficulty_medium"
                 android:textSize="11sp"
                 android:textStyle="bold"
                 android:background="@drawable/bg_pill_active" />
@@ -52,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Morning Run"
+            tools:text="Morning Run"
             android:textColor="@color/text_dark"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -62,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Fitness"
+            tools:text="Fitness"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
 
@@ -72,7 +73,7 @@
             android:layout_height="44dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="#F5F3FF"
-            android:text="+ Add Habit"
+            android:text="@string/add_habit_btn"
             android:textAllCaps="false"
             android:textColor="@color/purple_primary"
             android:textSize="13sp"

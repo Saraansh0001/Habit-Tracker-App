@@ -39,6 +39,8 @@ public class ArenaFragment extends Fragment {
     private TextView tvPercentile;
     private Button btnCreate;
     private Button btnLeaderboard;
+    private TextView tvSeeAllOngoing;
+    private TextView tvSeeAllAvailable;
 
     @Nullable
     @Override
@@ -62,6 +64,18 @@ public class ArenaFragment extends Fragment {
             }
         });
 
+        tvSeeAllOngoing.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_analytics);
+            }
+        });
+
+        tvSeeAllAvailable.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_search);
+            }
+        });
+
         btnCreate.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
                 ((HomeActivity) getActivity()).loadFragment(new CreateChallengeFragment());
@@ -80,6 +94,8 @@ public class ArenaFragment extends Fragment {
         tvPercentile = view.findViewById(R.id.tv_percentile);
         btnCreate = view.findViewById(R.id.btn_create);
         btnLeaderboard = view.findViewById(R.id.btn_leaderboard);
+        tvSeeAllOngoing = view.findViewById(R.id.tv_see_all_ongoing);
+        tvSeeAllAvailable = view.findViewById(R.id.tv_see_all_available);
     }
 
     private void setupRecyclerViews(View view) {

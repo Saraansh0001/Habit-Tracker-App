@@ -109,4 +109,14 @@
     <string name="filter_message">Filter: %1$s</string>
     <string name="showing_all_habits">Showing all habits</string>
     <string name="habit_added">%1$s added!</string>
+    <string name="add_habit_btn">+ Add Habit</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="analytics_title">Analytics</string>
+    <string name="analytics_subtitle">Your progress and habit insights</string>
+    <string name="day_streak">Day Streak</string>
+    <string name="completion_rate">Completion Rate</string>
+    <string name="weekly_progress">Weekly Progress</string>
+    <string name="chart_coming_soon">Progress charts are coming soon!</string>
+    <string name="top_performing_habits">Top Performing Habits</string>
 </resources>

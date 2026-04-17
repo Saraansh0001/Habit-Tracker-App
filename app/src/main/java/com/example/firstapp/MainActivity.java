@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             
             ll_full_name.setVisibility(View.GONE);
             tv_forgot_password.setVisibility(View.VISIBLE);
-            btn_submit.setText("Log In");
+            btn_submit.setText(R.string.login);
         } else {
             tab_sign_up.setBackgroundResource(R.drawable.bg_tab_selected);
             tab_sign_up.setTextColor(getColor(R.color.text_dark));
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             
             ll_full_name.setVisibility(View.VISIBLE);
             tv_forgot_password.setVisibility(View.GONE);
-            btn_submit.setText("Create Account");
+            btn_submit.setText(R.string.create_account);
         }
     }
 
@@ -93,29 +93,29 @@ public class MainActivity extends AppCompatActivity {
             String password = et_password.getText() != null ? et_password.getText().toString() : "";
             
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.fill_fields, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (!isLoginMode) {
                 String name = et_name.getText() != null ? et_name.getText().toString().trim() : "";
                 if (name.isEmpty()) {
-                    Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.enter_name, Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
 
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
         });
 
         btn_google.setOnClickListener(v -> {
-            Toast.makeText(this, "Opening Google Accounts...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.google_sign_in, Toast.LENGTH_SHORT).show();
         });
 
         tv_forgot_password.setOnClickListener(v -> {
-            Toast.makeText(this, "Reset password link sent", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.reset_password, Toast.LENGTH_SHORT).show();
         });
     }
 }
