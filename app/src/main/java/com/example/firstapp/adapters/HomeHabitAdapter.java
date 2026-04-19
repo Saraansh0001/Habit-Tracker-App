@@ -22,6 +22,7 @@ public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.Habi
 
     public interface OnHabitClickListener {
         void onHabitClick(Habit habit);
+        void onHabitDetailClick(Habit habit);
     }
 
     public HomeHabitAdapter(List<Habit> habits, OnHabitClickListener listener) {
@@ -89,6 +90,7 @@ public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.Habi
             }
 
             ivCheck.setOnClickListener(v -> listener.onHabitClick(habit));
+            itemView.setOnClickListener(v -> listener.onHabitDetailClick(habit));
         }
 
         private int adjustAlpha(int color, float factor) {

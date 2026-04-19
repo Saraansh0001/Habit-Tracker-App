@@ -29,6 +29,10 @@
             android:windowSoftInputMode="adjustResize">
         </activity>
 
+        <activity
+            android:name=".HabitDetailActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

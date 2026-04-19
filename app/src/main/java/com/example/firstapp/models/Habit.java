@@ -1,8 +1,9 @@
 package com.example.firstapp.models;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Habit {
+public class Habit implements Serializable {
     private String id;
     private String title;
     private String category;

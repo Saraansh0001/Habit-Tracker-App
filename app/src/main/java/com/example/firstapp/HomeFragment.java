@@ -64,14 +64,24 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        habitAdapter = new HomeHabitAdapter(userHabits, habit -> {
-            boolean newState = !habit.isCompleted();
-            habitRepository.updateHabitCompletion(habit.getId(), newState);
-            
-            // Refresh local list and UI
-            userHabits = habitRepository.getUserHabits();
-            updateAdapterData();
-            updateOverallProgress();
+        habitAdapter = new HomeHabitAdapter(userHabits, new HomeHabitAdapter.OnHabitClickListener() {
+            @Override
+            public void onHabitClick(Habit habit) {
+                boolean newState = !habit.isCompleted();
+                habitRepository.updateHabitCompletion(habit.getId(), newState);
+                
+                // Refresh local list and UI
+                userHabits = habitRepository.getUserHabits();
+                updateAdapterData();
+                updateOverallProgress();
+            }
+
+            @Override
+            public void onHabitDetailClick(Habit habit) {
+                android.content.Intent intent = new android.content.Intent(requireContext(), HabitDetailActivity.class);
+                intent.putExtra(HabitDetailActivity.EXTRA_HABIT, habit);
+                startActivity(intent);
+            }
         });
         rvHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvHabits.setAdapter(habitAdapter);
