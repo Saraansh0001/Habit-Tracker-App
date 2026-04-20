@@ -48,6 +48,28 @@ public class HabitRepository {
         saveHabits(habits);
     }
 
+    public List<Habit> getArchivedHabits() {
+        List<Habit> allHabits = getUserHabits();
+        List<Habit> archivedHabits = new ArrayList<>();
+        for (Habit h : allHabits) {
+            if (h.isArchived() || h.isCompleted()) {
+                archivedHabits.add(h);
+            }
+        }
+        return archivedHabits;
+    }
+
+    public void archiveHabit(String id) {
+        List<Habit> habits = getUserHabits();
+        for (Habit h : habits) {
+            if (h.getId().equals(id)) {
+                h.setArchived(true);
+                break;
+            }
+        }
+        saveHabits(habits);
+    }
+
     private void saveHabits(List<Habit> habits) {
         String json = gson.toJson(habits);
         prefs.edit().putString(KEY_USER_HABITS, json).apply();
