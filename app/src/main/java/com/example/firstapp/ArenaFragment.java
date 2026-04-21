@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.firstapp.data.ChallengeRepository;
 import com.example.firstapp.data.HabitRepository;
 import com.example.firstapp.models.ArenaUiState;
 import com.example.firstapp.models.Challenge;
@@ -137,11 +138,13 @@ public class ArenaFragment extends Fragment {
         private static final String JOINED_KEY = "joined_challenges";
         private final android.content.SharedPreferences prefs;
         private final HabitRepository habitRepository;
+        private final ChallengeRepository challengeRepository;
 
         public ArenaViewModel(@NonNull Application application) {
             super(application);
             prefs = application.getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE);
             habitRepository = new HabitRepository(application);
+            challengeRepository = new ChallengeRepository(application);
             loadData();
         }
 
@@ -150,13 +153,7 @@ public class ArenaFragment extends Fragment {
             
             UserRank rank = new UserRank(42, 15);
             
-            List<Challenge> allChallenges = new ArrayList<>();
-            allChallenges.add(new Challenge("1", "30-Day Meditation", 128, "18d left", 40, false, R.drawable.ic_meditation, "Meditation", "#6B3FD4"));
-            allChallenges.add(new Challenge("2", "Morning Workout", 85, "6d left", 60, false, R.drawable.ic_workout, "Workout", "#6B3FD4"));
-            allChallenges.add(new Challenge("3", "No Social Media", 234, "7 days", 0, false, R.drawable.ic_social, "Social", "#38BDF8"));
-            allChallenges.add(new Challenge("4", "Reading Marathon", 156, "14 days", 0, false, R.drawable.ic_reading, "Reading", "#34D399"));
-            allChallenges.add(new Challenge("5", "Hydration Challenge", 312, "30 days", 0, false, R.drawable.ic_health, "Health", "#818CF8"));
-            allChallenges.add(new Challenge("6", "Sleep by 10 PM", 189, "21 days", 0, false, R.drawable.ic_sleep, "Sleep", "#F59E0B"));
+            List<Challenge> allChallenges = challengeRepository.getAllChallenges();
 
             List<Challenge> ongoing = new ArrayList<>();
             List<Challenge> available = new ArrayList<>();
