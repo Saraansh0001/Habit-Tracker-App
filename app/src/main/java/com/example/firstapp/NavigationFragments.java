@@ -1,5 +1,6 @@
 package com.example.firstapp;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -145,6 +146,17 @@ public class NavigationFragments {
                     }
                 });
             }
+
+            // Settings sections in Profile
+            View settingsSection = view.findViewById(R.id.btn_logout); // Use logout as an anchor or the parent card
+            // Let's make the whole settings card clickable if possible, or individual items.
+            // Based on layout, they are RelativeLayouts inside a CardView.
+            
+            // Temporary: Add listener to logout button to test navigation to settings
+            view.findViewById(R.id.btn_logout).setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intent);
+            });
 
             return view;
         }
