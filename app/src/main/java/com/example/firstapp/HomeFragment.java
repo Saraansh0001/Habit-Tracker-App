@@ -1,9 +1,12 @@
 package com.example.firstapp;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -14,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.firstapp.adapters.HomeHabitAdapter;
 import com.example.firstapp.data.HabitRepository;
 import com.example.firstapp.models.Habit;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
@@ -25,6 +30,10 @@ public class HomeFragment extends Fragment {
     private HomeHabitAdapter habitAdapter;
     private HabitRepository habitRepository;
     private List<Habit> userHabits;
+    private EditText etSearch;
+    private ChipGroup cgCategories;
+    private String currentCategory = "All";
+    private String currentQuery = "";
 
     @Nullable
     @Override
@@ -37,8 +46,11 @@ public class HomeFragment extends Fragment {
         pbMain = view.findViewById(R.id.pb_main_progress);
         tvPercentage = view.findViewById(R.id.tv_progress_percentage);
         rvHabits = view.findViewById(R.id.rv_habits_home);
+        etSearch = view.findViewById(R.id.et_search_habits);
+        cgCategories = view.findViewById(R.id.cg_categories);
 
         setupRecyclerView();
+        setupSearchAndFilters();
         updateOverallProgress();
 
         view.findViewById(R.id.tv_all_features).setOnClickListener(v -> {
@@ -61,6 +73,27 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void setupSearchAndFilters() {
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                currentQuery = s.toString();
+                habitAdapter.filter(currentQuery, currentCategory);
+            }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        cgCategories.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            if (checkedIds.isEmpty()) {
+                currentCategory = "All";
+            } else {
+                Chip chip = group.findViewById(checkedIds.get(0));
+                currentCategory = chip.getText().toString();
+            }
+            habitAdapter.filter(currentQuery, currentCategory);
+        });
     }
 
     private void setupRecyclerView() {
