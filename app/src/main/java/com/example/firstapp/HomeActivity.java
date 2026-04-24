@@ -1,9 +1,11 @@
 package com.example.firstapp;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -11,6 +13,15 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Apply theme before super.onCreate
+        SharedPreferences prefs = getSharedPreferences("HabitTrackerPrefs", MODE_PRIVATE);
+        boolean darkMode = prefs.getBoolean("dark_mode", false);
+        if (darkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
 
         getWindow().getDecorView().setSystemUiVisibility(

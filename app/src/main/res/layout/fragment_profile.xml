@@ -185,7 +185,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp">
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/bg_white">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -193,11 +194,13 @@
 
                         <!-- Account Settings -->
                         <RelativeLayout
+                            android:id="@+id/rl_profile_account_settings"
                             android:layout_width="match_parent"
                             android:layout_height="64dp"
                             android:paddingHorizontal="20dp"
                             android:clickable="true"
-                            android:focusable="true">
+                            android:focusable="true"
+                            android:background="?attr/selectableItemBackground">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -279,7 +282,7 @@
                     android:text="Log Out"
                     android:textAllCaps="false"
                     android:textColor="#FF5252"
-                    android:backgroundTint="@android:color/white"
+                    android:backgroundTint="@color/bg_white"
                     app:cornerRadius="16dp"
                     app:strokeColor="#FF5252"
                     app:strokeWidth="1dp" />

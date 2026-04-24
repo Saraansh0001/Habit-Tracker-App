@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -50,8 +51,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs.edit().putBoolean("dark_mode", isChecked).apply();
-            Toast.makeText(this, "Dark mode will be applied on next restart", Toast.LENGTH_SHORT).show();
-            // In a real app, you'd call AppCompatDelegate.setDefaultNightMode here
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            Toast.makeText(this, "Theme updated", Toast.LENGTH_SHORT).show();
         });
 
         findViewById(R.id.btn_logout).setOnClickListener(v -> {
