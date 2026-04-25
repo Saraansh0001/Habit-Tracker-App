@@ -74,9 +74,9 @@ public class ProfileFragment extends Fragment {
         }
 
         List<ProfileFeature> features = new ArrayList<>();
-        // Adding all features one by one in list format
+        // Arranged in the order: Streak Calendar, Focus Timer, Weekly Goals, Daily Journal, Mood Tracker, Friends, Rewards, Weekly Report
         features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_nav_home, "#F3F0FF"));
-        features.add(new ProfileFeature("Focus Timer", "Deep work session", R.drawable.ic_nav_analytics, "#FFF7ED"));
+        features.add(new ProfileFeature("Focus Timer", "Deep focus on one habit at a time", R.drawable.ic_nav_analytics, "#FFF7ED"));
         features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_workout, "#F0FDF4"));
         features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_edit, "#EEF2FF"));
         features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_meditation, "#FFF1F2"));
@@ -106,7 +106,15 @@ public class ProfileFragment extends Fragment {
             hsv[1] = Math.min(1.0f, hsv[1] * 2.0f); // Saturate
             icon.setImageTintList(ColorStateList.valueOf(Color.HSVToColor(hsv)));
 
-            itemView.setOnClickListener(v -> Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show());
+            itemView.setOnClickListener(v -> {
+                if ("Focus Timer".equals(feature.getTitle())) {
+                    if (getActivity() instanceof HomeActivity) {
+                        ((HomeActivity) getActivity()).loadFragment(new FocusTimerFragment());
+                    }
+                } else {
+                    Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
+                }
+            });
             featuresGrid.addView(itemView);
         }
     }
