@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
         FloatingActionButton fab = view.findViewById(R.id.fab_add_habit);
         fab.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_search);
+                ((HomeActivity) getActivity()).loadFragment(new CreateChallengeFragment());
             }
         });
 

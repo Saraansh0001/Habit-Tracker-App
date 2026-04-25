@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,9 +8,13 @@
     android:background="@color/bg_light">
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,43 +134,50 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cat_fitness"
-                    app:chipBackgroundColor="@color/bg_white"
-                    android:textColor="@color/text_secondary" />
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    android:textColor="@color/chip_text_selector"
+                    app:chipStrokeWidth="0dp"
+                    android:checked="true" />
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cat_meditation"
-                    app:chipBackgroundColor="@color/bg_white"
-                    android:textColor="@color/text_secondary" />
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    android:textColor="@color/chip_text_selector"
+                    app:chipStrokeWidth="0dp" />
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cat_study"
-                    app:chipBackgroundColor="@color/bg_white"
-                    android:textColor="@color/text_secondary" />
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    android:textColor="@color/chip_text_selector"
+                    app:chipStrokeWidth="0dp" />
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cat_productivity"
-                    app:chipBackgroundColor="@color/bg_white"
-                    android:textColor="@color/text_secondary" />
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    android:textColor="@color/chip_text_selector"
+                    app:chipStrokeWidth="0dp" />
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cat_health"
-                    app:chipBackgroundColor="@color/bg_white"
-                    android:textColor="@color/text_secondary" />
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    android:textColor="@color/chip_text_selector"
+                    app:chipStrokeWidth="0dp" />
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cat_custom"
-                    app:chipBackgroundColor="@color/bg_white"
-                    android:textColor="@color/text_secondary" />
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    android:textColor="@color/chip_text_selector"
+                    app:chipStrokeWidth="0dp" />
             </com.google.android.material.chip.ChipGroup>
 
             <!-- Duration -->
@@ -190,8 +201,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/duration_7d"
                     android:paddingHorizontal="24dp"
-                    app:chipBackgroundColor="@color/bg_white"
-                    android:textColor="@color/text_secondary" />
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    android:textColor="@color/chip_text_selector"
+                    app:chipStrokeWidth="0dp" />
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_14d"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -199,24 +211,28 @@
                     android:layout_height="wrap_content"
                     android:text="@string/duration_14d"
                     android:paddingHorizontal="24dp"
-                    app:chipBackgroundColor="@color/bg_white"
-                    android:textColor="@color/text_secondary" />
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    android:textColor="@color/chip_text_selector"
+                    app:chipStrokeWidth="0dp"
+                    android:checked="true" />
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_21d"
                     android:paddingHorizontal="24dp"
-                    app:chipBackgroundColor="@color/bg_white"
-                    android:textColor="@color/text_secondary" />
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    android:textColor="@color/chip_text_selector"
+                    app:chipStrokeWidth="0dp" />
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_30d"
                     android:paddingHorizontal="24dp"
-                    app:chipBackgroundColor="@color/bg_white"
-                    android:textColor="@color/text_secondary" />
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    android:textColor="@color/chip_text_selector"
+                    app:chipStrokeWidth="0dp" />
             </com.google.android.material.chip.ChipGroup>
 
             <!-- Max Participants -->
@@ -316,4 +332,4 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
