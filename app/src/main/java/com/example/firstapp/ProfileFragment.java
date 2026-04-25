@@ -13,11 +13,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.firstapp.models.ProfileFeature;
 import com.example.firstapp.models.ProfileStat;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,6 +167,33 @@ public class ProfileFragment extends Fragment {
         if (actionsContainer == null) return;
         actionsContainer.removeAllViews();
 
+        // Add Dark Mode Switch first
+        View darkModeItem = inflater.inflate(R.layout.item_profile_switch, actionsContainer, false);
+        TextView dmTitle = darkModeItem.findViewById(R.id.tv_switch_title);
+        ImageView dmIcon = darkModeItem.findViewById(R.id.iv_switch_icon);
+        SwitchMaterial dmSwitch = darkModeItem.findViewById(R.id.switch_action);
+        
+        dmTitle.setText("Dark Mode");
+        dmIcon.setImageResource(R.drawable.ic_meditation); // Using meditation icon as placeholder for theme
+        dmIcon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#94A3B8")));
+        
+        // Set initial state
+        int currentMode = AppCompatDelegate.getDefaultNightMode();
+        dmSwitch.setChecked(currentMode == AppCompatDelegate.MODE_NIGHT_YES);
+        
+        dmSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            Toast.makeText(getContext(), isChecked ? "Dark Mode Enabled" : "Dark Mode Disabled", Toast.LENGTH_SHORT).show();
+        });
+        
+        actionsContainer.addView(darkModeItem);
+        addDivider(actionsContainer);
+
+        // Add regular actions
         String[] titles = {"Edit Profile", "Notifications", "Privacy & Security", "About Discipline Arena"};
         int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info, R.drawable.ic_info, R.drawable.ic_info};
 
@@ -183,13 +212,17 @@ public class ProfileFragment extends Fragment {
             actionsContainer.addView(itemView);
             
             if (i < titles.length - 1) {
-                View divider = new View(getContext());
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
-                lp.setMargins(140, 0, 0, 0);
-                divider.setLayoutParams(lp);
-                divider.setBackgroundColor(Color.parseColor("#F1F5F9"));
-                actionsContainer.addView(divider);
+                addDivider(actionsContainer);
             }
         }
+    }
+    
+    private void addDivider(LinearLayout container) {
+        View divider = new View(getContext());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        lp.setMargins(140, 0, 0, 0);
+        divider.setLayoutParams(lp);
+        divider.setBackgroundColor(Color.parseColor("#F1F5F9"));
+        container.addView(divider);
     }
 }
