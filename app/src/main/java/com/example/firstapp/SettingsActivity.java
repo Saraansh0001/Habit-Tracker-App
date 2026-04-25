@@ -56,6 +56,8 @@ public class SettingsActivity extends AppCompatActivity {
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
+            // Forces activity to restart to apply theme immediately
+            recreate();
             Toast.makeText(this, "Theme updated", Toast.LENGTH_SHORT).show();
         });
 
