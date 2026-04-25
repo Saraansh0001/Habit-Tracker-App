@@ -29,6 +29,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         
+        setupProfilePic(view);
+        setupBadges(view);
         setupFeatures(view, inflater);
         setupStats(view, inflater);
         setupActions(view, inflater);
@@ -39,19 +41,48 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    private void setupProfilePic(View view) {
+        ImageView profilePic = view.findViewById(R.id.iv_profile_pic);
+        if (profilePic != null) {
+            profilePic.setImageResource(R.drawable.ic_launcher_foreground);
+            profilePic.setBackgroundColor(Color.parseColor("#6B3FD4")); 
+        }
+    }
+
+    private void setupBadges(View view) {
+        View seeAll = view.findViewById(R.id.tv_see_all_badges);
+        if (seeAll != null) {
+            seeAll.setOnClickListener(v -> 
+                Toast.makeText(getContext(), "Opening all badges...", Toast.LENGTH_SHORT).show());
+        }
+    }
+
     private void setupFeatures(View view, LayoutInflater inflater) {
         ViewGroup featuresGrid = view.findViewById(R.id.features_grid);
         if (featuresGrid == null) return;
+        featuresGrid.removeAllViews();
+        
+        // Ensure 1 column for the list-like arrangement
+        if (featuresGrid instanceof android.widget.GridLayout) {
+            ((android.widget.GridLayout) featuresGrid).setColumnCount(1);
+        }
+
+        View allFeatures = view.findViewById(R.id.tv_all_features);
+        if (allFeatures != null) {
+            allFeatures.setOnClickListener(v -> 
+                Toast.makeText(getContext(), "Opening all features...", Toast.LENGTH_SHORT).show());
+        }
 
         List<ProfileFeature> features = new ArrayList<>();
-        features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_nav_home, "#F5F3FF"));
-        features.add(new ProfileFeature("Focus Timer", "Deep work session", R.drawable.ic_nav_home, "#FFF7ED"));
-        features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_nav_home, "#ECFDF5"));
-        features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_nav_home, "#EEF2FF"));
-        features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_nav_home, "#FFF1F2"));
-        features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_nav_home, "#F0FDFA"));
-        features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_nav_home, "#FFFBEB"));
-        features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_home, "#FDF2F8"));
+        // Adding all features one by one in list format
+        features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_nav_home, "#F3F0FF"));
+        features.add(new ProfileFeature("Focus Timer", "Deep work session", R.drawable.ic_nav_analytics, "#FFF7ED"));
+        features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_workout, "#F0FDF4"));
+        features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_edit, "#EEF2FF"));
+        features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_meditation, "#FFF1F2"));
+        features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_social, "#F0FDFA"));
+        features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_badge_1, "#FEFCE8"));
+        features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_analytics, "#FDF2F8"));
 
         for (ProfileFeature feature : features) {
             View itemView = inflater.inflate(R.layout.item_profile_feature, featuresGrid, false);
@@ -64,14 +95,15 @@ public class ProfileFragment extends Fragment {
             title.setText(feature.getTitle());
             desc.setText(feature.getDescription());
             icon.setImageResource(feature.getIconRes());
-            iconContainer.setCardBackgroundColor(Color.parseColor(feature.getBackgroundColor()));
             
-            // Generate a darker shade for the icon tint based on background
+            // Apply background color and darker icon tint for the list style
             int bgColor = Color.parseColor(feature.getBackgroundColor());
+            iconContainer.setCardBackgroundColor(bgColor);
+
             float[] hsv = new float[3];
             Color.colorToHSV(bgColor, hsv);
-            hsv[2] *= 0.6f; // Darken
-            hsv[1] = Math.min(1.0f, hsv[1] * 1.5f); // Saturate
+            hsv[2] *= 0.5f; // Darken for contrast
+            hsv[1] = Math.min(1.0f, hsv[1] * 2.0f); // Saturate
             icon.setImageTintList(ColorStateList.valueOf(Color.HSVToColor(hsv)));
 
             itemView.setOnClickListener(v -> Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show());
@@ -82,6 +114,11 @@ public class ProfileFragment extends Fragment {
     private void setupStats(View view, LayoutInflater inflater) {
         LinearLayout statsContainer = view.findViewById(R.id.stats_container);
         if (statsContainer == null) return;
+        
+        int childCount = statsContainer.getChildCount();
+        if (childCount > 1) {
+            statsContainer.removeViews(1, childCount - 1);
+        }
 
         List<ProfileStat> stats = new ArrayList<>();
         stats.add(new ProfileStat("Best Streak", "18 days", R.drawable.ic_bolt));
@@ -101,6 +138,8 @@ public class ProfileFragment extends Fragment {
             label.setText(stat.getLabel());
             value.setText(stat.getValue());
             icon.setImageResource(stat.getIconRes());
+            
+            icon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#6B3FD4")));
 
             statsContainer.addView(itemView);
             
@@ -116,6 +155,7 @@ public class ProfileFragment extends Fragment {
     private void setupActions(View view, LayoutInflater inflater) {
         LinearLayout actionsContainer = view.findViewById(R.id.actions_container);
         if (actionsContainer == null) return;
+        actionsContainer.removeAllViews();
 
         String[] titles = {"Edit Profile", "Notifications", "Privacy & Security", "About Discipline Arena"};
         int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info, R.drawable.ic_info, R.drawable.ic_info};
@@ -129,6 +169,7 @@ public class ProfileFragment extends Fragment {
 
             title.setText(titleText);
             icon.setImageResource(icons[i]);
+            icon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#94A3B8")));
 
             itemView.setOnClickListener(v -> Toast.makeText(getContext(), titleText + " clicked", Toast.LENGTH_SHORT).show());
             actionsContainer.addView(itemView);
@@ -136,7 +177,7 @@ public class ProfileFragment extends Fragment {
             if (i < titles.length - 1) {
                 View divider = new View(getContext());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
-                lp.setMargins(48, 0, 0, 0);
+                lp.setMargins(140, 0, 0, 0);
                 divider.setLayoutParams(lp);
                 divider.setBackgroundColor(Color.parseColor("#F1F5F9"));
                 actionsContainer.addView(divider);
