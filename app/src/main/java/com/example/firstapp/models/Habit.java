@@ -1,9 +1,14 @@
-package com.example.firstapp.models;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.UUID;
 
+@Entity(tableName = "habits")
 public class Habit implements Serializable {
+    @PrimaryKey
+    @NonNull
     private String id;
     private String title;
     private String category;

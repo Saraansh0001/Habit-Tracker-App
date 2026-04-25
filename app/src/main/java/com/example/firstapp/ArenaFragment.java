@@ -17,16 +17,12 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-<<<<<<< HEAD
-=======
 import com.example.firstapp.data.ChallengeRepository;
 import com.example.firstapp.data.HabitRepository;
->>>>>>> origin/Lakshya-branch
 import com.example.firstapp.models.ArenaUiState;
 import com.example.firstapp.models.Challenge;
 import com.example.firstapp.models.UserRank;
@@ -121,20 +117,14 @@ public class ArenaFragment extends Fragment {
         private static final String PREFS_NAME = "arena_prefs";
         private static final String JOINED_KEY = "joined_challenges";
         private final android.content.SharedPreferences prefs;
-<<<<<<< HEAD
-=======
         private final HabitRepository habitRepository;
         private final ChallengeRepository challengeRepository;
->>>>>>> origin/Lakshya-branch
 
         public ArenaViewModel(@NonNull android.app.Application application) {
             super(application);
             prefs = application.getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE);
-<<<<<<< HEAD
-=======
             habitRepository = new HabitRepository(application);
             challengeRepository = new ChallengeRepository(application);
->>>>>>> origin/Lakshya-branch
             loadData();
         }
 
@@ -157,19 +147,20 @@ public class ArenaFragment extends Fragment {
                 }
             }
             
-            // For the mock, if none are joined yet, let's join the first two by default if it's the first run
-            if (joinedIds.isEmpty()) {
-                ongoing.add(allChallenges.get(0));
-                ongoing.add(allChallenges.get(1));
-                allChallenges.get(0).setActive(true);
-                allChallenges.get(1).setActive(true);
-                available.remove(allChallenges.get(0));
-                available.remove(allChallenges.get(1));
-                
-                java.util.Set<String> initialJoined = new java.util.HashSet<>();
-                initialJoined.add("1");
-                initialJoined.add("2");
-                prefs.edit().putStringSet(JOINED_KEY, initialJoined).apply();
+            if (joinedIds.isEmpty() && !allChallenges.isEmpty()) {
+                if (allChallenges.size() >= 2) {
+                    ongoing.add(allChallenges.get(0));
+                    ongoing.add(allChallenges.get(1));
+                    allChallenges.get(0).setActive(true);
+                    allChallenges.get(1).setActive(true);
+                    available.remove(allChallenges.get(0));
+                    available.remove(allChallenges.get(1));
+                    
+                    java.util.Set<String> initialJoined = new java.util.HashSet<>();
+                    initialJoined.add(allChallenges.get(0).getId());
+                    initialJoined.add(allChallenges.get(1).getId());
+                    prefs.edit().putStringSet(JOINED_KEY, initialJoined).apply();
+                }
             }
 
             _uiState.setValue(new ArenaUiState(rank, ongoing, available));
