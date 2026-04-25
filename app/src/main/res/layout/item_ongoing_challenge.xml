@@ -22,7 +22,7 @@
             android:layout_height="48dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#F3E8FF">
+            app:cardBackgroundColor="@color/purple_light">
             <ImageView
                 android:id="@+id/iv_icon"
                 android:layout_width="24dp"
