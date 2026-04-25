@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,11 +24,17 @@ public class AnalyticsFragment extends Fragment {
     }
 
     private void setupClickListeners(View view) {
-        view.findViewById(R.id.card_streak).setOnClickListener(v -> 
-            showToast("Streak details coming soon!"));
+        View cardStreak = view.findViewById(R.id.card_streak);
+        if (cardStreak != null) {
+            cardStreak.setOnClickListener(v -> 
+                showToast("Streak details coming soon!"));
+        }
         
-        view.findViewById(R.id.tv_this_week).setOnClickListener(v -> 
-            showToast("Weekly range selector"));
+        TextView tvThisWeek = view.findViewById(R.id.tv_this_week);
+        if (tvThisWeek != null) {
+            tvThisWeek.setOnClickListener(v -> 
+                showToast("Weekly range selector"));
+        }
 
         // Add more click listeners as needed for mock items
     }

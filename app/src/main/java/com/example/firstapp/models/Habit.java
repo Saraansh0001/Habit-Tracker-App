@@ -14,8 +14,8 @@ public class Habit implements Serializable {
     private boolean isArchived;
     private long completedDate;
 
-    public Habit(String title, String category, String difficulty, String color, int iconRes) {
-        this.id = UUID.randomUUID().toString();
+    public Habit(String id, String title, String category, String difficulty, int iconRes, String color) {
+        this.id = id;
         this.title = title;
         this.category = category;
         this.difficulty = difficulty;
@@ -24,6 +24,10 @@ public class Habit implements Serializable {
         this.isCompleted = false;
         this.isArchived = false;
         this.completedDate = 0;
+    }
+
+    public Habit(String title, String category, String difficulty, String color, int iconRes) {
+        this(UUID.randomUUID().toString(), title, category, difficulty, iconRes, color);
     }
 
     public String getId() { return id; }

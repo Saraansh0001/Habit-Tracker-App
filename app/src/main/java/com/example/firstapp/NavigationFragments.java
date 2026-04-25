@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,13 +35,6 @@ public class NavigationFragments {
         TextView title = view.findViewById(R.id.placeholder_text);
         if (title != null) title.setText(text);
         return view;
-    }
-
-    public static class AnalyticsFragment extends Fragment {
-        @Nullable @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            return createPlaceholder(inflater, container, "Analytics Screen");
-        }
     }
 
     public static class CreateChallengeFragment extends Fragment {

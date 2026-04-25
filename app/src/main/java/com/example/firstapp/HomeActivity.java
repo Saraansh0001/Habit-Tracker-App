@@ -9,6 +9,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private BottomNavigationView bottomNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_home);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment());
@@ -35,13 +37,13 @@ public class HomeActivity extends AppCompatActivity {
             if (itemId == R.id.navigation_home) {
                 selectedFragment = new HomeFragment();
             } else if (itemId == R.id.navigation_search) {
-                selectedFragment = PlaceholderFragment.newInstance("Search Screen");
+                selectedFragment = new NavigationFragments.SearchFragment();
             } else if (itemId == R.id.navigation_arena) {
                 selectedFragment = new ArenaFragment();
             } else if (itemId == R.id.navigation_analytics) {
-                selectedFragment = PlaceholderFragment.newInstance("Analytics");
+                selectedFragment = new AnalyticsFragment();
             } else if (itemId == R.id.navigation_profile) {
-                selectedFragment = PlaceholderFragment.newInstance("Profile");
+                selectedFragment = new ProfileFragment();
             }
 
             if (selectedFragment != null) {
@@ -50,6 +52,12 @@ public class HomeActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+
+    public void navigateToTab(int itemId) {
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(itemId);
+        }
     }
 
     public void loadFragment(Fragment fragment) {

@@ -48,6 +48,16 @@
     <string name="create_challenge">Create Challenge</string>
     <string name="leaderboard">Leaderboard</string>
 
+    <!-- Analytics Page -->
+    <string name="analytics_title">Your Progress</string>
+    <string name="analytics_subtitle">Track your consistency and growth</string>
+    <string name="day_streak">Day Streak</string>
+    <string name="completion_rate">Completion Rate</string>
+    <string name="weekly_progress">Weekly Progress</string>
+    <string name="chart_coming_soon">Insightful charts coming soon!</string>
+    <string name="top_performing_habits">Top Performing Habits</string>
+    <string name="label_this_week">This Week</string>
+
     <!-- Formatting -->
     <string name="percentage_format">%1$d%%</string>
     <string name="rank_format">#%1$d</string>

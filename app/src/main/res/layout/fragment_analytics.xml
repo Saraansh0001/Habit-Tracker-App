@@ -67,6 +67,7 @@
                     android:layout_marginTop="-40dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/card_streak"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -97,6 +98,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/card_completion"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -128,14 +130,28 @@
                 </LinearLayout>
 
                 <!-- Activity Chart Placeholder -->
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/weekly_progress"
-                    android:textColor="@color/text_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="32dp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="32dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/weekly_progress"
+                        android:textColor="@color/text_dark"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tv_this_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_this_week"
+                        android:textColor="@color/purple_primary"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
