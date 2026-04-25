@@ -1,5 +1,6 @@
 package com.example.firstapp;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -125,17 +126,27 @@ public class NavigationFragments {
     }
 
     public static class ProfileFragment extends Fragment {
+        private com.google.android.material.switchmaterial.SwitchMaterial switchNotifications;
+        private com.google.android.material.switchmaterial.SwitchMaterial switchDarkMode;
+        private android.content.SharedPreferences prefs;
+
         @Nullable @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+<<<<<<< HEAD
             return createPlaceholder(inflater, container, "Profile Screen");
         }
     }
+=======
+            View view = inflater.inflate(R.layout.fragment_profile, container, false);
+            prefs = requireContext().getSharedPreferences("HabitTrackerPrefs", android.content.Context.MODE_PRIVATE);
+>>>>>>> origin/Lakshya-branch
 
     public static class SearchFragment extends Fragment {
         private HabitAdapter adapter;
         private List<Habit> allHabits;
         private String currentCategory = "All";
 
+<<<<<<< HEAD
         @Nullable @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_discover, container, false);
@@ -206,6 +217,66 @@ public class NavigationFragments {
             habits.add(new Habit("7", "Push-ups", "Fitness", "Medium", android.R.drawable.ic_menu_compass, "#6366F1"));
             habits.add(new Habit("8", "Stretch", "Health", "Easy", android.R.drawable.ic_menu_directions, "#10B981"));
             return habits;
+=======
+            // Link the Account Settings RelativeLayout to SettingsActivity
+            View accountSettings = view.findViewById(R.id.rl_profile_account_settings);
+            if (accountSettings != null) {
+                accountSettings.setOnClickListener(v -> {
+                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                    startActivity(intent);
+                });
+            }
+
+            // Initialize Switches
+            switchNotifications = view.findViewById(R.id.switch_notifications_profile);
+            switchDarkMode = view.findViewById(R.id.switch_dark_mode_profile);
+
+            loadSettings();
+            setupListeners(view);
+
+            return view;
+        }
+
+        private void loadSettings() {
+            if (switchNotifications != null) {
+                switchNotifications.setChecked(prefs.getBoolean("notifications_enabled", true));
+            }
+            if (switchDarkMode != null) {
+                switchDarkMode.setChecked(prefs.getBoolean("dark_mode", false));
+            }
+        }
+
+        private void setupListeners(View view) {
+            if (switchNotifications != null) {
+                switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    prefs.edit().putBoolean("notifications_enabled", isChecked).apply();
+                });
+            }
+
+            if (switchDarkMode != null) {
+                switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    prefs.edit().putBoolean("dark_mode", isChecked).apply();
+                    if (isChecked) {
+                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                    } else {
+                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                    }
+                    if (getActivity() != null) {
+                        getActivity().recreate();
+                    }
+                });
+            }
+
+            View logoutBtn = view.findViewById(R.id.btn_logout);
+            if (logoutBtn != null) {
+                logoutBtn.setOnClickListener(v -> {
+                    Toast.makeText(getContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
+            }
+>>>>>>> origin/Lakshya-branch
         }
     }
 

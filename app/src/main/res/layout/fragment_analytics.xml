@@ -73,7 +73,15 @@
                         android:layout_weight="1"
                         app:cardCornerRadius="16dp"
                         app:cardElevation="4dp"
+<<<<<<< HEAD
                         android:layout_marginEnd="8dp">
+=======
+                        android:layout_marginEnd="8dp"
+                        app:cardBackgroundColor="@color/bg_white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+>>>>>>> origin/Lakshya-branch
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -104,7 +112,15 @@
                         android:layout_weight="1"
                         app:cardCornerRadius="16dp"
                         app:cardElevation="4dp"
+<<<<<<< HEAD
                         android:layout_marginStart="8dp">
+=======
+                        android:layout_marginStart="8dp"
+                        app:cardBackgroundColor="@color/bg_white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+>>>>>>> origin/Lakshya-branch
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -159,7 +175,7 @@
                     android:layout_marginTop="16dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
-                    app:cardBackgroundColor="@android:color/white">
+                    app:cardBackgroundColor="@color/bg_white">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
