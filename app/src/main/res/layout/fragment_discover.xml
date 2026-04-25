@@ -17,67 +17,89 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Discover Habits"
-                android:textColor="@color/text_dark"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:layout_marginTop="24dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Find new habits to build your routine"
-                android:textColor="@color/text_secondary"
-                android:textSize="16sp"
-                android:layout_marginTop="4dp" />
-
-            <!-- Search Bar -->
+            <!-- Header Section -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="32dp"
-                app:cardCornerRadius="28dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@android:color/white">
-
-                <LinearLayout
+                android:layout_height="220dp"
+                app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardCornerRadius="0dp">
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="20dp">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@android:drawable/ic_menu_search"
-                        app:tint="@color/text_hint"
-                        android:contentDescription="Search Icon" />
-
-                    <EditText
-                        android:id="@+id/et_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:hint="Search habits..."
-                        android:textColorHint="@color/text_hint"
-                        android:textSize="15sp"
-                        android:layout_marginStart="12dp"
-                        android:importantForAutofill="no"
-                        android:inputType="text" />
+                    android:background="@drawable/bg_header_gradient" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp"
+                    android:layout_gravity="bottom">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/discover_habits_title"
+                        android:textColor="@android:color/white"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/discover_habits_subtitle"
+                        android:textColor="@color/purple_light"
+                        android:textSize="16sp"
+                        android:layout_marginTop="4dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Search Bar -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="-48dp"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@android:color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="20dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_nav_search"
+                            app:tint="@color/text_hint"
+                            android:contentDescription="@string/search_icon_desc" />
+
+                        <EditText
+                            android:id="@+id/et_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/search_habits_hint"
+                            android:textColorHint="@color/text_hint"
+                            android:textSize="15sp"
+                            android:layout_marginStart="12dp"
+                            android:importantForAutofill="no"
+                            android:inputType="text" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Categories"
+                android:text="@string/categories_title"
                 android:textColor="@color/text_dark"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -112,13 +134,13 @@
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:src="@android:drawable/ic_menu_compass"
+                            android:src="@drawable/ic_public"
                             app:tint="@color/category_fitness_text"
-                            android:contentDescription="Fitness Icon" />
+                            android:contentDescription="@string/fitness_icon_desc" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Fitness"
+                            android:text="@string/cat_fitness_label"
                             android:textColor="@color/category_fitness_text"
                             android:textStyle="bold"
                             android:layout_marginStart="8dp" />
@@ -141,13 +163,13 @@
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:src="@android:drawable/ic_menu_edit"
+                            android:src="@drawable/ic_edit"
                             app:tint="@color/category_study_text"
-                            android:contentDescription="Study Icon" />
+                            android:contentDescription="@string/study_icon_desc" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Study"
+                            android:text="@string/cat_study_label"
                             android:textColor="@color/category_study_text"
                             android:textStyle="bold"
                             android:layout_marginStart="8dp" />
@@ -170,13 +192,13 @@
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:src="@android:drawable/ic_menu_info_details"
+                            android:src="@drawable/ic_info"
                             app:tint="@color/category_meditation_text"
-                            android:contentDescription="Meditation Icon" />
+                            android:contentDescription="@string/meditation_icon_desc" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Meditation"
+                            android:text="@string/cat_meditation_label"
                             android:textColor="@color/category_meditation_text"
                             android:textStyle="bold"
                             android:layout_marginStart="8dp" />
@@ -193,7 +215,7 @@
                     android:id="@+id/tv_popular_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Popular Habits"
+                    android:text="@string/popular_habits_title"
                     android:textColor="@color/text_dark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -202,7 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="View All >"
+                    android:text="@string/view_all_with_arrow"
                     android:textColor="@color/purple_primary"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -216,6 +238,7 @@
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/item_habit_discover" />
 
+        </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
