@@ -91,7 +91,7 @@
                                 android:textAllCaps="false"
                                 android:textColor="@color/purple_primary"
                                 app:cornerRadius="16dp"
-                                app:backgroundTint="@android:color/white"
+                                app:backgroundTint="@color/bg_white"
                                 android:layout_marginStart="8dp"
                                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
                         </LinearLayout>
