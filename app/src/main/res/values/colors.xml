@@ -15,4 +15,19 @@
 
     <color name="nav_item_selected">#6B3FD4</color>
     <color name="nav_item_unselected">#9E9EB3</color>
+
+    <!-- Discover Page Colors -->
+    <color name="category_fitness_bg">#EEF2FF</color>
+    <color name="category_fitness_text">#6366F1</color>
+    <color name="category_study_bg">#F5F3FF</color>
+    <color name="category_study_text">#8B5CF6</color>
+    <color name="category_meditation_bg">#ECFEFF</color>
+    <color name="category_meditation_text">#06B6D4</color>
+
+    <color name="difficulty_easy_bg">#F0FDF4</color>
+    <color name="difficulty_easy_text">#22C55E</color>
+    <color name="difficulty_medium_bg">#FFF7ED</color>
+    <color name="difficulty_medium_text">#F97316</color>
+    <color name="difficulty_hard_bg">#FEF2F2</color>
+    <color name="difficulty_hard_text">#EF4444</color>
 </resources>

@@ -4,63 +4,93 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.firstapp.adapters.HomeHabitAdapter;
+import com.example.firstapp.data.HabitRepository;
+import com.example.firstapp.models.Habit;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private boolean isHabit1Done = true;
-    private boolean isHabit2Done = false;
-    private ImageView ivCheck1, ivCheck2;
     private ProgressBar pbMain;
     private TextView tvPercentage;
+    private RecyclerView rvHabits;
+    private HomeHabitAdapter habitAdapter;
+    private HabitRepository habitRepository;
+    private List<Habit> userHabits;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        ivCheck1 = view.findViewById(R.id.iv_check_1);
-        ivCheck2 = view.findViewById(R.id.iv_check_2);
+        habitRepository = new HabitRepository(requireContext());
+        userHabits = habitRepository.getUserHabits();
+
         pbMain = view.findViewById(R.id.pb_main_progress);
         tvPercentage = view.findViewById(R.id.tv_progress_percentage);
+        rvHabits = view.findViewById(R.id.rv_habits_home);
 
-        ivCheck1.setOnClickListener(v -> {
-            isHabit1Done = !isHabit1Done;
-            updateHabitState(ivCheck1, isHabit1Done);
-            updateOverallProgress();
+        setupRecyclerView();
+        updateOverallProgress();
+
+        view.findViewById(R.id.tv_all_features).setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_analytics);
+            }
         });
 
-        ivCheck2.setOnClickListener(v -> {
-            isHabit2Done = !isHabit2Done;
-            updateHabitState(ivCheck2, isHabit2Done);
-            updateOverallProgress();
+        view.findViewById(R.id.tv_see_all_habits).setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_search);
+            }
+        });
+
+        FloatingActionButton fab = view.findViewById(R.id.fab_add_habit);
+        fab.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).loadFragment(new CreateChallengeFragment());
+            }
         });
 
         return view;
     }
 
-    private void updateHabitState(ImageView imageView, boolean isDone) {
-        if (isDone) {
-            imageView.setImageResource(R.drawable.ic_bolt);
-            imageView.setColorFilter(ContextCompat.getColor(getContext(), android.R.color.holo_green_dark));
-        } else {
-            imageView.setImageResource(R.drawable.circle_outline_grey);
-            imageView.clearColorFilter();
-        }
+    private void setupRecyclerView() {
+        habitAdapter = new HomeHabitAdapter(userHabits, habit -> {
+            boolean newState = !habit.isCompleted();
+            habitRepository.updateHabitCompletion(habit.getId(), newState);
+            
+            // Refresh local list and UI
+            userHabits = habitRepository.getUserHabits();
+            updateAdapterData();
+            updateOverallProgress();
+        });
+        rvHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvHabits.setAdapter(habitAdapter);
+    }
+
+    private void updateAdapterData() {
+        habitAdapter.updateList(userHabits);
     }
 
     private void updateOverallProgress() {
-        int progress = 0;
-        if (isHabit1Done) progress += 50;
-        if (isHabit2Done) progress += 50;
+        int count = 0;
+        for (Habit h : userHabits) {
+            if (h.isCompleted()) count++;
+        }
+
+        int total = userHabits.size();
+        int progress = total > 0 ? (count * 100) / total : 0;
 
         pbMain.setProgress(progress);
-        tvPercentage.setText(progress + "%");
+        tvPercentage.setText(getString(R.string.percentage_format, progress));
     }
 }

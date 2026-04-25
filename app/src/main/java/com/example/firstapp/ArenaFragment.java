@@ -22,6 +22,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.firstapp.models.ArenaUiState;
+import com.example.firstapp.models.Challenge;
+import com.example.firstapp.models.UserRank;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +39,8 @@ public class ArenaFragment extends Fragment {
     private TextView tvPercentile;
     private Button btnCreate;
     private Button btnLeaderboard;
+    private TextView tvSeeAllOngoing;
+    private TextView tvSeeAllAvailable;
 
     @Nullable
     @Override
@@ -51,22 +57,34 @@ public class ArenaFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(ArenaViewModel.class);
         viewModel.getUiState().observe(getViewLifecycleOwner(), state -> {
             if (state != null) {
-                tvRankValue.setText(String.format("#%d", state.getUserRank().getRank()));
-                tvPercentile.setText(state.getUserRank().getPercentile());
+                tvRankValue.setText(getString(R.string.rank_format, state.getUserRank().getRank()));
+                tvPercentile.setText(getString(R.string.percentile_format, state.getUserRank().getPercentile()));
                 ongoingAdapter.setItems(state.getOngoingChallenges());
                 availableAdapter.setItems(state.getAvailableChallenges());
             }
         });
 
+        tvSeeAllOngoing.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_analytics);
+            }
+        });
+
+        tvSeeAllAvailable.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_search);
+            }
+        });
+
         btnCreate.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(PlaceholderFragment.newInstance("Create Challenge"));
+                ((HomeActivity) getActivity()).loadFragment(new CreateChallengeFragment());
             }
         });
 
         btnLeaderboard.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(PlaceholderFragment.newInstance("Leaderboard"));
+                ((HomeActivity) getActivity()).loadFragment(new LeaderboardFragment());
             }
         });
     }
@@ -76,6 +94,8 @@ public class ArenaFragment extends Fragment {
         tvPercentile = view.findViewById(R.id.tv_percentile);
         btnCreate = view.findViewById(R.id.btn_create);
         btnLeaderboard = view.findViewById(R.id.btn_leaderboard);
+        tvSeeAllOngoing = view.findViewById(R.id.tv_see_all_ongoing);
+        tvSeeAllAvailable = view.findViewById(R.id.tv_see_all_available);
     }
 
     private void setupRecyclerViews(View view) {
@@ -89,67 +109,85 @@ public class ArenaFragment extends Fragment {
         rvAvailable.setAdapter(availableAdapter);
     }
 
-    public static class UserRank {
-        private int rank;
-        private String percentile;
-        public UserRank(int rank, String percentile) { this.rank = rank; this.percentile = percentile; }
-        public int getRank() { return rank; }
-        public String getPercentile() { return percentile; }
-    }
-
-    public static class Challenge {
-        private String id, title, duration, type, color;
-        private int participants, progress, iconRes;
-        private boolean isActive;
-        public Challenge(String id, String title, int participants, String duration, int progress, boolean isActive, int iconRes, String type, String color) {
-            this.id = id; this.title = title; this.participants = participants; this.duration = duration;
-            this.progress = progress; this.isActive = isActive; this.iconRes = iconRes; this.type = type; this.color = color;
-        }
-        public String getTitle() { return title; }
-        public int getParticipants() { return participants; }
-        public String getDuration() { return duration; }
-        public int getProgress() { return progress; }
-        public int getIconRes() { return iconRes; }
-        public String getColor() { return color; }
-        public void setActive(boolean active) { isActive = active; }
-    }
-
-    public static class ArenaUiState {
-        private final UserRank userRank;
-        private final List<Challenge> ongoingChallenges, availableChallenges;
-        public ArenaUiState(UserRank userRank, List<Challenge> ongoing, List<Challenge> available) {
-            this.userRank = userRank; this.ongoingChallenges = ongoing; this.availableChallenges = available;
-        }
-        public UserRank getUserRank() { return userRank; }
-        public List<Challenge> getOngoingChallenges() { return ongoingChallenges; }
-        public List<Challenge> getAvailableChallenges() { return availableChallenges; }
-    }
-
-    public static class ArenaViewModel extends ViewModel {
+    public static class ArenaViewModel extends androidx.lifecycle.AndroidViewModel {
         private final MutableLiveData<ArenaUiState> _uiState = new MutableLiveData<>();
         public LiveData<ArenaUiState> getUiState() { return _uiState; }
-        public ArenaViewModel() { loadMockData(); }
-        private void loadMockData() {
-            UserRank rank = new UserRank(42, "Top 15% of all players");
-            List<Challenge> ongoing = new ArrayList<>();
-            ongoing.add(new Challenge("1", "30-Day Meditation", 128, "18d left", 40, true, 0, "Meditation", "#6B3FD4"));
-            ongoing.add(new Challenge("2", "Morning Workout", 85, "6d left", 60, true, 0, "Workout", "#6B3FD4"));
+        
+        private static final String PREFS_NAME = "arena_prefs";
+        private static final String JOINED_KEY = "joined_challenges";
+        private final android.content.SharedPreferences prefs;
+
+        public ArenaViewModel(@NonNull android.app.Application application) {
+            super(application);
+            prefs = application.getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE);
+            loadData();
+        }
+
+        private void loadData() {
+            java.util.Set<String> joinedIds = prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>());
+            
+            UserRank rank = new UserRank(42, 15);
+            
+            List<Challenge> allChallenges = new ArrayList<>();
+            allChallenges.add(new Challenge("1", "30-Day Meditation", 128, "18d left", 40, false, R.drawable.ic_meditation, "Meditation", "#6B3FD4"));
+            allChallenges.add(new Challenge("2", "Morning Workout", 85, "6d left", 60, false, R.drawable.ic_workout, "Workout", "#6B3FD4"));
+            allChallenges.add(new Challenge("3", "No Social Media", 234, "7 days", 0, false, R.drawable.ic_social, "Social", "#38BDF8"));
+            allChallenges.add(new Challenge("4", "Reading Marathon", 156, "14 days", 0, false, R.drawable.ic_reading, "Reading", "#34D399"));
+            allChallenges.add(new Challenge("5", "Hydration Challenge", 312, "30 days", 0, false, R.drawable.ic_health, "Health", "#818CF8"));
+            allChallenges.add(new Challenge("6", "Sleep by 10 PM", 189, "21 days", 0, false, R.drawable.ic_sleep, "Sleep", "#F59E0B"));
+
+            // Load custom challenges from repository
+            com.example.firstapp.data.ChallengeRepository repo = new com.example.firstapp.data.ChallengeRepository(getApplication());
+            List<Challenge> customChallenges = repo.getCustomChallenges();
+            for (Challenge c : customChallenges) {
+                c.setActive(true); // Custom challenges created by user are active
+            }
+
+            List<Challenge> ongoing = new ArrayList<>(customChallenges);
             List<Challenge> available = new ArrayList<>();
-            available.add(new Challenge("3", "No Social Media", 234, "7 days", 0, false, android.R.drawable.ic_menu_search, "Social", "#38BDF8"));
-            available.add(new Challenge("4", "Reading Marathon", 156, "14 days", 0, false, android.R.drawable.ic_menu_search, "Reading", "#34D399"));
-            available.add(new Challenge("5", "Hydration Challenge", 312, "30 days", 0, false, android.R.drawable.ic_menu_search, "Health", "#818CF8"));
-            available.add(new Challenge("6", "Sleep by 10 PM", 189, "21 days", 0, false, android.R.drawable.ic_menu_search, "Sleep", "#F59E0B"));
+
+            for (Challenge c : allChallenges) {
+                if (joinedIds.contains(c.getId())) {
+                    c.setActive(true);
+                    ongoing.add(c);
+                } else {
+                    available.add(c);
+                }
+            }
+            
+            // For the mock, if none are joined yet and no custom challenges, let's join the first two
+            if (joinedIds.isEmpty() && customChallenges.isEmpty()) {
+                ongoing.add(allChallenges.get(0));
+                ongoing.add(allChallenges.get(1));
+                allChallenges.get(0).setActive(true);
+                allChallenges.get(1).setActive(true);
+                available.remove(allChallenges.get(0));
+                available.remove(allChallenges.get(1));
+                
+                java.util.Set<String> initialJoined = new java.util.HashSet<>();
+                initialJoined.add("1");
+                initialJoined.add("2");
+                prefs.edit().putStringSet(JOINED_KEY, initialJoined).apply();
+            }
+
             _uiState.setValue(new ArenaUiState(rank, ongoing, available));
         }
+
         public void joinChallenge(Challenge challenge) {
             ArenaUiState currentState = _uiState.getValue();
             if (currentState != null) {
-                List<Challenge> available = new ArrayList<>(currentState.availableChallenges);
-                List<Challenge> ongoing = new ArrayList<>(currentState.ongoingChallenges);
+                List<Challenge> available = new ArrayList<>(currentState.getAvailableChallenges());
+                List<Challenge> ongoing = new ArrayList<>(currentState.getOngoingChallenges());
+                
                 if (available.remove(challenge)) {
                     challenge.setActive(true);
                     ongoing.add(challenge);
-                    _uiState.setValue(new ArenaUiState(currentState.userRank, ongoing, available));
+                    
+                    java.util.Set<String> joinedIds = new java.util.HashSet<>(prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>()));
+                    joinedIds.add(challenge.getId());
+                    prefs.edit().putStringSet(JOINED_KEY, joinedIds).apply();
+
+                    _uiState.setValue(new ArenaUiState(currentState.getUserRank(), ongoing, available));
                 }
             }
         }
@@ -181,14 +219,25 @@ public class ArenaFragment extends Fragment {
 
         static class OngoingViewHolder extends RecyclerView.ViewHolder {
             TextView tvTitle, tvParticipants, tvDuration; ProgressBar progressBar;
+            ImageView ivIcon; CardView cvIcon;
             OngoingViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tvTitle = itemView.findViewById(R.id.tv_title); tvParticipants = itemView.findViewById(R.id.tv_participants);
                 tvDuration = itemView.findViewById(R.id.tv_duration); progressBar = itemView.findViewById(R.id.progress_bar);
+                ivIcon = itemView.findViewById(R.id.iv_icon); cvIcon = itemView.findViewById(R.id.cv_icon_container);
             }
             void bind(Challenge challenge) {
-                tvTitle.setText(challenge.getTitle()); tvParticipants.setText("👤 " + challenge.getParticipants());
-                tvDuration.setText("🕒 " + challenge.getDuration()); progressBar.setProgress(challenge.getProgress());
+                tvTitle.setText(challenge.getTitle());
+                tvParticipants.setText(itemView.getContext().getString(R.string.participants_format, challenge.getParticipants()));
+                tvDuration.setText(itemView.getContext().getString(R.string.duration_format, challenge.getDuration()));
+                progressBar.setProgress(challenge.getProgress());
+                if (challenge.getIconRes() != 0) ivIcon.setImageResource(challenge.getIconRes());
+                if (challenge.getColor() != null) {
+                    int c = Color.parseColor(challenge.getColor());
+                    ivIcon.setImageTintList(ColorStateList.valueOf(c));
+                    cvIcon.setCardBackgroundColor(Color.argb(30, Color.red(c), Color.green(c), Color.blue(c)));
+                    progressBar.setProgressTintList(ColorStateList.valueOf(c));
+                }
             }
         }
         static class AvailableViewHolder extends RecyclerView.ViewHolder {
@@ -200,7 +249,8 @@ public class ArenaFragment extends Fragment {
                 btnJoin = itemView.findViewById(R.id.btn_join);
             }
             void bind(Challenge challenge, OnChallengeClickListener listener) {
-                tvTitle.setText(challenge.getTitle()); tvSubtitle.setText("👤 " + challenge.getParticipants() + " · " + challenge.getDuration());
+                tvTitle.setText(challenge.getTitle());
+                tvSubtitle.setText(itemView.getContext().getString(R.string.subtitle_format, challenge.getParticipants(), challenge.getDuration()));
                 if (challenge.getIconRes() != 0) ivIcon.setImageResource(challenge.getIconRes());
                 if (challenge.getColor() != null) {
                     int c = Color.parseColor(challenge.getColor());
