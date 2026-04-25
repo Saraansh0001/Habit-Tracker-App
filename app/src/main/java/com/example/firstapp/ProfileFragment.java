@@ -110,14 +110,20 @@ public class ProfileFragment extends Fragment {
 
             itemView.setOnClickListener(v -> {
                 if ("Focus Timer".equals(feature.getTitle())) {
-                    if (getActivity() instanceof HomeActivity) {
-                        ((HomeActivity) getActivity()).loadFragment(new FocusTimerFragment());
-                    }
+                    loadFragment(new FocusTimerFragment());
+                } else if ("Daily Journal".equals(feature.getTitle())) {
+                    loadFragment(new DailyJournalFragment());
                 } else {
                     Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
                 }
             });
             featuresGrid.addView(itemView);
+        }
+    }
+
+    private void loadFragment(Fragment fragment) {
+        if (getActivity() instanceof HomeActivity) {
+            ((HomeActivity) getActivity()).loadFragment(fragment);
         }
     }
 
