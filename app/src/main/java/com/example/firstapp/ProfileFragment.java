@@ -125,6 +125,8 @@ public class ProfileFragment extends Fragment {
                     loadFragment(new FocusTimerFragment());
                 } else if ("Daily Journal".equals(feature.getTitle())) {
                     loadFragment(new DailyJournalFragment());
+                } else if ("Weekly Goals".equals(feature.getTitle())) {
+                    loadFragment(new WeeklyGoalsFragment());
                 } else {
                     Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
                 }

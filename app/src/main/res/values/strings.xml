@@ -226,4 +226,20 @@
     <string name="twelve_week_view_label">12-Week View</string>
     <string name="habit_streaks_title">Habit Streaks</string>
     <string name="days_format">%1$d / %2$d days</string>
+
+    <!-- Weekly Goals -->
+    <string name="weekly_goals_title">Weekly Goals 🎯</string>
+    <string name="weekly_goals_subtitle">Set your target for each habit this week</string>
+    <string name="this_weeks_progress">This Week\'s Progress</string>
+    <string name="weekly_date_range">Apr 5–11, 2026</string>
+    <string name="completions_format">%1$d / %2$d completions</string>
+    <string name="goals_met_label">Goals met</string>
+    <string name="in_progress_label">In progress</string>
+    <string name="habit_goals_title">Habit Goals</string>
+    <string name="times_this_week_format">%1$d of %2$dx this week</string>
+    <string name="weekly_goal_percent_format">%1$d%% of weekly goal</string>
+    <string name="times_per_week_label">Times per week: %1$dx</string>
+    <string name="done_label">Done</string>
+    <string name="edit_goal_label">Edit goal</string>
+    <string name="pro_tip_label">Pro tip: Start with a goal of 3-5x per week instead of every day. It\'s more sustainable and you\'ll still see great results!</string>
 </resources>
