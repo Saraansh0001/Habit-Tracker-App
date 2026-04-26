@@ -1,5 +1,7 @@
 package com.example.firstapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,19 +28,28 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
+    private SharedPreferences prefs;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         
+        if (getContext() != null) {
+            prefs = getContext().getSharedPreferences("HabitTrackerPrefs", Context.MODE_PRIVATE);
+        }
+
         setupProfilePic(view);
         setupBadges(view);
         setupFeatures(view, inflater);
         setupStats(view, inflater);
         setupActions(view, inflater);
         
-        view.findViewById(R.id.btn_logout).setOnClickListener(v -> 
-            Toast.makeText(getContext(), "Logging out...", Toast.LENGTH_SHORT).show());
+        View logoutBtn = view.findViewById(R.id.btn_logout);
+        if (logoutBtn != null) {
+            logoutBtn.setOnClickListener(v -> 
+                Toast.makeText(getContext(), "Logging out...", Toast.LENGTH_SHORT).show());
+        }
             
         return view;
     }
@@ -46,7 +57,7 @@ public class ProfileFragment extends Fragment {
     private void setupProfilePic(View view) {
         ImageView profilePic = view.findViewById(R.id.iv_profile_pic);
         if (profilePic != null) {
-            profilePic.setImageResource(R.drawable.ic_launcher_foreground);
+            profilePic.setImageResource(R.drawable.user_avatar_placeholder);
             profilePic.setBackgroundColor(Color.parseColor("#6B3FD4")); 
         }
     }
@@ -64,7 +75,6 @@ public class ProfileFragment extends Fragment {
         if (featuresGrid == null) return;
         featuresGrid.removeAllViews();
         
-        // Ensure 1 column for the list-like arrangement
         if (featuresGrid instanceof android.widget.GridLayout) {
             ((android.widget.GridLayout) featuresGrid).setColumnCount(1);
         }
@@ -76,7 +86,6 @@ public class ProfileFragment extends Fragment {
         }
 
         List<ProfileFeature> features = new ArrayList<>();
-        // Arranged in the order: Streak Calendar, Focus Timer, Weekly Goals, Daily Journal, Mood Tracker, Friends, Rewards, Weekly Report
         features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_nav_home, "#F3F0FF"));
         features.add(new ProfileFeature("Focus Timer", "Deep focus on one habit at a time", R.drawable.ic_nav_analytics, "#FFF7ED"));
         features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_workout, "#F0FDF4"));
@@ -94,22 +103,25 @@ public class ProfileFragment extends Fragment {
             ImageView icon = itemView.findViewById(R.id.iv_feature_icon);
             CardView iconContainer = itemView.findViewById(R.id.cv_feature_icon_container);
 
-            title.setText(feature.getTitle());
-            desc.setText(feature.getDescription());
-            icon.setImageResource(feature.getIconRes());
+            if (title != null) title.setText(feature.getTitle());
+            if (desc != null) desc.setText(feature.getDescription());
+            if (icon != null) icon.setImageResource(feature.getIconRes());
             
-            // Apply background color and darker icon tint for the list style
             int bgColor = Color.parseColor(feature.getBackgroundColor());
-            iconContainer.setCardBackgroundColor(bgColor);
+            if (iconContainer != null) iconContainer.setCardBackgroundColor(bgColor);
 
-            float[] hsv = new float[3];
-            Color.colorToHSV(bgColor, hsv);
-            hsv[2] *= 0.5f; // Darken for contrast
-            hsv[1] = Math.min(1.0f, hsv[1] * 2.0f); // Saturate
-            icon.setImageTintList(ColorStateList.valueOf(Color.HSVToColor(hsv)));
+            if (icon != null) {
+                float[] hsv = new float[3];
+                Color.colorToHSV(bgColor, hsv);
+                hsv[2] *= 0.5f; 
+                hsv[1] = Math.min(1.0f, hsv[1] * 2.0f); 
+                icon.setImageTintList(ColorStateList.valueOf(Color.HSVToColor(hsv)));
+            }
 
             itemView.setOnClickListener(v -> {
-                if ("Focus Timer".equals(feature.getTitle())) {
+                if ("Streak Calendar".equals(feature.getTitle())) {
+                    loadFragment(new StreakCalendarFragment());
+                } else if ("Focus Timer".equals(feature.getTitle())) {
                     loadFragment(new FocusTimerFragment());
                 } else if ("Daily Journal".equals(feature.getTitle())) {
                     loadFragment(new DailyJournalFragment());
@@ -151,11 +163,12 @@ public class ProfileFragment extends Fragment {
             TextView value = itemView.findViewById(R.id.tv_stat_value);
             ImageView icon = itemView.findViewById(R.id.iv_stat_icon);
 
-            label.setText(stat.getLabel());
-            value.setText(stat.getValue());
-            icon.setImageResource(stat.getIconRes());
-            
-            icon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#6B3FD4")));
+            if (label != null) label.setText(stat.getLabel());
+            if (value != null) value.setText(stat.getValue());
+            if (icon != null) {
+                icon.setImageResource(stat.getIconRes());
+                icon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#6B3FD4")));
+            }
 
             statsContainer.addView(itemView);
             
@@ -173,34 +186,42 @@ public class ProfileFragment extends Fragment {
         if (actionsContainer == null) return;
         actionsContainer.removeAllViews();
 
-        // Add Dark Mode Switch first
         View darkModeItem = inflater.inflate(R.layout.item_profile_switch, actionsContainer, false);
         TextView dmTitle = darkModeItem.findViewById(R.id.tv_switch_title);
         ImageView dmIcon = darkModeItem.findViewById(R.id.iv_switch_icon);
         SwitchMaterial dmSwitch = darkModeItem.findViewById(R.id.switch_action);
         
-        dmTitle.setText("Dark Mode");
-        dmIcon.setImageResource(R.drawable.ic_meditation); // Using meditation icon as placeholder for theme
-        dmIcon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#94A3B8")));
+        if (dmTitle != null) dmTitle.setText(R.string.dark_mode);
+        if (dmIcon != null) {
+            dmIcon.setImageResource(R.drawable.ic_meditation);
+            dmIcon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#94A3B8")));
+        }
         
-        // Set initial state
-        int currentMode = AppCompatDelegate.getDefaultNightMode();
-        dmSwitch.setChecked(currentMode == AppCompatDelegate.MODE_NIGHT_YES);
+        if (prefs != null && dmSwitch != null) {
+            dmSwitch.setChecked(prefs.getBoolean("dark_mode", false));
+        }
         
-        dmSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            }
-            Toast.makeText(getContext(), isChecked ? "Dark Mode Enabled" : "Dark Mode Disabled", Toast.LENGTH_SHORT).show();
-        });
+        if (dmSwitch != null) {
+            dmSwitch.setOnClickListener(v -> {
+                boolean isChecked = dmSwitch.isChecked();
+                if (prefs != null) {
+                    prefs.edit().putBoolean("dark_mode", isChecked).apply();
+                }
+                
+                AppCompatDelegate.setDefaultNightMode(isChecked ? 
+                        AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+                
+                Context context = getContext();
+                if (context != null) {
+                    Toast.makeText(context, isChecked ? "Dark Mode Enabled" : "Dark Mode Disabled", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         
         actionsContainer.addView(darkModeItem);
         addDivider(actionsContainer);
 
-        // Add regular actions
-        String[] titles = {"Edit Profile", "Notifications", "Privacy & Security", "About Discipline Arena"};
+        String[] titles = {getString(R.string.edit_profile), getString(R.string.notifications), getString(R.string.privacy_security), getString(R.string.about_app)};
         int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info, R.drawable.ic_info, R.drawable.ic_info};
 
         for (int i = 0; i < titles.length; i++) {
@@ -210,9 +231,11 @@ public class ProfileFragment extends Fragment {
             TextView title = itemView.findViewById(R.id.tv_action_title);
             ImageView icon = itemView.findViewById(R.id.iv_action_icon);
 
-            title.setText(titleText);
-            icon.setImageResource(icons[i]);
-            icon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#94A3B8")));
+            if (title != null) title.setText(titleText);
+            if (icon != null) {
+                icon.setImageResource(icons[i]);
+                icon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#94A3B8")));
+            }
 
             itemView.setOnClickListener(v -> Toast.makeText(getContext(), titleText + " clicked", Toast.LENGTH_SHORT).show());
             actionsContainer.addView(itemView);

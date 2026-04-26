@@ -38,6 +38,7 @@
     <string name="habit_meditation">Morning Meditation</string>
     <string name="habit_reading">Read 30 Minutes</string>
     <string name="habit_water">Drink 2L Water</string>
+    <string name="percentage_50">50%</string>
 
     <!-- Navigation Labels -->
     <string name="nav_home">Home</string>
@@ -57,6 +58,7 @@
     <string name="chart_coming_soon">Insightful charts coming soon!</string>
     <string name="top_performing_habits">Top Performing Habits</string>
     <string name="label_this_week">This Week</string>
+    <string name="habit_history_title">Habit History</string>
 
     <!-- Formatting -->
     <string name="percentage_format">%1$d%%</string>
@@ -119,4 +121,109 @@
     <string name="filter_message">Filter: %1$s</string>
     <string name="showing_all_habits">Showing all habits</string>
     <string name="habit_added">%1$s added!</string>
+
+    <!-- Daily Journal -->
+    <string name="journal_title">Daily Journal 📝</string>
+    <string name="journal_subtitle">3 quick questions to reflect on your day</string>
+    <string name="journal_entries_label">Entries</string>
+    <string name="journal_words_label">Words written</string>
+    <string name="journal_mood_label">Today\'s mood</string>
+    <string name="journal_entry_title">📖 Today\'s Entry</string>
+    <string name="journal_mood_question">How are you feeling?</string>
+    <string name="journal_question_1">✨ What went well today?</string>
+    <string name="journal_hint_1">A habit you completed, a win you had...</string>
+    <string name="journal_question_2">💪 Which habit are you most proud of?</string>
+    <string name="journal_hint_2">Even if it was small...</string>
+    <string name="journal_question_3">🚀 What will you do differently tomorrow?</string>
+    <string name="journal_hint_3">One small improvement...</string>
+    <string name="journal_habits_completed_label">Habits completed today:</string>
+    <string name="journal_save_btn">Save Entry</string>
+    <string name="journal_past_entries_title">Past Entries</string>
+    <string name="journal_default_entries">3</string>
+    <string name="journal_default_words">79</string>
+    <string name="journal_default_mood">🙂</string>
+    <string name="journal_today_date">Apr 5, 2026</string>
+
+    <!-- Habit Names -->
+    <string name="habit_morning">🍉 Morning</string>
+    <string name="habit_read">📖 Read</string>
+    <string name="habit_workout">💪 Workout</string>
+    <string name="habit_drink">💧 Drink</string>
+    <string name="habit_sleep">🌙 Sleep</string>
+
+    <!-- Moods -->
+    <string name="mood_rough">Rough</string>
+    <string name="mood_meh">Meh</string>
+    <string name="mood_ok">OK</string>
+    <string name="mood_good">Good</string>
+    <string name="mood_amazing">Amazing</string>
+
+    <!-- Focus Timer -->
+    <string name="focus_timer_title">Focus Timer ⏱️</string>
+    <string name="focus_timer_subtitle">Deep focus on one habit at a time</string>
+    <string name="sessions_label">Sessions</string>
+    <string name="minutes_focused_label">Minutes focused</string>
+    <string name="xp_earned_label">XP earned</string>
+    <string name="choose_habit_label">Choose a habit to focus on:</string>
+    <string name="duration_label_plain">Duration:</string>
+    <string name="start_session">Start Session</string>
+    <string name="pause_session">Pause Session</string>
+    <string name="resume_session">Resume Session</string>
+    <string name="resume_label">Resume</string>
+    <string name="recent_sessions_title">Recent Sessions</string>
+
+    <!-- Profile -->
+    <string name="user_rank">Warrior 🎖️</string>
+    <string name="streak_count">%1$d streak</string>
+    <string name="xp_count">%1$s XP</string>
+    <string name="badges_title">🏅 Badges (%1$d)</string>
+    <string name="your_features_title">✨ Your Features</string>
+    <string name="all_features_link">All features</string>
+    <string name="your_stats_title">📊 Your Stats</string>
+    <string name="log_out">Log Out</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="privacy_security">Privacy &amp; Security</string>
+    <string name="about_app">About Discipline Arena</string>
+
+    <!-- Habit Detail -->
+    <string name="habit_title_placeholder">Habit Name</string>
+    <string name="current_streak">Current Streak</string>
+    <string name="success_rate">Success Rate</string>
+    <string name="about_habit">About this habit</string>
+    <string name="progress_history">Progress History</string>
+    <string name="calendar_coming_soon">Calendar view coming soon</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="account_section">Account</string>
+    <string name="edit_profile_name">Edit Profile</string>
+    <string name="preferences_section">Preferences</string>
+    <string name="reminder_time">Reminder Time</string>
+    <string name="support_section">Support</string>
+    <string name="help_center">Help Center</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="app_version_default">Version 1.0.0</string>
+
+    <!-- Welcome -->
+    <string name="welcome_tagline">Build Discipline. Build Yourself.</string>
+    <string name="welcome_zen">Find your focus.</string>
+    <string name="welcome_fit">Get fit.</string>
+    <string name="welcome_focus">Stay sharp.</string>
+    <string name="welcome_rest">Rest well.</string>
+    <string name="welcome_vitality">Feel alive.</string>
+    <string name="welcome_connect">Join others.</string>
+    <string name="welcome_social_proof">Join 10k+ warriors building better habits.</string>
+    <string name="get_started">Get Started</string>
+
+    <!-- Streak Calendar -->
+    <string name="streak_calendar_title">Streak Calendar 🗓️</string>
+    <string name="streak_calendar_subtitle">Last 12 weeks of habit history</string>
+    <string name="days_active_label">Days active</string>
+    <string name="best_streak_label">Best streak</string>
+    <string name="consistency_label">Consistency</string>
+    <string name="twelve_week_view_label">12-Week View</string>
+    <string name="habit_streaks_title">Habit Streaks</string>
+    <string name="days_format">%1$d / %2$d days</string>
 </resources>

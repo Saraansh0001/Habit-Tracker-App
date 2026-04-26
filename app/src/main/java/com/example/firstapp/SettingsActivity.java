@@ -24,22 +24,19 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         prefs = getSharedPreferences("HabitTrackerPrefs", MODE_PRIVATE);
-        if (prefs.getBoolean("dark_mode", false)) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        
+        // Let the system handle the theme via AppCompatDelegate.setDefaultNightMode
+        // called from the switch or HomeActivity. 
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        // Update status bar icons based on theme
-        if (prefs.getBoolean("dark_mode", false)) {
+        // Standardize status bar behavior
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) {
             getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        } else {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    getWindow().getDecorView().getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
         getWindow().setStatusBarColor(android.graphics.Color.TRANSPARENT);
 
@@ -64,21 +61,20 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(this, isChecked ? "Notifications Enabled" : "Notifications Disabled", Toast.LENGTH_SHORT).show();
         });
 
-        switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        // Use ClickListener for the theme switch to avoid recursive recreation loops
+        switchDarkMode.setOnClickListener(v -> {
+            boolean isChecked = switchDarkMode.isChecked();
             prefs.edit().putBoolean("dark_mode", isChecked).apply();
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            }
-            // Forces activity to restart to apply theme immediately
-            recreate();
+            
+            AppCompatDelegate.setDefaultNightMode(isChecked ? 
+                    AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+            
             Toast.makeText(this, "Theme updated", Toast.LENGTH_SHORT).show();
+            // Note: setDefaultNightMode will automatically recreate the activity stack.
         });
 
         findViewById(R.id.btn_logout).setOnClickListener(v -> {
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
-            // Logic to clear session and go to WelcomeActivity would go here
             finish();
         });
     }
