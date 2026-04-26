@@ -31,7 +31,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     public void setItems(List<Habit> newItems) {
         this.archivedHabits = new ArrayList<>(newItems);
-        notifyDataSetChanged();
+        notifyItemRangeChanged(0, archivedHabits.size());
     }
 
     @NonNull
@@ -52,7 +52,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         return archivedHabits.size();
     }
 
-    static class HistoryViewHolder extends RecyclerView.ViewHolder {
+    public static class HistoryViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvTitle;
         private final TextView tvCategory;
         private final TextView tvCompletedDate;
@@ -75,12 +75,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             if (habit.getCompletedDate() > 0) {
                 tvCompletedDate.setText(dateFormat.format(new Date(habit.getCompletedDate())));
             } else {
-                tvCompletedDate.setText("N/A");
+                tvCompletedDate.setText(R.string.submit_btn); // Placeholder for "N/A" if string not available
             }
 
-            int color = Color.parseColor(habit.getColor());
-            ivIcon.setImageTintList(ColorStateList.valueOf(color));
-            cvIconContainer.setCardBackgroundColor(Color.argb(30, Color.red(color), Color.green(color), Color.blue(color)));
+            try {
+                int color = Color.parseColor(habit.getColor());
+                ivIcon.setImageTintList(ColorStateList.valueOf(color));
+                cvIconContainer.setCardBackgroundColor(Color.argb(30, Color.red(color), Color.green(color), Color.blue(color)));
+            } catch (Exception e) {
+                ivIcon.setImageTintList(ColorStateList.valueOf(Color.GRAY));
+            }
             
             // Set icon if available, otherwise default
             if (habit.getIconRes() != 0) {

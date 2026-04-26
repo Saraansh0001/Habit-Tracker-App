@@ -54,7 +54,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Daily Journal 📝"
+                            android:text="@string/journal_title"
                             android:textColor="#FFFFFF"
                             android:textSize="22sp"
                             android:textStyle="bold" />
@@ -62,7 +62,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3 quick questions to reflect on your day"
+                            android:text="@string/journal_subtitle"
                             android:textColor="#E2E8F0"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -86,14 +86,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3"
+                            android:text="@string/journal_default_entries"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Entries"
+                            android:text="@string/journal_entries_label"
                             android:textColor="#E2E8F0"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -110,14 +110,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="79"
+                            android:text="@string/journal_default_words"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Words written"
+                            android:text="@string/journal_words_label"
                             android:textColor="#E2E8F0"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -133,14 +133,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🙂"
+                            android:text="@string/journal_default_mood"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Today's mood"
+                            android:text="@string/journal_mood_label"
                             android:textColor="#E2E8F0"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -162,31 +162,32 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="📖 Today's Entry"
+                            android:layout_weight="1"
+                            android:text="@string/journal_entry_title"
                             android:textColor="#1E293B"
                             android:textSize="18sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:text="Apr 5, 2026"
+                            android:text="@string/journal_today_date"
                             android:textColor="#94A3B8"
                             android:textSize="14sp" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
                     <!-- Mood Selection -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="How are you feeling?"
+                        android:text="@string/journal_mood_question"
                         android:textColor="#64748B"
                         android:textSize="14sp" />
 
@@ -205,7 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="✨ What went well today?"
+                        android:text="@string/journal_question_1"
                         android:textColor="#1E293B"
                         android:textStyle="bold" />
                     <EditText
@@ -213,19 +214,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_input_field"
-                        android:hint="A habit you completed, a win you had..."
+                        android:hint="@string/journal_hint_1"
                         android:padding="16dp"
                         android:textSize="14sp"
                         android:minLines="3"
                         android:inputType="textMultiLine"
-                        android:gravity="top" />
+                        android:gravity="top"
+                        android:autofillHints="none" />
 
                     <!-- Question 2 -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="💪 Which habit are you most proud of?"
+                        android:text="@string/journal_question_2"
                         android:textColor="#1E293B"
                         android:textStyle="bold" />
                     <EditText
@@ -233,19 +235,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_input_field"
-                        android:hint="Even if it was small..."
+                        android:hint="@string/journal_hint_2"
                         android:padding="16dp"
                         android:textSize="14sp"
                         android:minLines="3"
                         android:inputType="textMultiLine"
-                        android:gravity="top" />
+                        android:gravity="top"
+                        android:autofillHints="none" />
 
                     <!-- Question 3 -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="🚀 What will you do differently tomorrow?"
+                        android:text="@string/journal_question_3"
                         android:textColor="#1E293B"
                         android:textStyle="bold" />
                     <EditText
@@ -253,18 +256,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_input_field"
-                        android:hint="One small improvement..."
+                        android:hint="@string/journal_hint_3"
                         android:padding="16dp"
                         android:textSize="14sp"
                         android:minLines="3"
                         android:inputType="textMultiLine"
-                        android:gravity="top" />
+                        android:gravity="top"
+                        android:autofillHints="none" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Habits completed today:"
+                        android:text="@string/journal_habits_completed_label"
                         android:textColor="#64748B"
                         android:textSize="12sp" />
 
@@ -278,7 +282,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🍉 Morning"
+                            android:text="@string/habit_morning"
                             android:checkable="true"
                             app:chipBackgroundColor="@color/chip_background_selector"
                             android:textColor="@color/chip_text_selector"
@@ -287,7 +291,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="📖 Read"
+                            android:text="@string/habit_read"
                             android:checkable="true"
                             app:chipBackgroundColor="@color/chip_background_selector"
                             android:textColor="@color/chip_text_selector"
@@ -296,7 +300,7 @@
                          <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="💪 Workout"
+                            android:text="@string/habit_workout"
                             android:checkable="true"
                             app:chipBackgroundColor="@color/chip_background_selector"
                             android:textColor="@color/chip_text_selector"
@@ -305,7 +309,7 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="💧 Drink"
+                            android:text="@string/habit_drink"
                             android:checkable="true"
                             app:chipBackgroundColor="@color/chip_background_selector"
                             android:textColor="@color/chip_text_selector"
@@ -318,7 +322,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginTop="32dp"
-                        android:text="Save Entry"
+                        android:text="@string/journal_save_btn"
                         android:textAllCaps="false"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -338,7 +342,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="32dp"
-                android:text="Past Entries"
+                android:text="@string/journal_past_entries_title"
                 android:textColor="#1E293B"
                 android:textSize="20sp"
                 android:textStyle="bold" />

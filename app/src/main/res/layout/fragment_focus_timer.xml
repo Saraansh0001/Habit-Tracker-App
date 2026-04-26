@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8FAFC">
@@ -26,7 +27,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    tools:ignore="UselessParent">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_back"
@@ -40,7 +42,8 @@
                         app:iconTint="#FFFFFF"
                         app:backgroundTint="#33FFFFFF"
                         app:cornerRadius="24dp"
-                        app:strokeWidth="0dp" />
+                        app:strokeWidth="0dp"
+                        android:contentDescription="@string/submit_btn" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -52,7 +55,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Focus Timer ⏱️"
+                            android:text="@string/focus_timer_title"
                             android:textColor="#FFFFFF"
                             android:textSize="22sp"
                             android:textStyle="bold" />
@@ -60,7 +63,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Deep focus on one habit at a time"
+                            android:text="@string/focus_timer_subtitle"
                             android:textColor="#E2E8F0"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -71,7 +74,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:weightSum="3"
+                    android:baselineAligned="false">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -85,14 +89,14 @@
                             android:id="@+id/tv_sessions_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3"
+                            android:text="@string/journal_default_entries"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sessions"
+                            android:text="@string/sessions_label"
                             android:textColor="#E2E8F0"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -113,11 +117,12 @@
                             android:text="80"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Minutes focused"
+                            android:text="@string/minutes_focused_label"
                             android:textColor="#E2E8F0"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -137,11 +142,12 @@
                             android:text="+160"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="XP earned"
+                            android:text="@string/xp_earned_label"
                             android:textColor="#E2E8F0"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -154,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
-                android:text="Choose a habit to focus on:"
+                android:text="@string/choose_habit_label"
                 android:textColor="#1E293B"
                 android:textStyle="bold" />
 
@@ -180,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
-                android:text="Duration:"
+                android:text="@string/duration_label_plain"
                 android:textColor="#1E293B"
                 android:textStyle="bold" />
 
@@ -230,13 +236,14 @@
                             android:text="25:00"
                             android:textColor="#1E293B"
                             android:textSize="48sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/tv_selected_habit_timer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🧠 Morning"
+                            android:text="@string/habit_morning"
                             android:textColor="#64748B"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -257,7 +264,7 @@
                     android:layout_width="0dp"
                     android:layout_height="64dp"
                     android:layout_weight="1"
-                    android:text="Start Session"
+                    android:text="@string/start_session"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:icon="@drawable/ic_bolt"
@@ -276,7 +283,8 @@
                     app:backgroundTint="#FFFFFF"
                     app:cornerRadius="16dp"
                     app:strokeColor="#E2E8F0"
-                    app:strokeWidth="1dp" />
+                    app:strokeWidth="1dp"
+                    android:contentDescription="@string/reset_password" />
             </LinearLayout>
 
             <!-- Recent Sessions -->
@@ -285,7 +293,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="32dp"
-                android:text="Recent Sessions"
+                android:text="@string/recent_sessions_title"
                 android:textColor="#1E293B"
                 android:textSize="18sp"
                 android:textStyle="bold" />
