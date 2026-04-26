@@ -13,24 +13,43 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.firstapp.R;
 import com.example.firstapp.models.Habit;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.HabitViewHolder> {
 
     private List<Habit> habits;
+    private List<Habit> habitsFull;
     private final OnHabitClickListener listener;
 
     public interface OnHabitClickListener {
         void onHabitClick(Habit habit);
+        void onHabitDetailClick(Habit habit);
     }
 
     public HomeHabitAdapter(List<Habit> habits, OnHabitClickListener listener) {
-        this.habits = habits;
+        this.habits = new ArrayList<>(habits);
+        this.habitsFull = new ArrayList<>(habits);
         this.listener = listener;
     }
 
     public void updateList(List<Habit> newList) {
-        this.habits = newList;
+        this.habitsFull = new ArrayList<>(newList);
+        this.habits = new ArrayList<>(newList);
+        notifyDataSetChanged();
+    }
+
+    public void filter(String query, String category) {
+        List<Habit> filteredList = habitsFull.stream()
+                .filter(h -> {
+                    boolean matchesQuery = query.isEmpty() || h.getTitle().toLowerCase().contains(query.toLowerCase());
+                    boolean matchesCategory = category.equals("All") || h.getCategory().equalsIgnoreCase(category);
+                    return matchesQuery && matchesCategory;
+                })
+                .collect(Collectors.toList());
+        
+        this.habits = filteredList;
         notifyDataSetChanged();
     }
 
@@ -89,6 +108,7 @@ public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.Habi
             }
 
             ivCheck.setOnClickListener(v -> listener.onHabitClick(habit));
+            itemView.setOnClickListener(v -> listener.onHabitDetailClick(habit));
         }
 
         private int adjustAlpha(int color, float factor) {

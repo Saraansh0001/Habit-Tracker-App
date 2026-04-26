@@ -119,4 +119,8 @@
     <string name="weekly_progress">Weekly Progress</string>
     <string name="chart_coming_soon">Progress charts are coming soon!</string>
     <string name="top_performing_habits">Top Performing Habits</string>
+    <string name="history_title">History</string>
+    <string name="history_subtitle">Your completed and archived habits</string>
+    <string name="no_history_yet">No completed habits yet. Keep going!</string>
+    <string name="habit_history_title">Habit History</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.firstapp;
 
+import android.app.Application;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,16 +16,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.firstapp.data.ChallengeRepository;
+import com.example.firstapp.data.HabitRepository;
 import com.example.firstapp.models.ArenaUiState;
 import com.example.firstapp.models.Challenge;
+import com.example.firstapp.models.Habit;
 import com.example.firstapp.models.UserRank;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +41,12 @@ public class ArenaFragment extends Fragment {
     private ArenaViewModel viewModel;
     private ArenaAdapter ongoingAdapter;
     private ArenaAdapter availableAdapter;
+    private HistoryAdapter historyAdapter;
     
     private TextView tvRankValue;
     private TextView tvPercentile;
     private Button btnCreate;
     private Button btnLeaderboard;
-    private TextView tvSeeAllOngoing;
-    private TextView tvSeeAllAvailable;
 
     @Nullable
     @Override
@@ -61,18 +67,7 @@ public class ArenaFragment extends Fragment {
                 tvPercentile.setText(getString(R.string.percentile_format, state.getUserRank().getPercentile()));
                 ongoingAdapter.setItems(state.getOngoingChallenges());
                 availableAdapter.setItems(state.getAvailableChallenges());
-            }
-        });
-
-        tvSeeAllOngoing.setOnClickListener(v -> {
-            if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_analytics);
-            }
-        });
-
-        tvSeeAllAvailable.setOnClickListener(v -> {
-            if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_search);
+                historyAdapter.setItems(state.getHabitHistory());
             }
         });
 
@@ -94,32 +89,62 @@ public class ArenaFragment extends Fragment {
         tvPercentile = view.findViewById(R.id.tv_percentile);
         btnCreate = view.findViewById(R.id.btn_create);
         btnLeaderboard = view.findViewById(R.id.btn_leaderboard);
-        tvSeeAllOngoing = view.findViewById(R.id.tv_see_all_ongoing);
-        tvSeeAllAvailable = view.findViewById(R.id.tv_see_all_available);
     }
 
     private void setupRecyclerViews(View view) {
-        RecyclerView rvOngoing = view.findViewById(R.id.rv_ongoing);
-        RecyclerView rvAvailable = view.findViewById(R.id.rv_available);
         ongoingAdapter = new ArenaAdapter(true, null);
         availableAdapter = new ArenaAdapter(false, challenge -> viewModel.joinChallenge(challenge));
-        rvOngoing.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvOngoing.setAdapter(ongoingAdapter);
-        rvAvailable.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvAvailable.setAdapter(availableAdapter);
+        historyAdapter = new HistoryAdapter(new ArrayList<>());
+
+        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+        ViewPager2 viewPager = view.findViewById(R.id.view_pager);
+
+        viewPager.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+            @NonNull
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                RecyclerView rv = new RecyclerView(parent.getContext());
+                rv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                rv.setLayoutManager(new LinearLayoutManager(parent.getContext()));
+                rv.setPadding(0, 20, 0, 200);
+                rv.setClipToPadding(false);
+                return new RecyclerView.ViewHolder(rv) {};
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                RecyclerView rv = (RecyclerView) holder.itemView;
+                if (position == 0) rv.setAdapter(ongoingAdapter);
+                else if (position == 1) rv.setAdapter(availableAdapter);
+                else rv.setAdapter(historyAdapter);
+            }
+
+            @Override
+            public int getItemCount() { return 3; }
+        });
+
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            if (position == 0) tab.setText(R.string.ongoing_competitions);
+            else if (position == 1) tab.setText(R.string.join_new_challenge);
+            else tab.setText(R.string.history_title);
+        }).attach();
     }
 
-    public static class ArenaViewModel extends androidx.lifecycle.AndroidViewModel {
+    public static class ArenaViewModel extends AndroidViewModel {
         private final MutableLiveData<ArenaUiState> _uiState = new MutableLiveData<>();
         public LiveData<ArenaUiState> getUiState() { return _uiState; }
         
         private static final String PREFS_NAME = "arena_prefs";
         private static final String JOINED_KEY = "joined_challenges";
         private final android.content.SharedPreferences prefs;
+        private final HabitRepository habitRepository;
+        private final ChallengeRepository challengeRepository;
 
-        public ArenaViewModel(@NonNull android.app.Application application) {
+        public ArenaViewModel(@NonNull Application application) {
             super(application);
             prefs = application.getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE);
+            habitRepository = new HabitRepository(application);
+            challengeRepository = new ChallengeRepository(application);
             loadData();
         }
 
@@ -128,22 +153,9 @@ public class ArenaFragment extends Fragment {
             
             UserRank rank = new UserRank(42, 15);
             
-            List<Challenge> allChallenges = new ArrayList<>();
-            allChallenges.add(new Challenge("1", "30-Day Meditation", 128, "18d left", 40, false, R.drawable.ic_meditation, "Meditation", "#6B3FD4"));
-            allChallenges.add(new Challenge("2", "Morning Workout", 85, "6d left", 60, false, R.drawable.ic_workout, "Workout", "#6B3FD4"));
-            allChallenges.add(new Challenge("3", "No Social Media", 234, "7 days", 0, false, R.drawable.ic_social, "Social", "#38BDF8"));
-            allChallenges.add(new Challenge("4", "Reading Marathon", 156, "14 days", 0, false, R.drawable.ic_reading, "Reading", "#34D399"));
-            allChallenges.add(new Challenge("5", "Hydration Challenge", 312, "30 days", 0, false, R.drawable.ic_health, "Health", "#818CF8"));
-            allChallenges.add(new Challenge("6", "Sleep by 10 PM", 189, "21 days", 0, false, R.drawable.ic_sleep, "Sleep", "#F59E0B"));
+            List<Challenge> allChallenges = challengeRepository.getAllChallenges();
 
-            // Load custom challenges from repository
-            com.example.firstapp.data.ChallengeRepository repo = new com.example.firstapp.data.ChallengeRepository(getApplication());
-            List<Challenge> customChallenges = repo.getCustomChallenges();
-            for (Challenge c : customChallenges) {
-                c.setActive(true); // Custom challenges created by user are active
-            }
-
-            List<Challenge> ongoing = new ArrayList<>(customChallenges);
+            List<Challenge> ongoing = new ArrayList<>();
             List<Challenge> available = new ArrayList<>();
 
             for (Challenge c : allChallenges) {
@@ -155,8 +167,7 @@ public class ArenaFragment extends Fragment {
                 }
             }
             
-            // For the mock, if none are joined yet and no custom challenges, let's join the first two
-            if (joinedIds.isEmpty() && customChallenges.isEmpty()) {
+            if (joinedIds.isEmpty()) {
                 ongoing.add(allChallenges.get(0));
                 ongoing.add(allChallenges.get(1));
                 allChallenges.get(0).setActive(true);
@@ -170,7 +181,9 @@ public class ArenaFragment extends Fragment {
                 prefs.edit().putStringSet(JOINED_KEY, initialJoined).apply();
             }
 
-            _uiState.setValue(new ArenaUiState(rank, ongoing, available));
+            List<Habit> history = habitRepository.getArchivedHabits();
+
+            _uiState.setValue(new ArenaUiState(rank, ongoing, available, history));
         }
 
         public void joinChallenge(Challenge challenge) {
@@ -187,7 +200,7 @@ public class ArenaFragment extends Fragment {
                     joinedIds.add(challenge.getId());
                     prefs.edit().putStringSet(JOINED_KEY, joinedIds).apply();
 
-                    _uiState.setValue(new ArenaUiState(currentState.getUserRank(), ongoing, available));
+                    _uiState.setValue(new ArenaUiState(currentState.getUserRank(), ongoing, available, currentState.getHabitHistory()));
                 }
             }
         }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_primary">#9D7CFF</color> <!-- Lighter purple for dark mode -->
+    <color name="purple_dark">#6B3FD4</color>
+    <color name="purple_light">#2D1F52</color>
+    <color name="bg_light">#0F0F1A</color> <!-- Deep navy background -->
+    <color name="bg_white">#1E1E2E</color> <!-- Card background in dark mode -->
+    <color name="text_dark">#F0F0FF</color> <!-- Almost white text -->
+    <color name="text_secondary">#B8B8CC</color>
+    <color name="text_hint">#6B6B80</color>
+    <color name="input_bg">#1E1E2E</color>
+    <color name="input_border">#2D2D3F</color>
+
+    <color name="nav_item_selected">#9D7CFF</color>
+    <color name="nav_item_unselected">#6B6B80</color>
+
+    <!-- Discover Page Colors - Muted for Dark Mode -->
+    <color name="category_fitness_bg">#1A1C3D</color>
+    <color name="category_fitness_text">#818CF8</color>
+    <color name="category_study_bg">#201B3D</color>
+    <color name="category_study_text">#A78BFA</color>
+    <color name="category_meditation_bg">#152C3D</color>
+    <color name="category_meditation_text">#22D3EE</color>
+
+    <color name="difficulty_easy_bg">#064E3B</color>
+    <color name="difficulty_easy_text">#4ADE80</color>
+    <color name="difficulty_medium_bg">#7C2D12</color>
+    <color name="difficulty_medium_text">#FB923C</color>
+    <color name="difficulty_hard_bg">#7F1D1D</color>
+    <color name="difficulty_hard_text">#F87171</color>
+</resources>

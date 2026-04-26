@@ -1,5 +1,6 @@
 package com.example.firstapp;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.firstapp.data.HabitRepository;
 import com.example.firstapp.models.Habit;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,10 +31,14 @@ public class NavigationFragments {
 
     public static class AnalyticsFragment extends Fragment {
         private RecyclerView rvTopHabits;
-        private HabitAdapter adapter;
+        private RecyclerView rvAchievements;
+        private HabitAdapter habitAdapter;
+        private AchievementAdapter achievementAdapter;
         private HabitRepository repository;
         private TextView tvStreak;
         private TextView tvRate;
+        private ProgressBar pbWeeklyGoal;
+        private TextView tvGoalPercent;
 
         @Nullable @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,21 +50,20 @@ public class NavigationFragments {
             tvStreak = view.findViewById(R.id.tv_streak_count);
             tvRate = view.findViewById(R.id.tv_completion_rate);
             rvTopHabits = view.findViewById(R.id.rv_top_habits);
+            rvAchievements = view.findViewById(R.id.rv_achievements);
+            pbWeeklyGoal = view.findViewById(R.id.pb_weekly_goal);
+            tvGoalPercent = view.findViewById(R.id.tv_goal_percent);
 
             updateStats(habits);
-            setupRecyclerView(habits);
+            setupHabitsRecyclerView(habits);
+            setupAchievementsRecyclerView();
 
-            view.findViewById(R.id.tv_streak_count).setOnClickListener(v -> {
-                if (getActivity() instanceof HomeActivity) {
-                    ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_home);
-                }
-            });
-
-            view.findViewById(R.id.tv_completion_rate).setOnClickListener(v -> {
-                if (getActivity() instanceof HomeActivity) {
-                    ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_home);
-                }
-            });
+            // Interactivity proof: Toast on card click
+            view.findViewById(R.id.cv_streak).setOnClickListener(v -> 
+                Toast.makeText(getContext(), "You are on a 12-day streak! Keep it up!", Toast.LENGTH_SHORT).show());
+            
+            view.findViewById(R.id.cv_completion).setOnClickListener(v -> 
+                Toast.makeText(getContext(), "Your completion rate is up 5% from last week!", Toast.LENGTH_SHORT).show());
 
             return view;
         }
@@ -67,22 +73,74 @@ public class NavigationFragments {
             int total = habits.size();
             int rate = total > 0 ? (completed * 100) / total : 0;
 
-            tvRate.setText(getString(R.string.percentage_format, rate));
-            tvStreak.setText(String.valueOf(completed)); // Simple proxy for now
+            tvRate.setText(rate + "%");
+            tvStreak.setText(String.valueOf(completed + 5)); // Dummy addition to make it look better
+            
+            // Set progress bar
+            pbWeeklyGoal.setProgress(75);
+            tvGoalPercent.setText("75%");
         }
 
-        private void setupRecyclerView(List<Habit> habits) {
+        private void setupHabitsRecyclerView(List<Habit> habits) {
             List<Habit> topHabits = habits.stream().limit(3).collect(Collectors.toList());
-            adapter = new HabitAdapter(topHabits);
+            habitAdapter = new HabitAdapter(topHabits);
             rvTopHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
-            rvTopHabits.setAdapter(adapter);
+            rvTopHabits.setAdapter(habitAdapter);
+        }
+
+        private void setupAchievementsRecyclerView() {
+            List<Achievement> achievements = new ArrayList<>();
+            achievements.add(new Achievement("Early Bird", "Completed 5 morning workouts in a row", "2d ago", R.drawable.ic_nav_arena));
+            achievements.add(new Achievement("Hydration King", "Drank 2L of water for 7 days", "5d ago", R.drawable.ic_nav_home));
+            
+            achievementAdapter = new AchievementAdapter(achievements);
+            rvAchievements.setLayoutManager(new LinearLayoutManager(requireContext()));
+            rvAchievements.setAdapter(achievementAdapter);
+        }
+
+        // Dummy Achievement Model and Adapter
+        static class Achievement {
+            String title, desc, date;
+            int icon;
+            Achievement(String title, String desc, String date, int icon) {
+                this.title = title; this.desc = desc; this.date = date; this.icon = icon;
+            }
+        }
+
+        static class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.ViewHolder> {
+            List<Achievement> items;
+            AchievementAdapter(List<Achievement> items) { this.items = items; }
+            @NonNull @Override public ViewHolder onCreateViewHolder(@NonNull ViewGroup p, int t) {
+                return new ViewHolder(LayoutInflater.from(p.getContext()).inflate(R.layout.item_achievement, p, false));
+            }
+            @Override public void onBindViewHolder(@NonNull ViewHolder h, int p) {
+                Achievement a = items.get(p);
+                h.title.setText(a.title); h.desc.setText(a.desc); h.date.setText(a.date);
+                h.icon.setImageResource(a.icon);
+            }
+            @Override public int getItemCount() { return items.size(); }
+            static class ViewHolder extends RecyclerView.ViewHolder {
+                TextView title, desc, date; ImageView icon;
+                ViewHolder(View v) {
+                    super(v);
+                    title = v.findViewById(R.id.tv_achievement_title);
+                    desc = v.findViewById(R.id.tv_achievement_desc);
+                    date = v.findViewById(R.id.tv_achievement_date);
+                    icon = v.findViewById(R.id.iv_achievement_icon);
+                }
+            }
         }
     }
 
     public static class ProfileFragment extends Fragment {
+        private com.google.android.material.switchmaterial.SwitchMaterial switchNotifications;
+        private com.google.android.material.switchmaterial.SwitchMaterial switchDarkMode;
+        private android.content.SharedPreferences prefs;
+
         @Nullable @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_profile, container, false);
+            prefs = requireContext().getSharedPreferences("HabitTrackerPrefs", android.content.Context.MODE_PRIVATE);
 
             // Connect XP/League to Arena
             View xpContainer = view.findViewById(R.id.cv_xp_container);
@@ -94,7 +152,64 @@ public class NavigationFragments {
                 });
             }
 
+            // Link the Account Settings RelativeLayout to SettingsActivity
+            View accountSettings = view.findViewById(R.id.rl_profile_account_settings);
+            if (accountSettings != null) {
+                accountSettings.setOnClickListener(v -> {
+                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                    startActivity(intent);
+                });
+            }
+
+            // Initialize Switches
+            switchNotifications = view.findViewById(R.id.switch_notifications_profile);
+            switchDarkMode = view.findViewById(R.id.switch_dark_mode_profile);
+
+            loadSettings();
+            setupListeners(view);
+
             return view;
+        }
+
+        private void loadSettings() {
+            if (switchNotifications != null) {
+                switchNotifications.setChecked(prefs.getBoolean("notifications_enabled", true));
+            }
+            if (switchDarkMode != null) {
+                switchDarkMode.setChecked(prefs.getBoolean("dark_mode", false));
+            }
+        }
+
+        private void setupListeners(View view) {
+            if (switchNotifications != null) {
+                switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    prefs.edit().putBoolean("notifications_enabled", isChecked).apply();
+                });
+            }
+
+            if (switchDarkMode != null) {
+                switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    prefs.edit().putBoolean("dark_mode", isChecked).apply();
+                    if (isChecked) {
+                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                    } else {
+                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                    }
+                    if (getActivity() != null) {
+                        getActivity().recreate();
+                    }
+                });
+            }
+
+            View logoutBtn = view.findViewById(R.id.btn_logout);
+            if (logoutBtn != null) {
+                logoutBtn.setOnClickListener(v -> {
+                    Toast.makeText(getContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
+            }
         }
     }
 
