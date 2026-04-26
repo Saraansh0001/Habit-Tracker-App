@@ -11,6 +11,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private BottomNavigationView bottomNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Apply theme before super.onCreate
@@ -39,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_home);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment());
@@ -52,13 +54,13 @@ public class HomeActivity extends AppCompatActivity {
             if (itemId == R.id.navigation_home) {
                 selectedFragment = new HomeFragment();
             } else if (itemId == R.id.navigation_search) {
-                selectedFragment = new DiscoverFragment();
+                selectedFragment = new NavigationFragments.SearchFragment();
             } else if (itemId == R.id.navigation_arena) {
                 selectedFragment = new ArenaFragment();
             } else if (itemId == R.id.navigation_analytics) {
-                selectedFragment = new NavigationFragments.AnalyticsFragment();
+                selectedFragment = new AnalyticsFragment();
             } else if (itemId == R.id.navigation_profile) {
-                selectedFragment = new NavigationFragments.ProfileFragment();
+                selectedFragment = new ProfileFragment();
             }
 
             if (selectedFragment != null) {
@@ -69,15 +71,17 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    public void navigateToTab(int itemId) {
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(itemId);
+        }
+    }
+
     public void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
                 .commit();
-    }
-
-    public void navigateToTab(int itemId) {
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setSelectedItemId(itemId);
     }
 }

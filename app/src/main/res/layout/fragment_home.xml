@@ -21,8 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:paddingBottom="120dp">
+            android:padding="20dp">
 
             <!-- Header Card -->
             <androidx.cardview.widget.CardView
@@ -251,7 +250,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_search_input"
-                    android:hint="Search habits..."
+                    android:hint="@string/search_habits_hint"
                     android:paddingHorizontal="16dp"
                     android:drawableStart="@android:drawable/ic_menu_search"
                     android:drawablePadding="12dp"
@@ -276,26 +275,26 @@
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="All"
+                            android:text="@string/cat_all"
                             android:checked="true" />
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_health"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Health" />
+                            android:text="@string/cat_health" />
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_productivity"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Productivity" />
+                            android:text="@string/cat_productivity" />
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_mindfulness"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Mindfulness" />
+                            android:text="@string/cat_mindfulness" />
                     </com.google.android.material.chip.ChipGroup>
                 </HorizontalScrollView>
             </LinearLayout>

@@ -8,10 +8,12 @@
     android:background="@color/bg_light">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
         android:clipToPadding="false"
+        android:paddingBottom="80dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +22,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="80dp">
+            android:orientation="vertical">
 
             <!-- Header Section -->
             <androidx.cardview.widget.CardView
@@ -71,7 +72,7 @@
                     android:layout_marginTop="-40dp">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cv_streak"
+                        android:id="@+id/card_streak"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -106,7 +107,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cv_completion"
+                        android:id="@+id/card_completion"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -141,95 +142,56 @@
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
-                <!-- Weekly Goal Completion -->
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Activity Chart Placeholder -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Weekly Goal Completion"
-                    android:textColor="@color/text_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="32dp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="32dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/weekly_progress"
+                        android:textColor="@color/text_dark"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tv_this_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_this_week"
+                        android:textColor="@color/purple_primary"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:layout_marginTop="16dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
                     app:cardBackgroundColor="@color/bg_white">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="20dp"
-                        android:gravity="center_vertical">
-
-                        <RelativeLayout
-                            android:layout_width="100dp"
-                            android:layout_height="100dp">
-                            <ProgressBar
-                                android:id="@+id/pb_weekly_goal"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:indeterminate="false"
-                                android:progressDrawable="@drawable/circular_progress_bar"
-                                android:background="@drawable/circular_shape"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:max="100"
-                                android:progress="75" />
-                            <TextView
-                                android:id="@+id/tv_goal_percent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="75%"
-                                android:textColor="@color/purple_primary"
-                                android:textStyle="bold"
-                                android:textSize="18sp" />
-                        </RelativeLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_nav_analytics"
+                            app:tint="@color/purple_light" />
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginStart="24dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Almost there!"
-                                android:textColor="@color/text_dark"
-                                android:textStyle="bold"
-                                android:textSize="16sp" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="You've completed 15 out of 20 goals this week."
-                                android:textColor="@color/text_secondary"
-                                android:textSize="13sp"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
+                            android:layout_marginTop="8dp"
+                            android:text="@string/chart_coming_soon"
+                            android:textColor="@color/text_secondary" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
-                <!-- Recent Achievements -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Recent Achievements"
-                    android:textColor="@color/text_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="32dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_achievements"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:nestedScrollingEnabled="false"
-                    tools:listitem="@layout/item_achievement" />
 
                 <!-- Best Habits -->
                 <TextView
@@ -248,6 +210,24 @@
                     android:layout_marginTop="16dp"
                     android:nestedScrollingEnabled="false"
                     tools:listitem="@layout/item_habit_discover" />
+
+                <!-- Habit History -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/habit_history_title"
+                    android:textColor="@color/text_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="32dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_habit_history" />
 
             </LinearLayout>
         </LinearLayout>

@@ -48,6 +48,17 @@
     <string name="create_challenge">Create Challenge</string>
     <string name="leaderboard">Leaderboard</string>
 
+    <!-- Analytics Page -->
+    <string name="analytics_title">Your Progress</string>
+    <string name="analytics_subtitle">Track your consistency and growth</string>
+    <string name="day_streak">Day Streak</string>
+    <string name="completion_rate">Completion Rate</string>
+    <string name="weekly_progress">Weekly Progress</string>
+    <string name="chart_coming_soon">Insightful charts coming soon!</string>
+    <string name="top_performing_habits">Top Performing Habits</string>
+    <string name="label_this_week">This Week</string>
+    <string name="habit_history_title">Habit History</string>
+
     <!-- Formatting -->
     <string name="percentage_format">%1$d%%</string>
     <string name="rank_format">#%1$d</string>
@@ -109,18 +120,45 @@
     <string name="filter_message">Filter: %1$s</string>
     <string name="showing_all_habits">Showing all habits</string>
     <string name="habit_added">%1$s added!</string>
-    <string name="add_habit_btn">+ Add Habit</string>
-    <string name="difficulty_medium">Medium</string>
-    <string name="coming_soon">Coming Soon</string>
-    <string name="analytics_title">Analytics</string>
-    <string name="analytics_subtitle">Your progress and habit insights</string>
-    <string name="day_streak">Day Streak</string>
-    <string name="completion_rate">Completion Rate</string>
-    <string name="weekly_progress">Weekly Progress</string>
-    <string name="chart_coming_soon">Progress charts are coming soon!</string>
-    <string name="top_performing_habits">Top Performing Habits</string>
-    <string name="history_title">History</string>
-    <string name="history_subtitle">Your completed and archived habits</string>
-    <string name="no_history_yet">No completed habits yet. Keep going!</string>
-    <string name="habit_history_title">Habit History</string>
+    <string name="welcome_tagline">Level Up Your Life, One Habit at a Time.</string>
+    <string name="welcome_zen">Zen</string>
+    <string name="welcome_fit">Fit</string>
+    <string name="welcome_focus">Focus</string>
+    <string name="welcome_rest">Rest</string>
+    <string name="welcome_vitality">Vitality</string>
+    <string name="welcome_connect">Connect</string>
+    <string name="welcome_social_proof">Join 10,000+ users building a better version of themselves every day.</string>
+    <string name="get_started">Get Started</string>
+    <string name="cat_all">All</string>
+    <string name="cat_mindfulness">Mindfulness</string>
+    <string name="habit_title_placeholder">Habit Title</string>
+    <string name="category_placeholder">Category</string>
+    <string name="today_label">Today</string>
+    <string name="settings_title">Settings</string>
+    <string name="help_center">Help Center</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="app_version_default">App Version 1.0.4</string>
+    <string name="account_section">Account</string>
+    <string name="support_section">Support</string>
+    <string name="preferences_section">Preferences</string>
+    <string name="log_out">Log Out</string>
+    <string name="edit_profile_name">Edit profile name</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="notifications">Notifications</string>
+    <string name="reminder_time">Reminder Time</string>
+    <string name="current_streak">Current Streak</string>
+    <string name="success_rate">Success Rate</string>
+    <string name="about_habit">About this habit</string>
+    <string name="progress_history">Progress History</string>
+    <string name="category_format">Category: %1$s</string>
+    <string name="difficulty_format">Difficulty: %1$s</string>
+    <string name="calendar_coming_soon">Calendar View Coming Soon</string>
+    <string name="profile_rank_default">Warrior 🎖️</string>
+    <string name="streak_count_format">🔥 %1$d streak</string>
+    <string name="xp_count_format">⚡ %1$s XP</string>
+    <string name="badges_title_format">🏅 Badges (%1$d)</string>
+    <string name="see_all">See all</string>
+    <string name="your_features">✨ Your Features</string>
+    <string name="all_features">All features</string>
+    <string name="your_stats">📊 Your Stats</string>
 </resources>

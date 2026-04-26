@@ -34,19 +34,17 @@ public class CreateChallengeFragment extends Fragment {
             if (getActivity() != null) getActivity().onBackPressed();
         });
 
+        EditText etName = view.findViewById(R.id.et_challenge_name);
+        EditText etDescription = view.findViewById(R.id.et_description);
+        EditText etParticipants = view.findViewById(R.id.et_participants);
+        ChipGroup cgHabitType = view.findViewById(R.id.cg_habit_type);
+        ChipGroup cgDuration = view.findViewById(R.id.cg_duration);
         Button btnCreate = view.findViewById(R.id.btn_create_final);
-        btnCreate.setOnClickListener(v -> {
-            EditText etName = view.findViewById(R.id.et_challenge_name);
-            EditText etParticipants = view.findViewById(R.id.et_participants);
-            ChipGroup cgHabitType = view.findViewById(R.id.cg_habit_type);
-            ChipGroup cgDuration = view.findViewById(R.id.cg_duration);
 
+        btnCreate.setOnClickListener(v -> {
             String name = etName.getText().toString();
             String participantsStr = etParticipants.getText().toString();
             
-            int checkedTypeChipId = cgHabitType.getCheckedChipId();
-            int checkedDurationChipId = cgDuration.getCheckedChipId();
-
             if (name.isEmpty()) {
                 Toast.makeText(getContext(), R.string.error_challenge_name, Toast.LENGTH_SHORT).show();
                 return;
@@ -54,45 +52,70 @@ public class CreateChallengeFragment extends Fragment {
 
             int participants = participantsStr.isEmpty() ? 50 : Integer.parseInt(participantsStr);
             
+            // Get selected habit type
+            int typeId = cgHabitType.getCheckedChipId();
             String type = "Custom";
-            if (checkedTypeChipId != View.NO_ID) {
-                Chip chip = cgHabitType.findViewById(checkedTypeChipId);
+            if (typeId != View.NO_ID) {
+                Chip chip = cgHabitType.findViewById(typeId);
                 type = chip.getText().toString();
             }
 
-            String duration = "7 days";
-            if (checkedDurationChipId != View.NO_ID) {
-                Chip chip = cgDuration.findViewById(checkedDurationChipId);
+            // Get selected duration
+            int durationId = cgDuration.getCheckedChipId();
+            String duration = "30d";
+            if (durationId != View.NO_ID) {
+                Chip chip = cgDuration.findViewById(durationId);
                 duration = chip.getText().toString();
             }
 
             // Determine Icon and Color based on type
-            int iconRes = R.drawable.ic_nav_arena;
-            String color = "#6B3FD4";
-            
-            if (type.equals("Fitness")) { iconRes = R.drawable.ic_workout; color = "#EF4444"; }
-            else if (type.equals("Meditation")) { iconRes = R.drawable.ic_meditation; color = "#6B3FD4"; }
-            else if (type.equals("Study")) { iconRes = R.drawable.ic_reading; color = "#34D399"; }
-            else if (type.equals("Health")) { iconRes = R.drawable.ic_health; color = "#818CF8"; }
+            int iconRes = getIconForType(type);
+            String color = getColorForType(type);
 
             Challenge newChallenge = new Challenge(
-                UUID.randomUUID().toString(),
-                name,
-                participants,
-                duration,
-                0,
-                false,
-                iconRes,
-                type,
-                color
+                    UUID.randomUUID().toString(),
+                    name,
+                    participants,
+                    duration + " left",
+                    0,
+                    false, 
+                    iconRes,
+                    type,
+                    color
             );
 
             repository.addChallenge(newChallenge);
 
             Toast.makeText(getContext(), getString(R.string.challenge_created, name), Toast.LENGTH_LONG).show();
-            if (getActivity() != null) getActivity().onBackPressed();
+            
+            if (getActivity() != null) {
+                getActivity().onBackPressed();
+            }
         });
 
         return view;
+    }
+
+    private int getIconForType(String type) {
+        switch (type) {
+            case "Fitness": return R.drawable.ic_workout;
+            case "Meditation": return R.drawable.ic_meditation;
+            case "Study": return R.drawable.ic_reading;
+            case "Health": return R.drawable.ic_health;
+            case "Sleep": return R.drawable.ic_sleep;
+            default: return R.drawable.ic_bolt;
+        }
+    }
+
+    private String getColorForType(String type) {
+        switch (type) {
+            case "Fitness": return "#EF4444";
+            case "Meditation": return "#6B3FD4";
+            case "Study": return "#34D399";
+            case "Health": return "#818CF8";
+            case "Sleep": return "#F59E0B";
+            case "Social": return "#38BDF8";
+            default: return "#6B3FD4";
+        }
     }
 }

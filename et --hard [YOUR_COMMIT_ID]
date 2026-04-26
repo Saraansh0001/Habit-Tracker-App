@@ -1,0 +1,28 @@
+[33m2a23b20[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32msachin[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33m2a23b20[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32msachin[m[33m)[m HEAD@{1}: commit: laksya updates
+[33m0aa2775[m HEAD@{2}: commit: Merged latest team updates
+[33mc799cca[m HEAD@{3}: commit (merge): Merge branch 'main' into sachin and resolved all conflicts
+[33m244566a[m HEAD@{4}: commit: Local backup before pull
+[33m094c433[m HEAD@{5}: commit: UI: Added Create Challenge layout and finalized today's improvements and created analytics page
+[33m84c6190[m HEAD@{6}: Branch: renamed refs/heads/sachin-feature to refs/heads/sachin
+[33m84c6190[m HEAD@{8}: rebase (finish): returning to refs/heads/sachin-feature
+[33m84c6190[m HEAD@{9}: rebase (start): checkout origin/main
+[33m809c184[m HEAD@{10}: commit: Cleanup: Removed unused fragments and updated Activity/Fragment logic for Home & Arena
+[33m2c20765[m HEAD@{11}: commit: UI: Added extra habit item and improved Home Fragment layout
+[33mefba3e4[m HEAD@{12}: checkout: moving from main to sachin-feature
+[33m554b810[m[33m ([m[1;32mmain[m[33m)[m HEAD@{13}: checkout: moving from new-feature-name to main
+[33m554b810[m[33m ([m[1;32mmain[m[33m)[m HEAD@{14}: checkout: moving from main to new-feature-name
+[33m554b810[m[33m ([m[1;32mmain[m[33m)[m HEAD@{15}: reset: moving to origin/main
+[33m554b810[m[33m ([m[1;32mmain[m[33m)[m HEAD@{16}: pull origin main: Fast-forward
+[33m70847f3[m HEAD@{17}: checkout: moving from sachin-feature to main
+[33mefba3e4[m HEAD@{18}: merge main: Merge made by the 'ort' strategy.
+[33mee125bc[m HEAD@{19}: checkout: moving from main to sachin-feature
+[33m70847f3[m HEAD@{20}: pull origin main: Merge made by the 'ort' strategy.
+[33m7161bb9[m HEAD@{21}: checkout: moving from sachin-feature to main
+[33mee125bc[m HEAD@{22}: commit: feat: fix getColor error and update arena layout
+[33m7161bb9[m HEAD@{23}: checkout: moving from main to sachin-feature
+[33m7161bb9[m HEAD@{24}: commit: save my work before pulling
+[33m7f921a7[m HEAD@{25}: commit: feat: implement fragment navigation and redesign Arena UI
+[33m60b67c5[m HEAD@{26}: commit: Implemented full bottom navigation and redesigned the Arena screen. Also fixed the build error by adding missing IDs and improved overall scrollability and button visibility.
+[33m19a4f57[m HEAD@{27}: commit: added missing IDs to home activity layout and implemented bottom navigation
+[33m49d7fe6[m HEAD@{28}: clone: from https://github.com/Saraansh0001/Habit-Tracker-App.git

@@ -1,5 +1,6 @@
 package com.example.firstapp.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArenaUiState {
@@ -13,6 +14,10 @@ public class ArenaUiState {
         this.ongoingChallenges = ongoingChallenges;
         this.availableChallenges = availableChallenges;
         this.habitHistory = habitHistory;
+    }
+
+    public ArenaUiState(UserRank userRank, List<Challenge> ongoingChallenges, List<Challenge> availableChallenges) {
+        this(userRank, ongoingChallenges, availableChallenges, new ArrayList<>());
     }
 
     public UserRank getUserRank() { return userRank; }
