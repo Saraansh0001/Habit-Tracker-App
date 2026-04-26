@@ -21,8 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:paddingBottom="120dp">
+            android:padding="20dp">
 
             <!-- Header Card -->
             <androidx.cardview.widget.CardView
@@ -307,6 +306,11 @@
                 android:layout_marginTop="16dp"
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/item_habit_home" />
+
+            <!-- Spacer to ensure the last habit card is not hidden behind the FAB -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
