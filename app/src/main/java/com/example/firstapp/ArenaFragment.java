@@ -17,11 +17,12 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.firstapp.data.ChallengeRepository;
+import com.example.firstapp.data.HabitRepository;
 import com.example.firstapp.models.ArenaUiState;
 import com.example.firstapp.models.Challenge;
 import com.example.firstapp.models.UserRank;
@@ -116,10 +117,14 @@ public class ArenaFragment extends Fragment {
         private static final String PREFS_NAME = "arena_prefs";
         private static final String JOINED_KEY = "joined_challenges";
         private final android.content.SharedPreferences prefs;
+        private final HabitRepository habitRepository;
+        private final ChallengeRepository challengeRepository;
 
         public ArenaViewModel(@NonNull android.app.Application application) {
             super(application);
             prefs = application.getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE);
+            habitRepository = new HabitRepository(application);
+            challengeRepository = new ChallengeRepository(application);
             loadData();
         }
 
@@ -128,13 +133,7 @@ public class ArenaFragment extends Fragment {
             
             UserRank rank = new UserRank(42, 15);
             
-            List<Challenge> allChallenges = new ArrayList<>();
-            allChallenges.add(new Challenge("1", "30-Day Meditation", 128, "18d left", 40, false, R.drawable.ic_meditation, "Meditation", "#6B3FD4"));
-            allChallenges.add(new Challenge("2", "Morning Workout", 85, "6d left", 60, false, R.drawable.ic_workout, "Workout", "#6B3FD4"));
-            allChallenges.add(new Challenge("3", "No Social Media", 234, "7 days", 0, false, R.drawable.ic_social, "Social", "#38BDF8"));
-            allChallenges.add(new Challenge("4", "Reading Marathon", 156, "14 days", 0, false, R.drawable.ic_reading, "Reading", "#34D399"));
-            allChallenges.add(new Challenge("5", "Hydration Challenge", 312, "30 days", 0, false, R.drawable.ic_health, "Health", "#818CF8"));
-            allChallenges.add(new Challenge("6", "Sleep by 10 PM", 189, "21 days", 0, false, R.drawable.ic_sleep, "Sleep", "#F59E0B"));
+            List<Challenge> allChallenges = challengeRepository.getAllChallenges();
 
             List<Challenge> ongoing = new ArrayList<>();
             List<Challenge> available = new ArrayList<>();
@@ -148,19 +147,20 @@ public class ArenaFragment extends Fragment {
                 }
             }
             
-            // For the mock, if none are joined yet, let's join the first two by default if it's the first run
-            if (joinedIds.isEmpty()) {
-                ongoing.add(allChallenges.get(0));
-                ongoing.add(allChallenges.get(1));
-                allChallenges.get(0).setActive(true);
-                allChallenges.get(1).setActive(true);
-                available.remove(allChallenges.get(0));
-                available.remove(allChallenges.get(1));
-                
-                java.util.Set<String> initialJoined = new java.util.HashSet<>();
-                initialJoined.add("1");
-                initialJoined.add("2");
-                prefs.edit().putStringSet(JOINED_KEY, initialJoined).apply();
+            if (joinedIds.isEmpty() && !allChallenges.isEmpty()) {
+                if (allChallenges.size() >= 2) {
+                    ongoing.add(allChallenges.get(0));
+                    ongoing.add(allChallenges.get(1));
+                    allChallenges.get(0).setActive(true);
+                    allChallenges.get(1).setActive(true);
+                    available.remove(allChallenges.get(0));
+                    available.remove(allChallenges.get(1));
+                    
+                    java.util.Set<String> initialJoined = new java.util.HashSet<>();
+                    initialJoined.add(allChallenges.get(0).getId());
+                    initialJoined.add(allChallenges.get(1).getId());
+                    prefs.edit().putStringSet(JOINED_KEY, initialJoined).apply();
+                }
             }
 
             _uiState.setValue(new ArenaUiState(rank, ongoing, available));

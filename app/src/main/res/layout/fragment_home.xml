@@ -110,7 +110,7 @@
                                 android:id="@+id/tv_progress_percentage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/percentage_50"
+                                android:text="50%"
                                 android:textColor="@android:color/white"
                                 android:textSize="22sp"
                                 android:textStyle="bold" />
@@ -183,7 +183,7 @@
                 <!-- Streaks -->
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:gravity="center" android:layout_marginBottom="16dp">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="16dp" app:cardBackgroundColor="@android:color/white" app:cardElevation="2dp">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="@color/purple_primary" contentDescription="@string/feature_streaks" />
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="@color/purple_primary" />
                     </androidx.cardview.widget.CardView>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/feature_streaks" android:textSize="12sp" android:layout_marginTop="8dp" />
                 </LinearLayout>
@@ -191,7 +191,7 @@
                 <!-- Timer -->
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:gravity="center">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="16dp" app:cardBackgroundColor="@android:color/white" app:cardElevation="2dp">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="#FF5252" contentDescription="@string/feature_timer" />
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="#FF5252" />
                     </androidx.cardview.widget.CardView>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/feature_timer" android:textSize="12sp" android:layout_marginTop="8dp" />
                 </LinearLayout>
@@ -199,7 +199,7 @@
                 <!-- Goals -->
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:gravity="center">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="16dp" app:cardBackgroundColor="@android:color/white" app:cardElevation="2dp">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="#4CAF50" contentDescription="@string/feature_goals" />
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="#4CAF50" />
                     </androidx.cardview.widget.CardView>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/feature_goals" android:textSize="12sp" android:layout_marginTop="8dp" />
                 </LinearLayout>
@@ -207,7 +207,7 @@
                 <!-- Journal -->
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:gravity="center">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="16dp" app:cardBackgroundColor="@android:color/white" app:cardElevation="2dp">
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="#2196F3" contentDescription="@string/feature_journal" />
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="#2196F3" />
                     </androidx.cardview.widget.CardView>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/feature_journal" android:textSize="12sp" android:layout_marginTop="8dp" />
                 </LinearLayout>
@@ -217,7 +217,8 @@
             <!-- Habits Section -->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:layout_marginTop="24dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -258,7 +259,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@android:color/white"
         app:backgroundTint="@color/purple_primary"
-        app:fabSize="normal"
-        android:contentDescription="@string/create_challenge" />
+        app:fabSize="normal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

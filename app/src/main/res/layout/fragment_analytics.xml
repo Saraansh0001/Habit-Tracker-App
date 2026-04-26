@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,11 +8,16 @@
     android:background="@color/bg_light">
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:fillViewport="true"
         android:clipToPadding="false"
-        android:paddingBottom="80dp">
+        android:paddingBottom="80dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,7 +78,11 @@
                         android:layout_weight="1"
                         app:cardCornerRadius="16dp"
                         app:cardElevation="4dp"
-                        android:layout_marginEnd="8dp">
+                        android:layout_marginEnd="8dp"
+                        app:cardBackgroundColor="@color/bg_white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -104,7 +113,11 @@
                         android:layout_weight="1"
                         app:cardCornerRadius="16dp"
                         app:cardElevation="4dp"
-                        android:layout_marginStart="8dp">
+                        android:layout_marginStart="8dp"
+                        app:cardBackgroundColor="@color/bg_white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -159,7 +172,7 @@
                     android:layout_marginTop="16dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
-                    app:cardBackgroundColor="@android:color/white">
+                    app:cardBackgroundColor="@color/bg_white">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -198,8 +211,26 @@
                     android:nestedScrollingEnabled="false"
                     tools:listitem="@layout/item_habit_discover" />
 
+                <!-- Habit History -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/habit_history_title"
+                    android:textColor="@color/text_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="32dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_habit_history" />
+
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
