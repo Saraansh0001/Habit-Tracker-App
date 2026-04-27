@@ -39,7 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Edge-to-edge: let content draw behind system bars
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        android.graphics.Color.TRANSPARENT;
         getWindow().setStatusBarColor(android.graphics.Color.TRANSPARENT);
         getWindow().setNavigationBarColor(android.graphics.Color.TRANSPARENT);
 
