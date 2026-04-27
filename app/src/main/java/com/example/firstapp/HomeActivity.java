@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -26,22 +31,25 @@ public class HomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        // Update status bar icons based on theme
-        if (darkMode) {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        } else {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            );
-        }
+        // Enable Edge-to-Edge
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+        getWindow().setNavigationBarColor(Color.TRANSPARENT);
 
         setContentView(R.layout.activity_home);
 
+        View root = findViewById(R.id.main_content);
         bottomNav = findViewById(R.id.bottom_navigation);
+
+        // Apply window insets to handle status bar and navigation bar
+        ViewCompat.setOnApplyWindowInsetsListener(root, (v, windowInsets) -> {
+            Insets systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            
+            // Adjust BottomNav padding for navigation bar
+            bottomNav.setPadding(0, 0, 0, systemBars.bottom);
+            
+            return windowInsets;
+        });
         
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment());
