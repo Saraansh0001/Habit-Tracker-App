@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="2dp">
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/bg_white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,13 +22,13 @@
             android:layout_height="48dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#F1F5F9">
+            app:cardBackgroundColor="@color/input_border">
             <ImageView
                 android:id="@+id/iv_habit_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_bolt"
+                android:src="@drawable/ic_nav_home"
                 app:tint="@color/purple_primary" />
         </androidx.cardview.widget.CardView>
 
@@ -38,42 +39,40 @@
             android:orientation="vertical"
             android:layout_marginStart="16dp">
 
-            <!-- Title used by both HistoryAdapter (tv_habit_title) and FocusTimer (tv_history_title) -->
-            <FrameLayout
+            <TextView
+                android:id="@+id/tv_habit_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_habit_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Habit Title"
-                    android:textColor="@color/text_dark"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tv_history_title"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="gone" />
-            </FrameLayout>
+                android:layout_height="wrap_content"
+                android:text="Habit Title"
+                android:textColor="@color/text_dark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <!-- Subtitle/Category used by both -->
-            <FrameLayout
+            <TextView
+                android:id="@+id/tv_history_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_habit_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Category"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
-                <TextView
-                    android:id="@+id/tv_history_date"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="gone" />
-            </FrameLayout>
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_dark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_habit_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_history_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -82,7 +81,6 @@
             android:orientation="vertical"
             android:gravity="end">
 
-            <!-- Date used by HistoryAdapter -->
             <TextView
                 android:id="@+id/tv_completed_date"
                 android:layout_width="wrap_content"
@@ -91,7 +89,6 @@
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
-            <!-- Stats used by FocusTimer -->
             <TextView
                 android:id="@+id/tv_history_time"
                 android:layout_width="wrap_content"
@@ -105,7 +102,7 @@
                 android:id="@+id/tv_history_xp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#10B981"
+                android:textColor="@color/difficulty_easy_text"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:visibility="gone" />

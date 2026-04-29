@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -106,7 +105,7 @@ public class AnalyticsFragment extends Fragment {
             });
         }
         
-        TextView tvThisWeek = view.findViewById(R.id.tv_this_week);
+        View tvThisWeek = view.findViewById(R.id.tv_this_week);
         if (tvThisWeek != null) {
             tvThisWeek.setOnClickListener(v -> {
                 if (getActivity() instanceof HomeActivity) {
@@ -125,7 +124,4 @@ public class AnalyticsFragment extends Fragment {
         }
     }
 
-    private void showToast(String message) {
-        // Toast removed
-    }
 }

@@ -26,7 +26,7 @@
                 android:layout_height="48dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#F5F3FF">
+                app:cardBackgroundColor="@color/purple_light">
                 <ImageView
                     android:id="@+id/iv_habit_icon"
                     android:layout_width="24dp"
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Morning Meditation"
-                    android:textColor="#1E293B"
+                    android:textColor="@color/text_dark"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1 of 5x this week"
-                    android:textColor="#64748B"
+                    android:textColor="@color/text_secondary"
                     android:textSize="12sp"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
@@ -69,7 +69,7 @@
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="6dp"
                 android:background="@drawable/bg_pill_active"
-                android:backgroundTint="#6366F1"
+                android:backgroundTint="@color/purple_primary"
                 android:text="@string/done_label"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
@@ -92,13 +92,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="20% of weekly goal"
-            android:textColor="#94A3B8"
+            android:textColor="@color/text_hint"
             android:textSize="11sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#F1F5F9"
+            android:background="@color/input_border"
             android:layout_marginTop="16dp" />
 
         <RelativeLayout
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Times per week: 5x"
-                android:textColor="#64748B"
+                android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -121,11 +121,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:orientation="horizontal">
-                <View android:layout_width="16dp" android:layout_height="16dp" android:background="#6366F1" android:layout_marginEnd="4dp" />
-                <View android:layout_width="16dp" android:layout_height="16dp" android:background="#6366F1" android:layout_marginEnd="4dp" />
-                <View android:layout_width="16dp" android:layout_height="16dp" android:background="#6366F1" android:layout_marginEnd="4dp" />
-                <View android:layout_width="16dp" android:layout_height="16dp" android:background="#6366F1" android:layout_marginEnd="4dp" />
-                <View android:layout_width="16dp" android:layout_height="16dp" android:background="#6366F1" />
+                <View android:layout_width="16dp" android:layout_height="16dp" android:background="@color/purple_primary" android:layout_marginEnd="4dp" />
+                <View android:layout_width="16dp" android:layout_height="16dp" android:background="@color/purple_primary" android:layout_marginEnd="4dp" />
+                <View android:layout_width="16dp" android:layout_height="16dp" android:background="@color/purple_primary" android:layout_marginEnd="4dp" />
+                <View android:layout_width="16dp" android:layout_height="16dp" android:background="@color/purple_primary" android:layout_marginEnd="4dp" />
+                <View android:layout_width="16dp" android:layout_height="16dp" android:background="@color/purple_primary" />
             </LinearLayout>
         </RelativeLayout>
 

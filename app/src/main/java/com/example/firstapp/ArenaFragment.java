@@ -90,6 +90,14 @@ public class ArenaFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewModel != null) {
+            viewModel.refresh();
+        }
+    }
+
     private void initViews(View view) {
         tvRankValue = view.findViewById(R.id.tv_rank_value);
         tvPercentile = view.findViewById(R.id.tv_percentile);
@@ -126,61 +134,74 @@ public class ArenaFragment extends Fragment {
             loadData();
         }
 
+        public void refresh() {
+            loadData();
+        }
+
         private void loadData() {
-            java.util.Set<String> joinedIds = prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>());
-            
-            UserRank rank = new UserRank(42, 15);
-            
-            List<Challenge> allChallenges = challengeRepository.getAllChallenges();
+            challengeRepository.getAllChallenges().observeForever(allChallenges -> {
+                if (allChallenges == null) return;
+                
+                // For rank, we'd ideally have an API call too, but we'll keep it mock for now or use profile
+                UserRank rank = new UserRank(42, 15); 
+                
+                java.util.Set<String> joinedIds = prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>());
+                List<Challenge> ongoing = new ArrayList<>();
+                List<Challenge> available = new ArrayList<>();
 
-            List<Challenge> ongoing = new ArrayList<>();
-            List<Challenge> available = new ArrayList<>();
-
-            for (Challenge c : allChallenges) {
-                if (joinedIds.contains(c.getId())) {
-                    c.setActive(true);
-                    ongoing.add(c);
-                } else {
+                for (Challenge c : allChallenges) {
+                    if (joinedIds.contains(c.getId())) {
+                        c.setActive(true);
+                        ongoing.add(c);
+                    }
                     available.add(c);
                 }
-            }
-            
-            if (joinedIds.isEmpty() && !allChallenges.isEmpty()) {
-                if (allChallenges.size() >= 2) {
-                    ongoing.add(allChallenges.get(0));
-                    ongoing.add(allChallenges.get(1));
-                    allChallenges.get(0).setActive(true);
-                    allChallenges.get(1).setActive(true);
-                    available.remove(allChallenges.get(0));
-                    available.remove(allChallenges.get(1));
-                    
-                    java.util.Set<String> initialJoined = new java.util.HashSet<>();
-                    initialJoined.add(allChallenges.get(0).getId());
-                    initialJoined.add(allChallenges.get(1).getId());
-                    prefs.edit().putStringSet(JOINED_KEY, initialJoined).apply();
-                }
-            }
-
-            _uiState.setValue(new ArenaUiState(rank, ongoing, available));
+                
+                _uiState.setValue(new ArenaUiState(rank, ongoing, available));
+            });
         }
 
         public void joinChallenge(Challenge challenge) {
-            ArenaUiState currentState = _uiState.getValue();
-            if (currentState != null) {
-                List<Challenge> available = new ArrayList<>(currentState.getAvailableChallenges());
-                List<Challenge> ongoing = new ArrayList<>(currentState.getOngoingChallenges());
-                
-                if (available.remove(challenge)) {
-                    challenge.setActive(true);
-                    ongoing.add(challenge);
-                    
-                    java.util.Set<String> joinedIds = new java.util.HashSet<>(prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>()));
-                    joinedIds.add(challenge.getId());
-                    prefs.edit().putStringSet(JOINED_KEY, joinedIds).apply();
-
-                    _uiState.setValue(new ArenaUiState(currentState.getUserRank(), ongoing, available));
+            challengeRepository.joinChallenge(challenge.getId(), new retrofit2.Callback<Challenge>() {
+                @Override
+                public void onResponse(retrofit2.Call<Challenge> call, retrofit2.Response<Challenge> response) {
+                    if (response.isSuccessful()) {
+                        android.widget.Toast.makeText(getApplication(), "Joined " + challenge.getTitle(), android.widget.Toast.LENGTH_SHORT).show();
+                        persistJoinLocally(challenge);
+                        loadData();
+                    } else {
+                        handleJoinError(challenge, new Exception("Server returned " + response.code()));
+                    }
                 }
+
+                @Override
+                public void onFailure(retrofit2.Call<Challenge> call, Throwable t) {
+                    handleJoinError(challenge, t);
+                }
+            });
+        }
+
+        private void handleJoinError(Challenge challenge, Throwable t) {
+            if (t instanceof java.io.IOException || t instanceof java.net.UnknownHostException || t instanceof java.net.ConnectException) {
+                android.widget.Toast.makeText(getApplication(), "Offline: Action saved locally", android.widget.Toast.LENGTH_SHORT).show();
+                persistJoinLocally(challenge);
+                loadData();
+            } else {
+                android.widget.Toast.makeText(getApplication(), "Error: " + t.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
             }
+        }
+
+        private void persistJoinLocally(Challenge challenge) {
+            challenge.setParticipants(challenge.getParticipants() + 1);
+            challenge.setActive(true);
+            
+            // Persist locally
+            challengeRepository.updateLocalChallenge(challenge);
+            
+            // Mark as joined in Arena prefs
+            java.util.Set<String> joinedIds = new java.util.HashSet<>(prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>()));
+            joinedIds.add(challenge.getId());
+            prefs.edit().putStringSet(JOINED_KEY, joinedIds).apply();
         }
     }
 
@@ -247,9 +268,20 @@ public class ArenaFragment extends Fragment {
                 tvTitle.setText(challenge.getTitle());
                 tvSubtitle.setText(itemView.getContext().getString(R.string.subtitle_format, challenge.getParticipants(), challenge.getDuration()));
                 if (challenge.getIconRes() != 0) ivIcon.setImageResource(challenge.getIconRes());
+                if (challenge.isActive()) {
+                    btnJoin.setText("Joined");
+                    btnJoin.setEnabled(false);
+                    btnJoin.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+                } else {
+                    btnJoin.setText("Join");
+                    btnJoin.setEnabled(true);
+                    if (challenge.getColor() != null) {
+                        btnJoin.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(challenge.getColor())));
+                    }
+                }
+
                 if (challenge.getColor() != null) {
                     int c = Color.parseColor(challenge.getColor());
-                    btnJoin.setBackgroundTintList(ColorStateList.valueOf(c));
                     ivIcon.setImageTintList(ColorStateList.valueOf(c));
                     cvIcon.setCardBackgroundColor(Color.argb(30, Color.red(c), Color.green(c), Color.blue(c)));
                 }

@@ -107,7 +107,7 @@ public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.Habi
             }
 
             if (habit.isCompleted()) {
-                ivCheck.setImageResource(R.drawable.ic_bolt);
+                ivCheck.setImageResource(R.drawable.ic_nav_arena);
                 ivCheck.setColorFilter(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_green_dark));
             } else {
                 ivCheck.setImageResource(R.drawable.circle_outline_grey);

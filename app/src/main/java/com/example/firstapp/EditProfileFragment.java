@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,7 +58,6 @@ public class EditProfileFragment extends Fragment {
         String email = etEmail.getText().toString().trim();
 
         if (name.isEmpty()) {
-            Toast.makeText(getContext(), "Name cannot be empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -69,8 +67,6 @@ public class EditProfileFragment extends Fragment {
                 .putString("profile_email", email)
                 .apply();
 
-        Toast.makeText(getContext(), "Profile updated successfully! ✨", Toast.LENGTH_SHORT).show();
-        
         if (getActivity() != null) {
             getActivity().getSupportFragmentManager().popBackStack();
         }

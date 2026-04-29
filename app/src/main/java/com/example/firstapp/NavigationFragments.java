@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -21,7 +20,6 @@ import java.util.List;
 
 public class NavigationFragments {
 
-    // --- Adapter for Discover Page ---
     public static class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHolder> {
         private List<Habit> habits;
 
@@ -46,11 +44,14 @@ public class NavigationFragments {
             holder.tvDifficulty.setText(h.getDifficulty());
             holder.ivIcon.setImageResource(h.getIconRes() != 0 ? h.getIconRes() : R.drawable.ic_nav_home);
 
-            int color = Color.parseColor(h.getColor());
-            holder.ivIcon.setImageTintList(ColorStateList.valueOf(color));
-            holder.cvIconContainer.setCardBackgroundColor(Color.argb(30, Color.red(color), Color.green(color), Color.blue(color)));
+            try {
+                int color = Color.parseColor(h.getColor());
+                holder.ivIcon.setImageTintList(ColorStateList.valueOf(color));
+                holder.cvIconContainer.setCardBackgroundColor(Color.argb(30, Color.red(color), Color.green(color), Color.blue(color)));
+            } catch (Exception e) {
+                holder.cvIconContainer.setCardBackgroundColor(Color.LTGRAY);
+            }
 
-            // Style Difficulty Badge
             int diffBg, diffText;
             switch (h.getDifficulty()) {
                 case "Easy":
@@ -61,7 +62,7 @@ public class NavigationFragments {
                     diffBg = holder.itemView.getContext().getColor(R.color.difficulty_hard_bg);
                     diffText = holder.itemView.getContext().getColor(R.color.difficulty_hard_text);
                     break;
-                default: // Medium
+                default:
                     diffBg = holder.itemView.getContext().getColor(R.color.difficulty_medium_bg);
                     diffText = holder.itemView.getContext().getColor(R.color.difficulty_medium_text);
                     break;
@@ -70,9 +71,11 @@ public class NavigationFragments {
             holder.tvDifficulty.setTextColor(diffText);
 
             holder.btnAdd.setOnClickListener(v -> {
-                HabitRepository repository = new HabitRepository(v.getContext());
-                repository.addHabit(new Habit(h.getTitle(), h.getCategory(), h.getDifficulty(), h.getColor(), h.getIconRes()));
-                Toast.makeText(v.getContext(), v.getContext().getString(R.string.habit_added, h.getTitle()), Toast.LENGTH_SHORT).show();
+                HabitRepository repo = new HabitRepository(v.getContext());
+                repo.addHabit(new Habit(h.getTitle(), h.getCategory(), h.getDifficulty(), h.getColor(), h.getIconRes()));
+                if (v.getContext() instanceof HomeActivity) {
+                    ((HomeActivity) v.getContext()).onBackPressed();
+                }
             });
         }
 

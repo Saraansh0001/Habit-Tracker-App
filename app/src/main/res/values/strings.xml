@@ -242,4 +242,16 @@
     <string name="done_label">Done</string>
     <string name="edit_goal_label">Edit goal</string>
     <string name="pro_tip_label">Pro tip: Start with a goal of 3-5x per week instead of every day. It\'s more sustainable and you\'ll still see great results!</string>
+    <string name="ongoing_challenges">Ongoing Challenges</string>
+    <string name="available_challenges">Available Challenges</string>
+    <string name="see_all">See All</string>
+
+    <string name="mock_name_1">Virat</string>
+    <string name="mock_name_2">Saraansh</string>
+    <string name="mock_name_3">Hardik</string>
+    <string name="mock_xp_1">4320 XP</string>
+    <string name="mock_xp_2">4850 XP</string>
+    <string name="mock_xp_3">4100 XP</string>
+    <string name="mock_my_xp">2,450 XP</string>
+    <string name="mock_my_streak">🔥 12</string>
 </resources>

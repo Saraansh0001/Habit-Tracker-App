@@ -34,7 +34,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Button btnGetStarted = findViewById(R.id.btn_get_started);
         btnGetStarted.setOnClickListener(v -> {
-            Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+            Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });

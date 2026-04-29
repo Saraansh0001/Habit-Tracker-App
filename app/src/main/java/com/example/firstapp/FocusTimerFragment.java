@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,9 +19,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.firstapp.data.AppDatabase;
+import com.example.firstapp.models.FocusSession;
 import com.google.android.material.button.MaterialButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,14 +44,16 @@ public class FocusTimerFragment extends Fragment {
     private String selectedHabit = "Morning";
     private int selectedDuration = 25;
 
-    private List<Session> recentSessions;
+    private List<FocusSession> recentSessions;
     private RecentSessionsAdapter sessionsAdapter;
+    private AppDatabase db;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_focus_timer, container, false);
 
+        db = AppDatabase.getDatabase(requireContext());
         initViews(view);
         setupHabitSelection();
         setupDurationSelection();
@@ -105,7 +110,6 @@ public class FocusTimerFragment extends Fragment {
             chip.setOnClickListener(v -> {
                 selectedHabit = habitName;
                 tvSelectedHabitTimer.setText(habitName);
-                Toast.makeText(getContext(), "Selected: " + habitName, Toast.LENGTH_SHORT).show();
             });
 
             habitSelectionContainer.addView(chip);
@@ -146,7 +150,6 @@ public class FocusTimerFragment extends Fragment {
             public void onFinish() {
                 timerRunning = false;
                 btnStartSession.setText("Start Session");
-                Toast.makeText(getContext(), "Focus Session Finished!", Toast.LENGTH_LONG).show();
                 // Add to recent sessions
                 addSessionToHistory();
             }
@@ -188,7 +191,22 @@ public class FocusTimerFragment extends Fragment {
     }
 
     private void addSessionToHistory() {
-        recentSessions.add(0, new Session(selectedHabit + " Focus", "Today", selectedDuration + " min", "+ " + (selectedDuration * 2) + " XP"));
+        int xp = selectedDuration * 2;
+        FocusSession session = new FocusSession(selectedHabit + " Focus", selectedDuration, xp);
+        
+        // Save locally
+        new Thread(() -> db.focusSessionDao().insertSession(session)).start();
+        
+        // Save to backend
+        com.example.firstapp.network.ApiClient.getService(getContext()).createFocusSession(session)
+            .enqueue(new retrofit2.Callback<FocusSession>() {
+                @Override
+                public void onResponse(retrofit2.Call<FocusSession> call, retrofit2.Response<FocusSession> response) {}
+                @Override
+                public void onFailure(retrofit2.Call<FocusSession> call, Throwable t) {}
+            });
+        
+        recentSessions.add(0, session);
         sessionsAdapter.notifyItemInserted(0);
     }
 
@@ -196,44 +214,51 @@ public class FocusTimerFragment extends Fragment {
         RecyclerView rv = view.findViewById(R.id.rv_recent_sessions);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         
-        recentSessions = new ArrayList<>();
-        recentSessions.add(new Session("Morning Meditation", "Apr 4, 2026", "25 min", "+50 XP"));
-        recentSessions.add(new Session("Read 30 Minutes", "Apr 3, 2026", "30 min", "+60 XP"));
-        recentSessions.add(new Session("Workout", "Apr 2, 2026", "25 min", "+50 XP"));
+        recentSessions = new ArrayList<>(db.focusSessionDao().getAllSessions());
 
         sessionsAdapter = new RecentSessionsAdapter(recentSessions);
         rv.setAdapter(sessionsAdapter);
     }
 
-    static class Session {
-        String title, date, duration, xp;
-        Session(String t, String d, String dur, String x) {
-            title = t; date = d; duration = dur; xp = x;
-        }
-    }
-
     static class RecentSessionsAdapter extends RecyclerView.Adapter<RecentSessionsAdapter.VH> {
-        List<Session> sessions;
-        RecentSessionsAdapter(List<Session> s) { sessions = s; }
+        List<FocusSession> sessions;
+        private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
+
+        RecentSessionsAdapter(List<FocusSession> s) { sessions = s; }
         @NonNull @Override public VH onCreateViewHolder(@NonNull ViewGroup p, int t) {
             return new VH(LayoutInflater.from(p.getContext()).inflate(R.layout.item_habit_history, p, false));
         }
         @Override public void onBindViewHolder(@NonNull VH h, int p) {
-            Session s = sessions.get(p);
-            h.title.setText(s.title);
-            h.date.setText(s.date);
-            h.duration.setText(s.duration);
-            h.xp.setText(s.xp);
+            FocusSession s = sessions.get(p);
+            h.title.setText(s.getTitle());
+            h.date.setText(dateFormat.format(new Date(s.getTimestamp())));
+            h.duration.setText(s.getDurationMinutes() + " min");
+            h.xp.setText("+ " + s.getXpEarned() + " XP");
+            
+            h.title.setVisibility(View.VISIBLE);
+            h.date.setVisibility(View.VISIBLE);
+            h.duration.setVisibility(View.VISIBLE);
+            h.xp.setVisibility(View.VISIBLE);
+
+            // Hide habit specific views
+            h.habitTitle.setVisibility(View.GONE);
+            h.habitCategory.setVisibility(View.GONE);
+            h.habitCompletedDate.setVisibility(View.GONE);
         }
         @Override public int getItemCount() { return sessions.size(); }
         static class VH extends RecyclerView.ViewHolder {
             TextView title, date, duration, xp;
+            TextView habitTitle, habitCategory, habitCompletedDate;
             VH(View v) {
                 super(v);
                 title = v.findViewById(R.id.tv_history_title);
                 date = v.findViewById(R.id.tv_history_date);
                 duration = v.findViewById(R.id.tv_history_time);
                 xp = v.findViewById(R.id.tv_history_xp);
+
+                habitTitle = v.findViewById(R.id.tv_habit_title);
+                habitCategory = v.findViewById(R.id.tv_habit_category);
+                habitCompletedDate = v.findViewById(R.id.tv_completed_date);
             }
         }
     }

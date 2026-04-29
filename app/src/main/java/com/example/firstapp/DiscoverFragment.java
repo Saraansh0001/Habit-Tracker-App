@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -94,7 +93,7 @@ public class DiscoverFragment extends Fragment {
         habits.add(new Habit("Journal", "Productivity", "Easy", "#F59E0B", R.drawable.ic_edit));
         habits.add(new Habit("No Sugar", "Health", "Hard", "#EF4444", R.drawable.ic_health));
         habits.add(new Habit("Push-ups", "Fitness", "Medium", "#6366F1", R.drawable.ic_workout));
-        habits.add(new Habit("Stretch", "Health", "Easy", "#10B981", R.drawable.ic_workout));
+        habits.add(new Habit("Stretch", "Health", "Easy", "#10B981", R.drawable.ic_health));
         return habits;
     }
 }

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,11 +82,35 @@ public class CreateChallengeFragment extends Fragment {
                     color
             );
 
-            repository.addChallenge(newChallenge);
-            
-            if (getActivity() != null) {
-                getActivity().onBackPressed();
-            }
+            btnCreate.setEnabled(false);
+            btnCreate.setText("Creating...");
+
+            repository.addChallenge(newChallenge, new retrofit2.Callback<Challenge>() {
+                @Override
+                public void onResponse(retrofit2.Call<Challenge> call, retrofit2.Response<Challenge> response) {
+                    btnCreate.setEnabled(true);
+                    if (response.isSuccessful()) {
+                        if (getActivity() != null) {
+                            getActivity().onBackPressed();
+                        }
+                    } else {
+                        saveLocallyAndExit(newChallenge);
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<Challenge> call, Throwable t) {
+                    saveLocallyAndExit(newChallenge);
+                }
+
+                private void saveLocallyAndExit(Challenge challenge) {
+                    repository.saveLocalChallenge(challenge);
+                    android.widget.Toast.makeText(getContext(), "Challenge created (offline)", android.widget.Toast.LENGTH_SHORT).show();
+                    if (getActivity() != null) {
+                        getActivity().onBackPressed();
+                    }
+                }
+            });
         });
 
         return view;
@@ -100,7 +123,7 @@ public class CreateChallengeFragment extends Fragment {
             case "Study": return R.drawable.ic_reading;
             case "Health": return R.drawable.ic_health;
             case "Sleep": return R.drawable.ic_sleep;
-            default: return R.drawable.ic_bolt;
+            default: return R.drawable.ic_nav_arena;
         }
     }
 

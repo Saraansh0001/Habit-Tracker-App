@@ -75,7 +75,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             if (habit.getCompletedDate() > 0) {
                 tvCompletedDate.setText(dateFormat.format(new Date(habit.getCompletedDate())));
             } else {
-                tvCompletedDate.setText(R.string.submit_btn); // Placeholder for "N/A" if string not available
+                tvCompletedDate.setText("N/A");
             }
 
             try {
@@ -92,6 +92,17 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             } else {
                 ivIcon.setImageResource(R.drawable.ic_nav_home);
             }
+
+            // Ensure history-specific views are hidden
+            itemView.findViewById(R.id.tv_history_title).setVisibility(View.GONE);
+            itemView.findViewById(R.id.tv_history_date).setVisibility(View.GONE);
+            itemView.findViewById(R.id.tv_history_time).setVisibility(View.GONE);
+            itemView.findViewById(R.id.tv_history_xp).setVisibility(View.GONE);
+
+            // Ensure habit views are visible
+            tvTitle.setVisibility(View.VISIBLE);
+            tvCategory.setVisibility(View.VISIBLE);
+            tvCompletedDate.setVisibility(View.VISIBLE);
         }
     }
 }

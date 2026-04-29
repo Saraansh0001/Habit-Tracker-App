@@ -82,14 +82,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Virat"
+                        android:text="@string/mock_name_2"
                         android:textColor="@color/text_dark"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4320 XP"
+                        android:text="@string/mock_xp_1"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
                     <androidx.cardview.widget.CardView
@@ -135,14 +135,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Saraansh"
+                        android:text="@string/mock_name_2"
                         android:textColor="@color/text_dark"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4850 XP"
+                        android:text="@string/mock_xp_2"
                         android:textColor="@color/purple_primary"
                         android:textStyle="bold"
                         android:textSize="12sp" />
@@ -183,14 +183,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hardik"
+                        android:text="@string/mock_name_3"
                         android:textColor="@color/text_dark"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4100 XP"
+                        android:text="@string/mock_xp_3"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
                     <androidx.cardview.widget.CardView
@@ -264,7 +264,7 @@
                             android:id="@+id/tv_my_xp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2,450 XP"
+                            android:text="@string/mock_my_xp"
                             android:textColor="@color/purple_primary"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -274,7 +274,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:text="🔥 12"
+                        android:text="@string/mock_my_streak"
                         android:textColor="#F97316"
                         android:textStyle="bold" />
                 </RelativeLayout>
