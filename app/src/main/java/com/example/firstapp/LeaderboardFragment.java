@@ -35,21 +35,28 @@ public class LeaderboardFragment extends Fragment {
 
         RecyclerView rv = view.findViewById(R.id.rv_leaderboard);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv.setAdapter(new LeaderboardAdapter(getMockLeaderboard()));
+        
+        com.example.firstapp.network.ApiClient.getService(getContext()).getLeaderboard()
+            .enqueue(new retrofit2.Callback<List<com.example.firstapp.network.UserProfileResponse>>() {
+                @Override
+                public void onResponse(retrofit2.Call<List<com.example.firstapp.network.UserProfileResponse>> call, retrofit2.Response<List<com.example.firstapp.network.UserProfileResponse>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        List<LeaderboardUser> users = new ArrayList<>();
+                        int rank = 1;
+                        for (com.example.firstapp.network.UserProfileResponse u : response.body()) {
+                            users.add(new LeaderboardUser(String.valueOf(rank++), u.name, u.xp, u.streak));
+                        }
+                        rv.setAdapter(new LeaderboardAdapter(users));
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<List<com.example.firstapp.network.UserProfileResponse>> call, Throwable t) {
+                    android.widget.Toast.makeText(getContext(), "Network error", android.widget.Toast.LENGTH_SHORT).show();
+                }
+            });
 
         return view;
-    }
-
-    private List<LeaderboardUser> getMockLeaderboard() {
-        List<LeaderboardUser> users = new ArrayList<>();
-        users.add(new LeaderboardUser("4", "Aayush Rathore", 3890, 28));
-        users.add(new LeaderboardUser("5", "Shejal Kushwaha", 3650, 25));
-        users.add(new LeaderboardUser("6", "Priya Das", 3420, 22));
-        users.add(new LeaderboardUser("7", "Romi", 3200, 20));
-        users.add(new LeaderboardUser("8", "Sachin Singh", 2980, 18));
-        users.add(new LeaderboardUser("9", "Aryan", 2750, 15));
-        users.add(new LeaderboardUser("10", "Zoya Ansari", 2600, 14));
-        return users;
     }
 
     static class LeaderboardUser {

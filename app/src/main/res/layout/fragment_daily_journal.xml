@@ -215,6 +215,7 @@
                         android:textColor="@color/text_dark"
                         android:textStyle="bold" />
                     <EditText
+                        android:id="@+id/et_journal_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"

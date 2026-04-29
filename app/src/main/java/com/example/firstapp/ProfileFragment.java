@@ -33,10 +33,32 @@ public class ProfileFragment extends Fragment {
         setupActions(view, inflater);
         
         view.findViewById(R.id.btn_logout).setOnClickListener(v -> {
-            android.content.Intent intent = new android.content.Intent(getContext(), MainActivity.class);
+            android.content.SharedPreferences prefs = getContext().getSharedPreferences("auth_prefs", android.content.Context.MODE_PRIVATE);
+            prefs.edit().remove("token").apply();
+
+            android.content.Intent intent = new android.content.Intent(getContext(), LoginActivity.class);
             intent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK | android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
+
+        // Load profile data
+        com.example.firstapp.network.ApiClient.getService(getContext()).getProfile()
+            .enqueue(new retrofit2.Callback<com.example.firstapp.network.UserProfileResponse>() {
+                @Override
+                public void onResponse(retrofit2.Call<com.example.firstapp.network.UserProfileResponse> call, retrofit2.Response<com.example.firstapp.network.UserProfileResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        TextView tvName = view.findViewById(R.id.tv_profile_name);
+                        TextView tvEmail = view.findViewById(R.id.tv_email);
+                        if (tvName != null) tvName.setText(response.body().name);
+                        if (tvEmail != null) tvEmail.setText(response.body().email);
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<com.example.firstapp.network.UserProfileResponse> call, Throwable t) {
+                    android.widget.Toast.makeText(getContext(), "Failed to load profile", android.widget.Toast.LENGTH_SHORT).show();
+                }
+            });
 
         return view;
     }

@@ -62,6 +62,13 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
                     <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="user@example.com"
+                        android:textColor="#E2E8F0"
+                        android:textSize="14sp" />
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Diamond League · #142"

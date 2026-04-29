@@ -12,14 +12,20 @@ import java.util.UUID;
 public class Habit implements Serializable {
     @PrimaryKey
     @NonNull
+    @com.google.gson.annotations.SerializedName("_id")
     private String id;
     private String title;
     private String category;
     private String difficulty; // "Easy", "Medium", "Hard"
     private int iconRes;
     private String color; // Hex color string
+    
+    @com.google.gson.annotations.SerializedName("completed")
     private boolean isCompleted;
+    
+    @com.google.gson.annotations.SerializedName("archived")
     private boolean isArchived;
+    
     private long completedDate;
 
     public Habit(@NonNull String id, String title, String category, String difficulty, int iconRes, String color) {

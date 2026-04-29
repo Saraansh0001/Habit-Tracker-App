@@ -17,6 +17,9 @@
     <color name="google_yellow">#FBBC05</color>
     <color name="google_green">#34A853</color>
 
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
     <color name="nav_item_selected">#6B3FD4</color>
     <color name="nav_item_unselected">#9E9EB3</color>
 

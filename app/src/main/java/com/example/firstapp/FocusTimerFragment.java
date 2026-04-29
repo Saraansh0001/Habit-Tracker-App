@@ -193,7 +193,18 @@ public class FocusTimerFragment extends Fragment {
     private void addSessionToHistory() {
         int xp = selectedDuration * 2;
         FocusSession session = new FocusSession(selectedHabit + " Focus", selectedDuration, xp);
-        db.focusSessionDao().insertSession(session);
+        
+        // Save locally
+        new Thread(() -> db.focusSessionDao().insertSession(session)).start();
+        
+        // Save to backend
+        com.example.firstapp.network.ApiClient.getService(getContext()).createFocusSession(session)
+            .enqueue(new retrofit2.Callback<FocusSession>() {
+                @Override
+                public void onResponse(retrofit2.Call<FocusSession> call, retrofit2.Response<FocusSession> response) {}
+                @Override
+                public void onFailure(retrofit2.Call<FocusSession> call, Throwable t) {}
+            });
         
         recentSessions.add(0, session);
         sessionsAdapter.notifyItemInserted(0);
