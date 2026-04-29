@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC">
+    android:background="@color/bg_light">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -219,7 +219,7 @@
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/habit_goals_title"
-                android:textColor="#1E293B"
+                android:textColor="@color/text_dark"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -239,7 +239,7 @@
                 android:layout_marginTop="32dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#F0FDF4">
+                app:cardBackgroundColor="@color/difficulty_easy_bg">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -250,14 +250,14 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_bolt"
-                        app:tint="#16A34A" />
+                        app:tint="@color/difficulty_easy_text" />
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="12dp"
                         android:text="@string/pro_tip_label"
-                        android:textColor="#16A34A"
+                        android:textColor="@color/difficulty_easy_text"
                         android:textSize="13sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

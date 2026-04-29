@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC">
+    android:background="@color/bg_light">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -154,7 +154,8 @@
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="-24dp"
                 app:cardCornerRadius="24dp"
-                app:cardElevation="8dp">
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/bg_white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -171,14 +172,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/journal_entry_title"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/text_dark"
                             android:textSize="18sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/journal_today_date"
-                            android:textColor="#94A3B8"
+                            android:textColor="@color/text_secondary"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -188,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="@string/journal_mood_question"
-                        android:textColor="#64748B"
+                        android:textColor="@color/text_secondary"
                         android:textSize="14sp" />
 
                     <LinearLayout
@@ -207,7 +208,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:text="@string/journal_question_1"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/text_dark"
                         android:textStyle="bold" />
                     <EditText
                         android:layout_width="match_parent"
@@ -220,7 +221,9 @@
                         android:minLines="3"
                         android:inputType="textMultiLine"
                         android:gravity="top"
-                        android:autofillHints="none" />
+                        android:autofillHints="none"
+                        android:textColor="@color/text_dark"
+                        android:textColorHint="@color/text_hint" />
 
                     <!-- Question 2 -->
                     <TextView
@@ -228,7 +231,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="@string/journal_question_2"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/text_dark"
                         android:textStyle="bold" />
                     <EditText
                         android:layout_width="match_parent"
@@ -241,7 +244,9 @@
                         android:minLines="3"
                         android:inputType="textMultiLine"
                         android:gravity="top"
-                        android:autofillHints="none" />
+                        android:autofillHints="none"
+                        android:textColor="@color/text_dark"
+                        android:textColorHint="@color/text_hint" />
 
                     <!-- Question 3 -->
                     <TextView
@@ -249,7 +254,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="@string/journal_question_3"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/text_dark"
                         android:textStyle="bold" />
                     <EditText
                         android:layout_width="match_parent"
@@ -262,14 +267,16 @@
                         android:minLines="3"
                         android:inputType="textMultiLine"
                         android:gravity="top"
-                        android:autofillHints="none" />
+                        android:autofillHints="none"
+                        android:textColor="@color/text_dark"
+                        android:textColorHint="@color/text_hint" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:text="@string/journal_habits_completed_label"
-                        android:textColor="#64748B"
+                        android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
 
                     <com.google.android.material.chip.ChipGroup
@@ -287,7 +294,7 @@
                             app:chipBackgroundColor="@color/chip_background_selector"
                             android:textColor="@color/chip_text_selector"
                             app:chipStrokeWidth="1dp"
-                            app:chipStrokeColor="#E2E8F0"/>
+                            app:chipStrokeColor="@color/input_border"/>
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -296,7 +303,7 @@
                             app:chipBackgroundColor="@color/chip_background_selector"
                             android:textColor="@color/chip_text_selector"
                             app:chipStrokeWidth="1dp"
-                            app:chipStrokeColor="#E2E8F0"/>
+                            app:chipStrokeColor="@color/input_border"/>
                          <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -305,7 +312,7 @@
                             app:chipBackgroundColor="@color/chip_background_selector"
                             android:textColor="@color/chip_text_selector"
                             app:chipStrokeWidth="1dp"
-                            app:chipStrokeColor="#E2E8F0"/>
+                            app:chipStrokeColor="@color/input_border"/>
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -314,7 +321,7 @@
                             app:chipBackgroundColor="@color/chip_background_selector"
                             android:textColor="@color/chip_text_selector"
                             app:chipStrokeWidth="1dp"
-                            app:chipStrokeColor="#E2E8F0"/>
+                            app:chipStrokeColor="@color/input_border"/>
                     </com.google.android.material.chip.ChipGroup>
 
                     <com.google.android.material.button.MaterialButton
@@ -343,7 +350,7 @@
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/journal_past_entries_title"
-                android:textColor="#1E293B"
+                android:textColor="@color/text_dark"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
