@@ -34,8 +34,18 @@ public class ProfileFragment extends Fragment {
         setupStats(view, inflater);
         setupActions(view, inflater);
         
-        view.findViewById(R.id.btn_logout).setOnClickListener(v -> 
-            Toast.makeText(getContext(), "Logging out...", Toast.LENGTH_SHORT).show());
+        view.findViewById(R.id.tv_see_all_features).setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).loadFragment(new FeaturesFragment());
+            }
+        });
+
+        view.findViewById(R.id.btn_logout).setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Logging out...", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), WelcomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
             
         return view;
     }
@@ -112,7 +122,33 @@ public class ProfileFragment extends Fragment {
             hsv[1] = Math.min(1.0f, hsv[1] * 1.5f); // Saturate
             icon.setImageTintList(ColorStateList.valueOf(Color.HSVToColor(hsv)));
 
-            itemView.setOnClickListener(v -> Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show());
+            itemView.setOnClickListener(v -> {
+                Fragment targetFragment = null;
+                switch (feature.getTitle()) {
+                    case "Streak Calendar":
+                        targetFragment = new StreakCalendarFragment();
+                        break;
+                    case "Focus Timer":
+                        targetFragment = new FocusTimerFragment();
+                        break;
+                    case "Weekly Goals":
+                        targetFragment = new WeeklyGoalsFragment();
+                        break;
+                    case "Daily Journal":
+                        targetFragment = new DailyJournalFragment();
+                        break;
+                    case "Mood Tracker":
+                        targetFragment = new AnalyticsFragment();
+                        break;
+                    default:
+                        Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                
+                if (targetFragment != null && getActivity() instanceof HomeActivity) {
+                    ((HomeActivity) getActivity()).loadFragment(targetFragment);
+                }
+            });
             featuresGrid.addView(itemView);
         }
     }

@@ -70,7 +70,30 @@ public class FeaturesFragment extends Fragment {
             hsv[1] = Math.min(1.0f, hsv[1] * 1.5f);
             icon.setImageTintList(ColorStateList.valueOf(Color.HSVToColor(hsv)));
 
-            itemView.setOnClickListener(v -> Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show());
+            itemView.setOnClickListener(v -> {
+                Fragment targetFragment = null;
+                switch (feature.getTitle()) {
+                    case "Streak Calendar":
+                        targetFragment = new StreakCalendarFragment();
+                        break;
+                    case "Focus Timer":
+                        targetFragment = new FocusTimerFragment();
+                        break;
+                    case "Weekly Goals":
+                        targetFragment = new WeeklyGoalsFragment();
+                        break;
+                    case "Daily Journal":
+                        targetFragment = new DailyJournalFragment();
+                        break;
+                    default:
+                        Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                
+                if (targetFragment != null && getActivity() instanceof HomeActivity) {
+                    ((HomeActivity) getActivity()).loadFragment(targetFragment);
+                }
+            });
             container.addView(itemView);
         }
     }

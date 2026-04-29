@@ -100,18 +100,29 @@ public class AnalyticsFragment extends Fragment {
         View cardStreak = view.findViewById(R.id.card_streak);
         if (cardStreak != null) {
             cardStreak.setOnClickListener(v -> {
-                // Streak details
+                if (getActivity() instanceof HomeActivity) {
+                    ((HomeActivity) getActivity()).loadFragment(new StreakCalendarFragment());
+                }
             });
         }
         
         TextView tvThisWeek = view.findViewById(R.id.tv_this_week);
         if (tvThisWeek != null) {
             tvThisWeek.setOnClickListener(v -> {
-                // Weekly range selector
+                if (getActivity() instanceof HomeActivity) {
+                    ((HomeActivity) getActivity()).loadFragment(new WeeklyGoalsFragment());
+                }
             });
         }
 
-        // Add more click listeners as needed for mock items
+        View cardActivity = view.findViewById(R.id.card_activity);
+        if (cardActivity != null) {
+            cardActivity.setOnClickListener(v -> {
+                if (getActivity() instanceof HomeActivity) {
+                    ((HomeActivity) getActivity()).loadFragment(new FocusTimerFragment());
+                }
+            });
+        }
     }
 
     private void showToast(String message) {

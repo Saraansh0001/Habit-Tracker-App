@@ -99,6 +99,7 @@
 
                         <!-- Stat 2 -->
                         <LinearLayout
+                            android:id="@+id/card_activity"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -107,7 +108,9 @@
                             android:background="@drawable/bg_tab_container"
                             android:backgroundTint="#40FFFFFF"
                             android:padding="12dp"
-                            android:layout_marginHorizontal="6dp">
+                            android:layout_marginHorizontal="6dp"
+                            android:clickable="true"
+                            android:focusable="true">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

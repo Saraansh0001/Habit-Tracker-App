@@ -1,5 +1,6 @@
 package com.example.firstapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -45,7 +46,12 @@ public class SettingsActivity extends AppCompatActivity {
         findViewById(R.id.rl_account_settings).setOnClickListener(v -> 
             Toast.makeText(this, "Account Settings Clicked", Toast.LENGTH_SHORT).show());
 
-        findViewById(R.id.btn_logout).setOnClickListener(v -> 
-            Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show());
+        findViewById(R.id.btn_logout).setOnClickListener(v -> {
+            Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
     }
 }

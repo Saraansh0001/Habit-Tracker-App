@@ -189,15 +189,33 @@
                 android:padding="20dp"
                 app:layout_constraintTop_toBottomOf="@id/stats_row">
 
-                <!-- Features Grid -->
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Features Header -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Explore Features"
-                    android:textColor="@color/text_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="12dp" />
+                    android:layout_marginTop="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Explore Features"
+                        android:textColor="@color/text_dark"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true" />
+                    <TextView
+                        android:id="@+id/tv_see_all_features"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See All >"
+                        android:textColor="@color/purple_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:padding="8dp"
+                        android:background="?attr/selectableItemBackground" />
+                </RelativeLayout>
 
                 <GridLayout
                     android:id="@+id/features_grid"
