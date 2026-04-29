@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
         View logoutBtn = view.findViewById(R.id.btn_logout);
         if (logoutBtn != null) {
             logoutBtn.setOnClickListener(v -> 
-                Toast.makeText(getContext(), "Logging out...", Toast.LENGTH_SHORT).show());
+                Toast.makeText(getContext(), R.string.logging_out, Toast.LENGTH_SHORT).show());
         }
             
         return view;
@@ -68,8 +68,8 @@ public class ProfileFragment extends Fragment {
 
     private void updateProfileDisplay() {
         if (prefs != null) {
-            String name = prefs.getString("profile_name", "Team MAD 👋");
-            String rank = prefs.getString("profile_rank", "Warrior 🎖️");
+            String name = prefs.getString("profile_name", getString(R.string.user_name_default));
+            String rank = prefs.getString("profile_rank", getString(R.string.user_rank));
             if (tvName != null) tvName.setText(name);
             if (tvRank != null) tvRank.setText(rank);
         }
@@ -96,7 +96,7 @@ public class ProfileFragment extends Fragment {
         View seeAll = view.findViewById(R.id.tv_see_all_badges);
         if (seeAll != null) {
             seeAll.setOnClickListener(v -> 
-                Toast.makeText(getContext(), "Opening all badges...", Toast.LENGTH_SHORT).show());
+                Toast.makeText(getContext(), R.string.opening_badges, Toast.LENGTH_SHORT).show());
         }
     }
 
@@ -110,11 +110,11 @@ public class ProfileFragment extends Fragment {
         }
 
         List<ProfileStat> stats = new ArrayList<>();
-        stats.add(new ProfileStat("Best Streak", "18 days", R.drawable.ic_bolt));
-        stats.add(new ProfileStat("Total XP Earned", "8,240 XP", R.drawable.ic_badge_1));
-        stats.add(new ProfileStat("Challenges Won", "7", R.drawable.ic_nav_arena));
-        stats.add(new ProfileStat("Focus Minutes", "80 min", R.drawable.ic_nav_analytics));
-        stats.add(new ProfileStat("Badges Earned", "4", R.drawable.ic_badge_1));
+        stats.add(new ProfileStat(getString(R.string.stat_best_streak), getString(R.string.days_label_format, "18"), R.drawable.ic_bolt));
+        stats.add(new ProfileStat(getString(R.string.stat_total_xp), getString(R.string.xp_count, "8,240"), R.drawable.ic_badge_1));
+        stats.add(new ProfileStat(getString(R.string.stat_challenges_won), "7", R.drawable.ic_nav_arena));
+        stats.add(new ProfileStat(getString(R.string.stat_focus_minutes), getString(R.string.min_label_format_short, "80"), R.drawable.ic_nav_analytics));
+        stats.add(new ProfileStat(getString(R.string.stat_badges_earned), "4", R.drawable.ic_badge_1));
 
         for (int i = 0; i < stats.size(); i++) {
             ProfileStat stat = stats.get(i);
@@ -176,7 +176,7 @@ public class ProfileFragment extends Fragment {
                     
                     Context context = getContext();
                     if (context != null) {
-                        Toast.makeText(context, isChecked ? "Dark Mode Enabled" : "Dark Mode Disabled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, isChecked ? R.string.dark_mode_enabled : R.string.dark_mode_disabled, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -206,7 +206,7 @@ public class ProfileFragment extends Fragment {
                     if (titleText.equals(editProfileStr)) {
                         loadFragment(new EditProfileFragment());
                     } else {
-                        Toast.makeText(getContext(), titleText + " clicked", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.action_clicked_format, titleText), Toast.LENGTH_SHORT).show();
                     }
                 });
                 actionsContainer.addView(itemView);

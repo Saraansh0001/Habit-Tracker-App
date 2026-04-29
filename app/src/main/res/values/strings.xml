@@ -21,6 +21,9 @@
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="or_continue">or continue with</string>
+    <string name="google_sign_in_failed">Google Sign In Failed. Code: %1$d</string>
+    <string name="developer_error_google">DEVELOPER_ERROR: Check SHA-1 and Google Sign-In setup in Firebase.</string>
+    <string name="auth_failed">Authentication Failed: %1$s</string>
 
     <!-- Home Page -->
     <string name="greeting">Good Morning</string>
@@ -39,6 +42,7 @@
     <string name="habit_reading">Read 30 Minutes</string>
     <string name="habit_water">Drink 2L Water</string>
     <string name="percentage_50">50%</string>
+    <string name="category_all">All</string>
 
     <!-- Navigation Labels -->
     <string name="nav_home">Home</string>
@@ -140,6 +144,8 @@
     <string name="journal_habits_completed_label">Habits completed today:</string>
     <string name="journal_save_btn">Save Entry</string>
     <string name="journal_past_entries_title">Past Entries</string>
+    <string name="journal_saved">Entry Saved! ✨</string>
+    <string name="mood_format">Mood: %1$s</string>
     <string name="journal_default_entries">3</string>
     <string name="journal_default_words">79</string>
     <string name="journal_default_mood">🙂</string>
@@ -151,6 +157,14 @@
     <string name="habit_workout">💪 Workout</string>
     <string name="habit_drink">💧 Drink</string>
     <string name="habit_sleep">🌙 Sleep</string>
+    <string name="habit_meditation_simple">Meditation</string>
+    <string name="habit_water_simple">Water</string>
+    <string name="habit_run">Morning Run</string>
+    <string name="habit_cold_shower">Cold Shower</string>
+    <string name="habit_journal">Journal</string>
+    <string name="habit_no_sugar">No Sugar</string>
+    <string name="habit_pushups">Push-ups</string>
+    <string name="habit_stretch">Stretch</string>
 
     <!-- Moods -->
     <string name="mood_rough">Rough</string>
@@ -172,6 +186,13 @@
     <string name="resume_session">Resume Session</string>
     <string name="resume_label">Resume</string>
     <string name="recent_sessions_title">Recent Sessions</string>
+    <string name="timer_minutes_format">%1$dm</string>
+    <string name="focus_finished_msg">Focus Session Finished!</string>
+    <string name="selected_habit_format">Selected: %1$s</string>
+    <string name="focus_title_format">%1$s Focus</string>
+    <string name="today_label">Today</string>
+    <string name="min_label_format">%1$d min</string>
+    <string name="xp_plus_format">+ %1$d XP</string>
 
     <!-- Profile -->
     <string name="user_rank">Warrior 🎖️</string>
@@ -187,6 +208,18 @@
     <string name="notifications">Notifications</string>
     <string name="privacy_security">Privacy &amp; Security</string>
     <string name="about_app">About Discipline Arena</string>
+    <string name="logging_out">Logging out...</string>
+    <string name="opening_badges">Opening all badges...</string>
+    <string name="stat_best_streak">Best Streak</string>
+    <string name="stat_total_xp">Total XP Earned</string>
+    <string name="stat_challenges_won">Challenges Won</string>
+    <string name="stat_focus_minutes">Focus Minutes</string>
+    <string name="stat_badges_earned">Badges Earned</string>
+    <string name="days_label_format">%1$s days</string>
+    <string name="min_label_format_short">%1$s min</string>
+    <string name="dark_mode_enabled">Dark Mode Enabled</string>
+    <string name="dark_mode_disabled">Dark Mode Disabled</string>
+    <string name="action_clicked_format">%1$s clicked</string>
 
     <!-- Habit Detail -->
     <string name="habit_title_placeholder">Habit Name</string>
@@ -206,6 +239,14 @@
     <string name="help_center">Help Center</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="app_version_default">Version 1.0.0</string>
+    <string name="notifications_enabled">Notifications Enabled</string>
+    <string name="notifications_disabled">Notifications Disabled</string>
+    <string name="theme_updated">Theme updated</string>
+    <string name="logout_success">Logged out successfully</string>
+    <string name="edit_name">Edit Name</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="name_updated">Name updated!</string>
 
     <!-- Welcome -->
     <string name="welcome_tagline">Build Discipline. Build Yourself.</string>
@@ -227,6 +268,7 @@
     <string name="twelve_week_view_label">12-Week View</string>
     <string name="habit_streaks_title">Habit Streaks</string>
     <string name="days_format">%1$d / %2$d days</string>
+    <string name="streak_info_format">🔥 %1$d day streak  •  %2$d / %3$d days</string>
 
     <!-- Weekly Goals -->
     <string name="weekly_goals_title">Weekly Goals 🎯</string>
@@ -243,4 +285,31 @@
     <string name="done_label">Done</string>
     <string name="edit_goal_label">Edit goal</string>
     <string name="pro_tip_label">Pro tip: Start with a goal of 3-5x per week instead of every day. It\'s more sustainable and you\'ll still see great results!</string>
+
+    <!-- Features -->
+    <string name="feature_streak_calendar_title">Streak Calendar</string>
+    <string name="feature_streak_calendar_desc">Visual habit history</string>
+    <string name="feature_focus_timer_title">Focus Timer</string>
+    <string name="feature_focus_timer_desc">Deep focus on one habit at a time</string>
+    <string name="feature_weekly_goals_title">Weekly Goals</string>
+    <string name="feature_weekly_goals_desc">Set habit target</string>
+    <string name="feature_daily_journal_title">Daily Journal</string>
+    <string name="feature_daily_journal_desc">Reflect &amp; grow</string>
+    <string name="feature_mood_tracker_title">Mood Tracker</string>
+    <string name="feature_mood_tracker_desc">Track how you feel</string>
+    <string name="feature_friends_title">Friends</string>
+    <string name="feature_friends_desc">Social accountability</string>
+    <string name="feature_rewards_title">Rewards</string>
+    <string name="feature_rewards_desc">Badges &amp; milestone</string>
+    <string name="feature_weekly_report_title">Weekly Report</string>
+    <string name="feature_weekly_report_desc">Sunday summary</string>
+
+    <!-- Difficulty Labels -->
+    <string name="diff_easy">Easy</string>
+    <string name="diff_medium">Medium</string>
+    <string name="diff_hard">Hard</string>
+
+    <!-- Generic -->
+    <string name="error_name_empty">Name cannot be empty</string>
+    <string name="profile_updated">Profile updated successfully! ✨</string>
 </resources>

@@ -38,11 +38,11 @@ public class WeeklyGoalsFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         
         List<HabitGoal> goals = new ArrayList<>();
-        goals.add(new HabitGoal("Morning Meditation", 1, 5, 20, R.drawable.ic_meditation, "#6B3FD4"));
-        goals.add(new HabitGoal("Read 30 Minutes", 0, 5, 0, R.drawable.ic_nav_search, "#8B5CF6"));
-        goals.add(new HabitGoal("Workout", 0, 5, 0, R.drawable.ic_workout, "#EF4444"));
-        goals.add(new HabitGoal("Drink 8 Glasses", 0, 7, 0, R.drawable.ic_health, "#10B981"));
-        goals.add(new HabitGoal("Sleep by 11 PM", 0, 7, 0, R.drawable.ic_sleep, "#F59E0B"));
+        goals.add(new HabitGoal(getString(R.string.habit_meditation), 1, 5, 20, R.drawable.ic_meditation, "#6B3FD4"));
+        goals.add(new HabitGoal(getString(R.string.habit_reading), 0, 5, 0, R.drawable.ic_nav_search, "#8B5CF6"));
+        goals.add(new HabitGoal(getString(R.string.habit_workout), 0, 5, 0, R.drawable.ic_workout, "#EF4444"));
+        goals.add(new HabitGoal(getString(R.string.habit_drink), 0, 7, 0, R.drawable.ic_health, "#10B981"));
+        goals.add(new HabitGoal(getString(R.string.habit_sleep), 0, 7, 0, R.drawable.ic_sleep, "#F59E0B"));
 
         rv.setAdapter(new GoalsAdapter(goals));
     }
@@ -69,21 +69,21 @@ public class WeeklyGoalsFragment extends Fragment {
         @Override public void onBindViewHolder(@NonNull VH h, int p) {
             HabitGoal g = items.get(p);
             h.title.setText(g.title);
-            h.info.setText(String.format("%d of %dx this week", g.completed, g.target));
-            h.percentLabel.setText(String.format("%d%% of weekly goal", g.percent));
+            h.info.setText(h.itemView.getContext().getString(R.string.times_this_week_format, g.completed, g.target));
+            h.percentLabel.setText(h.itemView.getContext().getString(R.string.weekly_goal_percent_format, g.percent));
             h.progress.setProgress(g.percent);
             h.icon.setImageResource(g.iconRes);
-            h.timesPerWeek.setText(String.format("Times per week: %dx", g.target));
+            h.timesPerWeek.setText(h.itemView.getContext().getString(R.string.times_per_week_label, g.target));
 
             int color = android.graphics.Color.parseColor(g.color);
             h.icon.setImageTintList(android.content.res.ColorStateList.valueOf(color));
             h.progress.setProgressTintList(android.content.res.ColorStateList.valueOf(color));
             
             if (g.completed >= g.target) {
-                h.btnStatus.setText("Done");
+                h.btnStatus.setText(R.string.done_label);
                 h.btnStatus.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFF6366F1));
             } else {
-                h.btnStatus.setText("Edit goal");
+                h.btnStatus.setText(R.string.edit_goal_label);
                 h.btnStatus.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFF1F5F9));
                 h.btnStatus.setTextColor(0xFF64748B);
             }

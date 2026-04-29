@@ -27,7 +27,7 @@ public class DailyJournalFragment extends Fragment {
         });
 
         view.findViewById(R.id.btn_save_entry).setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Entry Saved! ✨", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.journal_saved, Toast.LENGTH_SHORT).show();
         });
 
         setupPastEntries(view);
@@ -40,9 +40,9 @@ public class DailyJournalFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         
         List<FocusTimerFragment.Session> pastEntries = new ArrayList<>();
-        pastEntries.add(new FocusTimerFragment.Session("Completed morning meditation", "Apr 4, 2026", "Mood: 😊", ""));
-        pastEntries.add(new FocusTimerFragment.Session("Had a super productive day", "Apr 3, 2026", "Mood: 🤩", ""));
-        pastEntries.add(new FocusTimerFragment.Session("Drank all 8 glasses of water", "Apr 2, 2026", "Mood: 🙂", ""));
+        pastEntries.add(new FocusTimerFragment.Session("Completed morning meditation", "Apr 4, 2026", getString(R.string.mood_format, "😊"), ""));
+        pastEntries.add(new FocusTimerFragment.Session("Had a super productive day", "Apr 3, 2026", getString(R.string.mood_format, "🤩"), ""));
+        pastEntries.add(new FocusTimerFragment.Session("Drank all 8 glasses of water", "Apr 2, 2026", getString(R.string.mood_format, "🙂"), ""));
 
         rv.setAdapter(new FocusTimerFragment.RecentSessionsAdapter(pastEntries));
     }

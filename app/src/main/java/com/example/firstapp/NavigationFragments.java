@@ -54,9 +54,9 @@ public class NavigationFragments {
                 EditText etName = view.findViewById(R.id.et_challenge_name);
                 String name = etName.getText().toString();
                 if (name.isEmpty()) {
-                    Toast.makeText(getContext(), "Please enter a challenge name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.error_challenge_name, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "Challenge '" + name + "' created successfully!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.challenge_created, name), Toast.LENGTH_LONG).show();
                     if (getActivity() != null) getActivity().onBackPressed();
                 }
             });
@@ -83,13 +83,13 @@ public class NavigationFragments {
 
         private List<LeaderboardUser> getMockLeaderboard() {
             List<LeaderboardUser> users = new ArrayList<>();
-            users.add(new LeaderboardUser("4", "Aayush Rathore", "3890 XP", "🔥 28"));
-            users.add(new LeaderboardUser("5", "Shejal Kushwaha", "3650 XP", "🔥 25"));
-            users.add(new LeaderboardUser("6", "Priya Das", "3420 XP", "🔥 22"));
-            users.add(new LeaderboardUser("7", "Romi", "3200 XP", "🔥 20"));
-            users.add(new LeaderboardUser("8", "Sachin Singh", "2980 XP", "🔥 18"));
-            users.add(new LeaderboardUser("9", "Aryan", "2750 XP", "🔥 15"));
-            users.add(new LeaderboardUser("10", "Zoya Ansari", "2600 XP", "🔥 14"));
+            users.add(new LeaderboardUser("4", "Aayush Rathore", getString(R.string.xp_format, "3890"), getString(R.string.streak_format, 28)));
+            users.add(new LeaderboardUser("5", "Shejal Kushwaha", getString(R.string.xp_format, "3650"), getString(R.string.streak_format, 25)));
+            users.add(new LeaderboardUser("6", "Priya Das", getString(R.string.xp_format, "3420"), getString(R.string.streak_format, 22)));
+            users.add(new LeaderboardUser("7", "Romi", getString(R.string.xp_format, "3200"), getString(R.string.streak_format, 20)));
+            users.add(new LeaderboardUser("8", "Sachin Singh", getString(R.string.xp_format, "2980"), getString(R.string.streak_format, 18)));
+            users.add(new LeaderboardUser("9", "Aryan", getString(R.string.xp_format, "2750"), getString(R.string.streak_format, 15)));
+            users.add(new LeaderboardUser("10", "Zoya Ansari", getString(R.string.xp_format, "2600"), getString(R.string.streak_format, 14)));
             return users;
         }
 
@@ -150,14 +150,14 @@ public class NavigationFragments {
             container.removeAllViews();
 
             List<ProfileFeature> features = new ArrayList<>();
-            features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_nav_home, "#F3F0FF"));
-            features.add(new ProfileFeature("Focus Timer", "Deep focus on one habit at a time", R.drawable.ic_bolt, "#FFF7ED"));
-            features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_bolt, "#F0FDF4"));
-            features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_bolt, "#EEF2FF"));
-            features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_bolt, "#FFF1F2"));
-            features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_bolt, "#F0FDFA"));
-            features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_badge_1, "#FEFCE8"));
-            features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_analytics, "#FDF2F8"));
+            features.add(new ProfileFeature(getString(R.string.feature_streak_calendar_title), getString(R.string.feature_streak_calendar_desc), R.drawable.ic_nav_home, "#F3F0FF"));
+            features.add(new ProfileFeature(getString(R.string.feature_focus_timer_title), getString(R.string.feature_focus_timer_desc), R.drawable.ic_bolt, "#FFF7ED"));
+            features.add(new ProfileFeature(getString(R.string.feature_weekly_goals_title), getString(R.string.feature_weekly_goals_desc), R.drawable.ic_bolt, "#F0FDF4"));
+            features.add(new ProfileFeature(getString(R.string.feature_daily_journal_title), getString(R.string.feature_daily_journal_desc), R.drawable.ic_bolt, "#EEF2FF"));
+            features.add(new ProfileFeature(getString(R.string.feature_mood_tracker_title), getString(R.string.feature_mood_tracker_desc), R.drawable.ic_bolt, "#FFF1F2"));
+            features.add(new ProfileFeature(getString(R.string.feature_friends_title), getString(R.string.feature_friends_desc), R.drawable.ic_bolt, "#F0FDFA"));
+            features.add(new ProfileFeature(getString(R.string.feature_rewards_title), getString(R.string.feature_rewards_desc), R.drawable.ic_badge_1, "#FEFCE8"));
+            features.add(new ProfileFeature(getString(R.string.feature_weekly_report_title), getString(R.string.feature_weekly_report_desc), R.drawable.ic_nav_analytics, "#FDF2F8"));
 
             for (ProfileFeature feature : features) {
                 try {
@@ -184,16 +184,16 @@ public class NavigationFragments {
                     }
 
                     itemView.setOnClickListener(v -> {
-                        if ("Streak Calendar".equals(feature.getTitle())) {
+                        if (getString(R.string.feature_streak_calendar_title).equals(feature.getTitle())) {
                             loadFragment(new StreakCalendarFragment());
-                        } else if ("Focus Timer".equals(feature.getTitle())) {
+                        } else if (getString(R.string.feature_focus_timer_title).equals(feature.getTitle())) {
                             loadFragment(new FocusTimerFragment());
-                        } else if ("Daily Journal".equals(feature.getTitle())) {
+                        } else if (getString(R.string.feature_daily_journal_title).equals(feature.getTitle())) {
                             loadFragment(new DailyJournalFragment());
-                        } else if ("Weekly Goals".equals(feature.getTitle())) {
+                        } else if (getString(R.string.feature_weekly_goals_title).equals(feature.getTitle())) {
                             loadFragment(new WeeklyGoalsFragment());
                         } else {
-                            Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.action_clicked_format, feature.getTitle()), Toast.LENGTH_SHORT).show();
                         }
                     });
                     container.addView(itemView);
@@ -216,12 +216,13 @@ public class NavigationFragments {
     public static class SearchFragment extends Fragment {
         private HabitAdapter adapter;
         private List<Habit> allHabits;
-        private String currentCategory = "All";
+        private String currentCategory;
 
         @Nullable @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_discover, container, false);
             
+            currentCategory = getString(R.string.category_all);
             allHabits = getMockHabits();
             RecyclerView rvPopular = view.findViewById(R.id.rv_popular_habits);
             rvPopular.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -246,32 +247,32 @@ public class NavigationFragments {
             });
 
             // Category Selection
-            view.findViewById(R.id.cat_fitness).setOnClickListener(v -> toggleCategory("Fitness"));
-            view.findViewById(R.id.cat_study).setOnClickListener(v -> toggleCategory("Study"));
-            view.findViewById(R.id.cat_meditation).setOnClickListener(v -> toggleCategory("Meditation"));
+            view.findViewById(R.id.cat_fitness).setOnClickListener(v -> toggleCategory(getString(R.string.cat_fitness)));
+            view.findViewById(R.id.cat_study).setOnClickListener(v -> toggleCategory(getString(R.string.cat_study)));
+            view.findViewById(R.id.cat_meditation).setOnClickListener(v -> toggleCategory(getString(R.string.cat_meditation)));
 
             // View All
             view.findViewById(R.id.tv_view_all).setOnClickListener(v -> {
-                currentCategory = "All";
+                currentCategory = getString(R.string.category_all);
                 etSearch.setText("");
                 adapter.updateList(allHabits);
-                Toast.makeText(getContext(), "Showing all habits", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.showing_all_habits, Toast.LENGTH_SHORT).show();
             });
         }
 
         private void toggleCategory(String category) {
             if (currentCategory.equals(category)) {
-                currentCategory = "All";
+                currentCategory = getString(R.string.category_all);
             } else {
                 currentCategory = category;
             }
             filterHabits("");
-            Toast.makeText(getContext(), "Filter: " + currentCategory, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.filter_message, currentCategory), Toast.LENGTH_SHORT).show();
         }
 
         private void filterHabits(String query) {
             List<Habit> filtered = allHabits.stream()
-                .filter(h -> (currentCategory.equals("All") || h.getCategory().equalsIgnoreCase(currentCategory)))
+                .filter(h -> (currentCategory.equals(getString(R.string.category_all)) || h.getCategory().equalsIgnoreCase(currentCategory)))
                 .filter(h -> h.getTitle().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
             adapter.updateList(filtered);
@@ -279,14 +280,14 @@ public class NavigationFragments {
 
         private List<Habit> getMockHabits() {
             List<Habit> habits = new ArrayList<>();
-            habits.add(new Habit("1", "Morning Run", "Fitness", "Medium", android.R.drawable.ic_menu_compass, "#6366F1"));
-            habits.add(new Habit("2", "Read Books", "Study", "Easy", android.R.drawable.ic_menu_edit, "#8B5CF6"));
-            habits.add(new Habit("3", "Meditate", "Meditation", "Easy", android.R.drawable.ic_menu_info_details, "#06B6D4"));
-            habits.add(new Habit("4", "Cold Shower", "Health", "Hard", android.R.drawable.btn_star_big_on, "#10B981"));
-            habits.add(new Habit("5", "Journal", "Productivity", "Easy", android.R.drawable.ic_menu_today, "#F59E0B"));
-            habits.add(new Habit("6", "No Sugar", "Health", "Hard", android.R.drawable.btn_star, "#EF4444"));
-            habits.add(new Habit("7", "Push-ups", "Fitness", "Medium", android.R.drawable.ic_menu_compass, "#6366F1"));
-            habits.add(new Habit("8", "Stretch", "Health", "Easy", android.R.drawable.ic_menu_directions, "#10B981"));
+            habits.add(new Habit("1", getString(R.string.habit_run), getString(R.string.cat_fitness), getString(R.string.diff_medium), android.R.drawable.ic_menu_compass, "#6366F1"));
+            habits.add(new Habit("2", getString(R.string.habit_read), getString(R.string.cat_study), getString(R.string.diff_easy), android.R.drawable.ic_menu_edit, "#8B5CF6"));
+            habits.add(new Habit("3", getString(R.string.habit_meditation_simple), getString(R.string.cat_meditation), getString(R.string.diff_easy), android.R.drawable.ic_menu_info_details, "#06B6D4"));
+            habits.add(new Habit("4", getString(R.string.habit_cold_shower), getString(R.string.cat_health), getString(R.string.diff_hard), android.R.drawable.btn_star_big_on, "#10B981"));
+            habits.add(new Habit("5", getString(R.string.habit_journal), getString(R.string.cat_productivity), getString(R.string.diff_easy), android.R.drawable.ic_menu_today, "#F59E0B"));
+            habits.add(new Habit("6", getString(R.string.habit_no_sugar), getString(R.string.cat_health), getString(R.string.diff_hard), android.R.drawable.btn_star, "#EF4444"));
+            habits.add(new Habit("7", getString(R.string.habit_pushups), getString(R.string.cat_fitness), getString(R.string.diff_medium), android.R.drawable.ic_menu_compass, "#6366F1"));
+            habits.add(new Habit("8", getString(R.string.habit_stretch), getString(R.string.cat_health), getString(R.string.diff_easy), android.R.drawable.ic_menu_directions, "#10B981"));
             return habits;
         }
     }
@@ -322,25 +323,24 @@ public class NavigationFragments {
 
             // Style Difficulty Badge
             int diffBg, diffText;
-            switch (h.getDifficulty()) {
-                case "Easy":
-                    diffBg = holder.itemView.getContext().getColor(R.color.difficulty_easy_bg);
-                    diffText = holder.itemView.getContext().getColor(R.color.difficulty_easy_text);
-                    break;
-                case "Hard":
-                    diffBg = holder.itemView.getContext().getColor(R.color.difficulty_hard_bg);
-                    diffText = holder.itemView.getContext().getColor(R.color.difficulty_hard_text);
-                    break;
-                default: // Medium
-                    diffBg = holder.itemView.getContext().getColor(R.color.difficulty_medium_bg);
-                    diffText = holder.itemView.getContext().getColor(R.color.difficulty_medium_text);
-                    break;
+            String easy = holder.itemView.getContext().getString(R.string.diff_easy);
+            String hard = holder.itemView.getContext().getString(R.string.diff_hard);
+            
+            if (h.getDifficulty().equals(easy)) {
+                diffBg = holder.itemView.getContext().getColor(R.color.difficulty_easy_bg);
+                diffText = holder.itemView.getContext().getColor(R.color.difficulty_easy_text);
+            } else if (h.getDifficulty().equals(hard)) {
+                diffBg = holder.itemView.getContext().getColor(R.color.difficulty_hard_bg);
+                diffText = holder.itemView.getContext().getColor(R.color.difficulty_hard_text);
+            } else { // Medium
+                diffBg = holder.itemView.getContext().getColor(R.color.difficulty_medium_bg);
+                diffText = holder.itemView.getContext().getColor(R.color.difficulty_medium_text);
             }
             holder.tvDifficulty.setBackgroundTintList(ColorStateList.valueOf(diffBg));
             holder.tvDifficulty.setTextColor(diffText);
 
             holder.btnAdd.setOnClickListener(v -> 
-                Toast.makeText(v.getContext(), h.getTitle() + " added!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(v.getContext(), v.getContext().getString(R.string.habit_added, h.getTitle()), Toast.LENGTH_SHORT).show()
             );
         }
 

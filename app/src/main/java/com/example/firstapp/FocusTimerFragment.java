@@ -38,7 +38,7 @@ public class FocusTimerFragment extends Fragment {
     private long totalTimeInMillis = 25 * 60 * 1000; // Default 25 min
     private boolean timerRunning;
 
-    private String selectedHabit = "Morning";
+    private String selectedHabit;
     private int selectedDuration = 25;
 
     private List<Session> recentSessions;
@@ -48,6 +48,8 @@ public class FocusTimerFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_focus_timer, container, false);
+
+        selectedHabit = getString(R.string.habit_morning);
 
         initViews(view);
         setupHabitSelection();
@@ -83,10 +85,16 @@ public class FocusTimerFragment extends Fragment {
     }
 
     private void setupHabitSelection() {
-        String[] habits = {"Morning", "Read", "Workout", "Water"};
+        String[] habits = {
+                getString(R.string.habit_morning),
+                getString(R.string.habit_read),
+                getString(R.string.habit_workout),
+                getString(R.string.habit_drink)
+        };
         int[] icons = {R.drawable.ic_meditation, R.drawable.ic_edit, R.drawable.ic_workout, R.drawable.ic_launcher_foreground};
         String[] colors = {"#6366F1", "#8B5CF6", "#F59E0B", "#06B6D4"};
 
+        habitSelectionContainer.removeAllViews();
         for (int i = 0; i < habits.length; i++) {
             final String habitName = habits[i];
             View chip = getLayoutInflater().inflate(R.layout.item_habit_chip, habitSelectionContainer, false);
@@ -105,7 +113,7 @@ public class FocusTimerFragment extends Fragment {
             chip.setOnClickListener(v -> {
                 selectedHabit = habitName;
                 tvSelectedHabitTimer.setText(habitName);
-                Toast.makeText(getContext(), "Selected: " + habitName, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.selected_habit_format, habitName), Toast.LENGTH_SHORT).show();
             });
 
             habitSelectionContainer.addView(chip);
@@ -114,12 +122,13 @@ public class FocusTimerFragment extends Fragment {
 
     private void setupDurationSelection() {
         int[] durations = {5, 10, 15, 25, 30};
+        durationContainer.removeAllViews();
         for (int duration : durations) {
             MaterialButton btn = new MaterialButton(getContext(), null, com.google.android.material.R.attr.materialButtonOutlinedStyle);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
             lp.setMargins(4, 0, 4, 0);
             btn.setLayoutParams(lp);
-            btn.setText(duration + "m");
+            btn.setText(getString(R.string.timer_minutes_format, duration));
             btn.setCornerRadius(12);
             btn.setPadding(0, 0, 0, 0);
             
@@ -145,15 +154,15 @@ public class FocusTimerFragment extends Fragment {
             @Override
             public void onFinish() {
                 timerRunning = false;
-                btnStartSession.setText("Start Session");
-                Toast.makeText(getContext(), "Focus Session Finished!", Toast.LENGTH_LONG).show();
+                btnStartSession.setText(R.string.start_session);
+                Toast.makeText(getContext(), R.string.focus_finished_msg, Toast.LENGTH_LONG).show();
                 // Add to recent sessions
                 addSessionToHistory();
             }
         }.start();
 
         timerRunning = true;
-        btnStartSession.setText("Pause Session");
+        btnStartSession.setText(R.string.pause_session);
     }
 
     private void pauseTimer() {
@@ -161,7 +170,7 @@ public class FocusTimerFragment extends Fragment {
             countDownTimer.cancel();
         }
         timerRunning = false;
-        btnStartSession.setText("Resume Session");
+        btnStartSession.setText(R.string.resume_session);
     }
 
     private void resetTimer() {
@@ -172,7 +181,7 @@ public class FocusTimerFragment extends Fragment {
         timeLeftInMillis = totalTimeInMillis;
         updateCountDownText();
         updateProgressBar();
-        btnStartSession.setText("Start Session");
+        btnStartSession.setText(R.string.start_session);
     }
 
     private void updateCountDownText() {
@@ -188,7 +197,11 @@ public class FocusTimerFragment extends Fragment {
     }
 
     private void addSessionToHistory() {
-        recentSessions.add(0, new Session(selectedHabit + " Focus", "Today", selectedDuration + " min", "+ " + (selectedDuration * 2) + " XP"));
+        recentSessions.add(0, new Session(
+                getString(R.string.focus_title_format, selectedHabit),
+                getString(R.string.today_label),
+                getString(R.string.min_label_format, selectedDuration),
+                getString(R.string.xp_plus_format, selectedDuration * 2)));
         sessionsAdapter.notifyItemInserted(0);
     }
 
@@ -197,9 +210,9 @@ public class FocusTimerFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         
         recentSessions = new ArrayList<>();
-        recentSessions.add(new Session("Morning Meditation", "Apr 4, 2026", "25 min", "+50 XP"));
-        recentSessions.add(new Session("Read 30 Minutes", "Apr 3, 2026", "30 min", "+60 XP"));
-        recentSessions.add(new Session("Workout", "Apr 2, 2026", "25 min", "+50 XP"));
+        recentSessions.add(new Session(getString(R.string.habit_meditation), "Apr 4, 2026", getString(R.string.min_label_format, 25), getString(R.string.xp_plus_format, 50)));
+        recentSessions.add(new Session(getString(R.string.habit_reading), "Apr 3, 2026", getString(R.string.min_label_format, 30), getString(R.string.xp_plus_format, 60)));
+        recentSessions.add(new Session(getString(R.string.habit_workout), "Apr 2, 2026", getString(R.string.min_label_format, 25), getString(R.string.xp_plus_format, 50)));
 
         sessionsAdapter = new RecentSessionsAdapter(recentSessions);
         rv.setAdapter(sessionsAdapter);

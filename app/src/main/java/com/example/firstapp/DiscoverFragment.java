@@ -24,13 +24,14 @@ import java.util.stream.Collectors;
 public class DiscoverFragment extends Fragment {
     private NavigationFragments.HabitAdapter adapter;
     private List<Habit> allHabits;
-    private String currentCategory = "All";
+    private String currentCategory;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
         
+        currentCategory = getString(R.string.category_all);
         allHabits = getMockHabits();
         RecyclerView rvPopular = view.findViewById(R.id.rv_popular_habits);
         rvPopular.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -55,13 +56,13 @@ public class DiscoverFragment extends Fragment {
         });
 
         // Category Selection
-        view.findViewById(R.id.cat_fitness).setOnClickListener(v -> toggleCategory("Fitness"));
-        view.findViewById(R.id.cat_study).setOnClickListener(v -> toggleCategory("Study"));
-        view.findViewById(R.id.cat_meditation).setOnClickListener(v -> toggleCategory("Meditation"));
+        view.findViewById(R.id.cat_fitness).setOnClickListener(v -> toggleCategory(getString(R.string.cat_fitness)));
+        view.findViewById(R.id.cat_study).setOnClickListener(v -> toggleCategory(getString(R.string.cat_study)));
+        view.findViewById(R.id.cat_meditation).setOnClickListener(v -> toggleCategory(getString(R.string.cat_meditation)));
 
         // View All
         view.findViewById(R.id.tv_view_all).setOnClickListener(v -> {
-            currentCategory = "All";
+            currentCategory = getString(R.string.category_all);
             etSearch.setText("");
             adapter.updateList(allHabits);
             Toast.makeText(getContext(), R.string.showing_all_habits, Toast.LENGTH_SHORT).show();
@@ -70,7 +71,7 @@ public class DiscoverFragment extends Fragment {
 
     private void toggleCategory(String category) {
         if (currentCategory.equals(category)) {
-            currentCategory = "All";
+            currentCategory = getString(R.string.category_all);
         } else {
             currentCategory = category;
         }
@@ -80,7 +81,7 @@ public class DiscoverFragment extends Fragment {
 
     private void filterHabits(String query) {
         List<Habit> filtered = allHabits.stream()
-            .filter(h -> (currentCategory.equals("All") || h.getCategory().equalsIgnoreCase(currentCategory)))
+            .filter(h -> (currentCategory.equals(getString(R.string.category_all)) || h.getCategory().equalsIgnoreCase(currentCategory)))
             .filter(h -> h.getTitle().toLowerCase().contains(query.toLowerCase()))
             .collect(Collectors.toList());
         adapter.updateList(filtered);
@@ -88,15 +89,14 @@ public class DiscoverFragment extends Fragment {
 
     private List<Habit> getMockHabits() {
         List<Habit> habits = new ArrayList<>();
-        // Using constructor: Habit(String title, String category, String difficulty, String color, int iconRes)
-        habits.add(new Habit("Morning Run", "Fitness", "Medium", "#6366F1", R.drawable.ic_nav_arena));
-        habits.add(new Habit("Read Books", "Study", "Easy", "#8B5CF6", R.drawable.ic_nav_search));
-        habits.add(new Habit("Meditate", "Meditation", "Easy", "#06B6D4", R.drawable.ic_nav_profile));
-        habits.add(new Habit("Cold Shower", "Health", "Hard", "#10B981", R.drawable.ic_bolt));
-        habits.add(new Habit("Journal", "Productivity", "Easy", "#F59E0B", R.drawable.ic_nav_home));
-        habits.add(new Habit("No Sugar", "Health", "Hard", "#EF4444", R.drawable.ic_bolt));
-        habits.add(new Habit("Push-ups", "Fitness", "Medium", "#6366F1", R.drawable.ic_nav_arena));
-        habits.add(new Habit("Stretch", "Health", "Easy", "#10B981", R.drawable.ic_bolt));
+        habits.add(new Habit(getString(R.string.habit_run), getString(R.string.cat_fitness), getString(R.string.diff_medium), "#6366F1", R.drawable.ic_nav_arena));
+        habits.add(new Habit(getString(R.string.habit_read), getString(R.string.cat_study), getString(R.string.diff_easy), "#8B5CF6", R.drawable.ic_nav_search));
+        habits.add(new Habit(getString(R.string.habit_meditation_simple), getString(R.string.cat_meditation), getString(R.string.diff_easy), "#06B6D4", R.drawable.ic_nav_profile));
+        habits.add(new Habit(getString(R.string.habit_cold_shower), getString(R.string.cat_health), getString(R.string.diff_hard), "#10B981", R.drawable.ic_bolt));
+        habits.add(new Habit(getString(R.string.habit_journal), getString(R.string.cat_productivity), getString(R.string.diff_easy), "#F59E0B", R.drawable.ic_nav_home));
+        habits.add(new Habit(getString(R.string.habit_no_sugar), getString(R.string.cat_health), getString(R.string.diff_hard), "#EF4444", R.drawable.ic_bolt));
+        habits.add(new Habit(getString(R.string.habit_pushups), getString(R.string.cat_fitness), getString(R.string.diff_medium), "#6366F1", R.drawable.ic_nav_arena));
+        habits.add(new Habit(getString(R.string.habit_stretch), getString(R.string.cat_health), getString(R.string.diff_easy), "#10B981", R.drawable.ic_bolt));
         return habits;
     }
 }

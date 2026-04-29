@@ -44,9 +44,9 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void loadProfileData() {
-        String name = prefs.getString("profile_name", "Team MAD");
-        String rank = prefs.getString("profile_rank", "Warrior 🎖️");
-        String email = prefs.getString("profile_email", "you@email.com");
+        String name = prefs.getString("profile_name", getString(R.string.user_name_default));
+        String rank = prefs.getString("profile_rank", getString(R.string.user_rank));
+        String email = prefs.getString("profile_email", getString(R.string.email_hint));
 
         if (etName != null) etName.setText(name);
         if (etRank != null) etRank.setText(rank);
@@ -54,12 +54,12 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void saveProfileData() {
-        String name = etName.getText().toString().trim();
-        String rank = etRank.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
+        String name = etName.getText() != null ? etName.getText().toString().trim() : "";
+        String rank = etRank.getText() != null ? etRank.getText().toString().trim() : "";
+        String email = etEmail.getText() != null ? etEmail.getText().toString().trim() : "";
 
         if (name.isEmpty()) {
-            Toast.makeText(getContext(), "Name cannot be empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.error_name_empty, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -69,7 +69,7 @@ public class EditProfileFragment extends Fragment {
                 .putString("profile_email", email)
                 .apply();
 
-        Toast.makeText(getContext(), "Profile updated successfully! ✨", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.profile_updated, Toast.LENGTH_SHORT).show();
         
         if (getActivity() != null) {
             getActivity().getSupportFragmentManager().popBackStack();

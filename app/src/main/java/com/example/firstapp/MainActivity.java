@@ -197,9 +197,11 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (ApiException e) {
             Log.e(TAG, "Google sign in failed code=" + e.getStatusCode(), e);
-            String errorMsg = "Google Sign In Failed. Code: " + e.getStatusCode();
+            String errorMsg;
             if (e.getStatusCode() == 10) {
-                errorMsg = "DEVELOPER_ERROR: Check SHA-1 and Google Sign-In setup in Firebase.";
+                errorMsg = getString(R.string.developer_error_google);
+            } else {
+                errorMsg = getString(R.string.google_sign_in_failed, e.getStatusCode());
             }
             Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
         }
@@ -222,7 +224,8 @@ public class MainActivity extends AppCompatActivity {
                         navigateToHome();
                     } else {
                         Log.e(TAG, "Firebase Auth failed", task.getException());
-                        Toast.makeText(MainActivity.this, "Authentication Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        String msg = task.getException() != null ? task.getException().getMessage() : "";
+                        Toast.makeText(MainActivity.this, getString(R.string.auth_failed, msg), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

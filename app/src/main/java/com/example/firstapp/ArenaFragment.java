@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstapp.data.ChallengeRepository;
-import com.example.firstapp.data.HabitRepository;
 import com.example.firstapp.models.ArenaUiState;
 import com.example.firstapp.models.Challenge;
 import com.example.firstapp.models.UserRank;

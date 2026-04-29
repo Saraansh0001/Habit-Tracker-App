@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
     private List<Habit> userHabits;
     private EditText etSearch;
     private ChipGroup cgCategories;
-    private String currentCategory = "All";
+    private String currentCategory;
     private String currentQuery = "";
 
     @Nullable
@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        currentCategory = getString(R.string.category_all);
         habitRepository = new HabitRepository(requireContext());
         userHabits = habitRepository.getUserHabits();
 
@@ -115,7 +116,7 @@ public class HomeFragment extends Fragment {
 
         cgCategories.setOnCheckedStateChangeListener((group, checkedIds) -> {
             if (checkedIds.isEmpty()) {
-                currentCategory = "All";
+                currentCategory = getString(R.string.category_all);
             } else {
                 Chip chip = group.findViewById(checkedIds.get(0));
                 currentCategory = chip.getText().toString();

@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs.edit().putBoolean("notifications_enabled", isChecked).apply();
-            Toast.makeText(this, isChecked ? "Notifications Enabled" : "Notifications Disabled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, isChecked ? R.string.notifications_enabled : R.string.notifications_disabled, Toast.LENGTH_SHORT).show();
         });
 
         switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -73,18 +73,18 @@ public class SettingsActivity extends AppCompatActivity {
             }
             // Forces activity to restart to apply theme immediately
             recreate();
-            Toast.makeText(this, "Theme updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.theme_updated, Toast.LENGTH_SHORT).show();
         });
 
         findViewById(R.id.btn_logout).setOnClickListener(v -> {
-            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.logout_success, Toast.LENGTH_SHORT).show();
             // Logic to clear session and go to WelcomeActivity would go here
             finish();
         });
     }
 
     private void loadSettings() {
-        String userName = prefs.getString("user_name", "Team MAD");
+        String userName = prefs.getString("user_name", getString(R.string.user_name_default));
         tvUserName.setText(userName);
 
         boolean notificationsEnabled = prefs.getBoolean("notifications_enabled", true);
@@ -96,22 +96,22 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void showEditNameDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Edit Name");
+        builder.setTitle(R.string.edit_name);
 
         View viewInflated = LayoutInflater.from(this).inflate(R.layout.dialog_edit_name, null);
         final EditText input = viewInflated.findViewById(R.id.et_new_name);
         input.setText(tvUserName.getText().toString());
         builder.setView(viewInflated);
 
-        builder.setPositiveButton("Save", (dialog, which) -> {
+        builder.setPositiveButton(R.string.save, (dialog, which) -> {
             String newName = input.getText().toString().trim();
             if (!newName.isEmpty()) {
                 prefs.edit().putString("user_name", newName).apply();
                 tvUserName.setText(newName);
-                Toast.makeText(this, "Name updated!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.name_updated, Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
 
         builder.show();
     }

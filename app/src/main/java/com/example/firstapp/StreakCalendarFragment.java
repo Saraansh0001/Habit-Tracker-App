@@ -69,11 +69,11 @@ public class StreakCalendarFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         
         List<HabitStreak> streaks = new ArrayList<>();
-        streaks.add(new HabitStreak("Morning Meditation", 12, 69, 84, 82, R.drawable.ic_meditation, "#6B3FD4"));
-        streaks.add(new HabitStreak("Read 30 Minutes", 8, 50, 84, 60, R.drawable.ic_nav_search, "#8B5CF6"));
-        streaks.add(new HabitStreak("Workout", 5, 46, 84, 55, R.drawable.ic_workout, "#EF4444"));
-        streaks.add(new HabitStreak("Drink 8 Glasses", 15, 66, 84, 79, R.drawable.ic_health, "#10B981"));
-        streaks.add(new HabitStreak("Sleep by 11 PM", 3, 34, 84, 40, R.drawable.ic_sleep, "#F59E0B"));
+        streaks.add(new HabitStreak(getString(R.string.habit_meditation), 12, 69, 84, 82, R.drawable.ic_meditation, "#6B3FD4"));
+        streaks.add(new HabitStreak(getString(R.string.habit_reading), 8, 50, 84, 60, R.drawable.ic_nav_search, "#8B5CF6"));
+        streaks.add(new HabitStreak(getString(R.string.habit_workout), 5, 46, 84, 55, R.drawable.ic_workout, "#EF4444"));
+        streaks.add(new HabitStreak(getString(R.string.habit_drink), 15, 66, 84, 79, R.drawable.ic_health, "#10B981"));
+        streaks.add(new HabitStreak(getString(R.string.habit_sleep), 3, 34, 84, 40, R.drawable.ic_sleep, "#F59E0B"));
 
         rv.setAdapter(new StreakAdapter(streaks));
     }
@@ -98,8 +98,8 @@ public class StreakCalendarFragment extends Fragment {
         @Override public void onBindViewHolder(@NonNull VH h, int p) {
             HabitStreak s = items.get(p);
             h.title.setText(s.title);
-            h.info.setText("🔥 " + s.currentStreak + " day streak  •  " + s.completedDays + " / " + s.totalDays + " days");
-            h.percent.setText(s.consistency + "%");
+            h.info.setText(h.itemView.getContext().getString(R.string.streak_info_format, s.currentStreak, s.completedDays, s.totalDays));
+            h.percent.setText(h.itemView.getContext().getString(R.string.percentage_format, s.consistency));
             h.progress.setProgress(s.consistency);
             h.icon.setImageResource(s.iconRes);
             
