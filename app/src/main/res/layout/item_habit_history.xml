@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="2dp">
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/bg_white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
             android:layout_height="48dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#F1F5F9">
+            app:cardBackgroundColor="@color/input_border">
             <ImageView
                 android:id="@+id/iv_habit_icon"
                 android:layout_width="24dp"
@@ -105,7 +106,7 @@
                 android:id="@+id/tv_history_xp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#10B981"
+                android:textColor="@color/difficulty_easy_text"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
