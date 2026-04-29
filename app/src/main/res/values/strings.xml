@@ -86,6 +86,7 @@
     <string name="popular_habits_title">Popular Habits</string>
     <string name="view_all_with_arrow">View All ></string>
     <string name="search_icon_desc">Search Icon</string>
+    <string name="search_history_hint">Search history...</string>
     <string name="fitness_icon_desc">Fitness Icon</string>
     <string name="study_icon_desc">Study Icon</string>
     <string name="meditation_icon_desc">Meditation Icon</string>

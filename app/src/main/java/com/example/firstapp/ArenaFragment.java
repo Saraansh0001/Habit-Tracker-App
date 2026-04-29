@@ -222,11 +222,15 @@ public class ArenaFragment extends Fragment {
                 tvParticipants.setText(itemView.getContext().getString(R.string.participants_format, challenge.getParticipants()));
                 tvDuration.setText(itemView.getContext().getString(R.string.duration_format, challenge.getDuration()));
                 progressBar.setProgress(challenge.getProgress());
-                if (challenge.getIconRes() != 0) ivIcon.setImageResource(challenge.getIconRes());
+                if (challenge.getIconRes() != 0 && ivIcon != null) ivIcon.setImageResource(challenge.getIconRes());
                 if (challenge.getColor() != null) {
                     int c = Color.parseColor(challenge.getColor());
-                    ivIcon.setImageTintList(ColorStateList.valueOf(c));
-                    cvIcon.setCardBackgroundColor(Color.argb(30, Color.red(c), Color.green(c), Color.blue(c)));
+                    if (ivIcon != null) {
+                        ivIcon.setImageTintList(ColorStateList.valueOf(c));
+                    }
+                    if (cvIcon != null) {
+                        cvIcon.setCardBackgroundColor(Color.argb(30, Color.red(c), Color.green(c), Color.blue(c)));
+                    }
                     progressBar.setProgressTintList(ColorStateList.valueOf(c));
                 }
             }

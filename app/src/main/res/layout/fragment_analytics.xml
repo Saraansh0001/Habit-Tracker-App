@@ -8,7 +8,6 @@
     android:background="@color/bg_light">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
@@ -22,205 +21,332 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="60dp"
+            android:clipToPadding="false">
 
-            <!-- Header Section -->
-            <androidx.cardview.widget.CardView
+            <!-- HEADER -->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                app:cardElevation="8dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardCornerRadius="0dp">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_header_gradient" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp"
-                    android:layout_gravity="bottom">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/analytics_title"
-                        android:textColor="@android:color/white"
-                        android:textSize="28sp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/analytics_subtitle"
-                        android:textColor="@color/purple_light"
-                        android:textSize="16sp"
-                        android:layout_marginTop="4dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_header_rounded_bottom"
+                android:paddingHorizontal="24dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="25dp">
 
+                <TextView
+                    android:id="@+id/tv_analytics_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="76dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/analytics_title"
+                    android:textColor="@android:color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/analytics_subtitle"
+                    android:textColor="@color/purple_light"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_analytics_title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- CONTENT -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="10dp">
 
-                <!-- Summary Cards Row -->
+                <!-- STATS CARDS -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="-40dp">
+                    android:layout_marginTop="-30dp"
+                    android:baselineAligned="false">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_streak"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="4dp"
                         android:layout_marginEnd="8dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardElevation="12dp"
                         app:cardBackgroundColor="@color/bg_white"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
+
                         <LinearLayout
+                            android:layout_marginTop="25dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:orientation="vertical"
-                            android:padding="16dp"
-                            android:gravity="center">
+                            android:padding="20dp">
+
                             <TextView
-                                android:id="@+id/tv_streak_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="12"
                                 android:textColor="@color/purple_primary"
-                                android:textSize="24sp"
+                                android:textSize="28sp"
                                 android:textStyle="bold" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/day_streak"
+                                android:textAllCaps="true"
                                 android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_completion"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="4dp"
                         android:layout_marginStart="8dp"
-                        app:cardBackgroundColor="@color/bg_white"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackground">
+                        app:cardCornerRadius="24dp"
+                        app:cardElevation="12dp"
+                        app:cardBackgroundColor="@color/bg_white">
+
                         <LinearLayout
+                            android:layout_marginTop="25dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="16dp"
+                            android:padding="20dp"
                             android:gravity="center">
+
                             <TextView
-                                android:id="@+id/tv_completion_rate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="85%"
                                 android:textColor="@color/purple_primary"
-                                android:textSize="24sp"
+                                android:textSize="28sp"
                                 android:textStyle="bold" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/completion_rate"
                                 android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:textAllCaps="true" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
-                <!-- Activity Chart Placeholder -->
-                <LinearLayout
+                <!-- WEEKLY PROGRESS -->
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
                     android:layout_marginTop="32dp">
+
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="@string/weekly_progress"
                         android:textColor="@color/text_dark"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/tv_this_week"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:text="@string/label_this_week"
                         android:textColor="@color/purple_primary"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                        android:textStyle="bold" />
+                </RelativeLayout>
 
+                <!-- CHART CARD -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="16dp"
-                    app:cardCornerRadius="16dp"
+                    app:cardCornerRadius="24dp"
                     app:cardElevation="2dp"
                     app:cardBackgroundColor="@color/bg_white">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="20dp">
+                        android:orientation="vertical">
+
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@drawable/ic_nav_analytics"
-                            app:tint="@color/purple_light" />
+                            app:tint="@color/purple_light"
+                            android:alpha="0.6" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="12dp"
                             android:text="@string/chart_coming_soon"
-                            android:textColor="@color/text_secondary" />
+                            android:textColor="@color/text_secondary"
+                            android:textStyle="italic" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Best Habits -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/top_performing_habits"
-                    android:textColor="@color/text_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="32dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_top_habits"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:nestedScrollingEnabled="false"
-                    tools:listitem="@layout/item_habit_discover" />
-
-                <!-- Habit History -->
+                <!-- HISTORY TITLE -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/habit_history_title"
                     android:textColor="@color/text_dark"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_marginTop="32dp" />
 
+                <!-- SEARCH -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="12dp"
+                    app:cardBackgroundColor="@color/bg_white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="24dp">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_nav_search"
+                            app:tint="@color/purple_primary" />
+
+                        <EditText
+                            android:id="@+id/et_search_history"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/search_history_hint"
+                            android:textColorHint="@color/text_hint"
+                            android:textColor="@color/text_dark"
+                            android:textSize="16sp"
+                            android:layout_marginStart="16dp"
+                            android:importantForAutofill="no"
+                            android:inputType="text" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- HISTORY CATEGORIES -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="8dp"
+                        android:paddingHorizontal="4dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cat_history_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="2dp"
+                            android:layout_margin="4dp"
+                            app:cardBackgroundColor="@color/bg_white">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="20dp"
+                                android:paddingVertical="8dp"
+                                android:text="All"
+                                android:textColor="@color/text_dark"
+                                android:textStyle="bold"/>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cat_history_fitness"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="2dp"
+                            android:layout_margin="4dp"
+                            app:cardBackgroundColor="@color/bg_white">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="20dp"
+                                android:paddingVertical="8dp"
+                                android:text="Fitness"
+                                android:textColor="@color/text_dark"
+                                android:textStyle="bold"/>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cat_history_health"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="2dp"
+                            android:layout_margin="4dp"
+                            app:cardBackgroundColor="@color/bg_white">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="20dp"
+                                android:paddingVertical="8dp"
+                                android:text="Health"
+                                android:textColor="@color/text_dark"
+                                android:textStyle="bold"/>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cat_history_productivity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="2dp"
+                            android:layout_margin="4dp"
+                            app:cardBackgroundColor="@color/bg_white">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="20dp"
+                                android:paddingVertical="8dp"
+                                android:text="Productivity"
+                                android:textColor="@color/text_dark"
+                                android:textStyle="bold"/>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- RECYCLER -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_history"
                     android:layout_width="match_parent"
@@ -230,6 +356,7 @@
                     tools:listitem="@layout/item_habit_history" />
 
             </LinearLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

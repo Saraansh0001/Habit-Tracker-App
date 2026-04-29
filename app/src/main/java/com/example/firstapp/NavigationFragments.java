@@ -1,6 +1,8 @@
 package com.example.firstapp;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -50,9 +52,9 @@ public class NavigationFragments {
                 EditText etName = view.findViewById(R.id.et_challenge_name);
                 String name = etName.getText().toString();
                 if (name.isEmpty()) {
-                    Toast.makeText(getContext(), R.string.error_challenge_name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please enter a challenge name", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), getString(R.string.challenge_created, name), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Challenge '" + name + "' created successfully!", Toast.LENGTH_LONG).show();
                     if (getActivity() != null) getActivity().onBackPressed();
                 }
             });
@@ -124,9 +126,73 @@ public class NavigationFragments {
     }
 
     public static class ProfileFragment extends Fragment {
+        private com.google.android.material.switchmaterial.SwitchMaterial switchNotifications;
+        private com.google.android.material.switchmaterial.SwitchMaterial switchDarkMode;
+        private android.content.SharedPreferences prefs;
+
         @Nullable @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_profile, container, false);
+            View view = inflater.inflate(R.layout.fragment_profile, container, false);
+            prefs = requireContext().getSharedPreferences("HabitTrackerPrefs", android.content.Context.MODE_PRIVATE);
+
+            // Link the Account Settings RelativeLayout to SettingsActivity
+            View accountSettings = view.findViewById(R.id.rl_profile_account_settings);
+            if (accountSettings != null) {
+                accountSettings.setOnClickListener(v -> {
+                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                    startActivity(intent);
+                });
+            }
+
+            // Initialize Switches
+            switchNotifications = view.findViewById(R.id.switch_notifications_profile);
+            switchDarkMode = view.findViewById(R.id.switch_dark_mode_profile);
+
+            loadSettings();
+            setupListeners(view);
+
+            return view;
+        }
+
+        private void loadSettings() {
+            if (switchNotifications != null) {
+                switchNotifications.setChecked(prefs.getBoolean("notifications_enabled", true));
+            }
+            if (switchDarkMode != null) {
+                switchDarkMode.setChecked(prefs.getBoolean("dark_mode", false));
+            }
+        }
+
+        private void setupListeners(View view) {
+            if (switchNotifications != null) {
+                switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    prefs.edit().putBoolean("notifications_enabled", isChecked).apply();
+                });
+            }
+
+            if (switchDarkMode != null) {
+                switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    prefs.edit().putBoolean("dark_mode", isChecked).apply();
+                    if (isChecked) {
+                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                    } else {
+                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                    }
+                    if (getActivity() != null) {
+                        getActivity().recreate();
+                    }
+                });
+            }
+
+            View logoutBtn = view.findViewById(R.id.btn_logout);
+            if (logoutBtn != null) {
+                logoutBtn.setOnClickListener(v -> {
+                    Toast.makeText(getContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
+            }
         }
     }
 
@@ -172,7 +238,7 @@ public class NavigationFragments {
                 currentCategory = "All";
                 etSearch.setText("");
                 adapter.updateList(allHabits);
-                Toast.makeText(getContext(), R.string.showing_all_habits, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Showing all habits", Toast.LENGTH_SHORT).show();
             });
         }
 
@@ -183,7 +249,7 @@ public class NavigationFragments {
                 currentCategory = category;
             }
             filterHabits("");
-            Toast.makeText(getContext(), getString(R.string.filter_message, currentCategory), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Filter: " + currentCategory, Toast.LENGTH_SHORT).show();
         }
 
         private void filterHabits(String query) {
@@ -201,43 +267,81 @@ public class NavigationFragments {
             habits.add(new Habit("3", "Meditate", "Meditation", "Easy", android.R.drawable.ic_menu_info_details, "#06B6D4"));
             habits.add(new Habit("4", "Cold Shower", "Health", "Hard", android.R.drawable.btn_star_big_on, "#10B981"));
             habits.add(new Habit("5", "Journal", "Productivity", "Easy", android.R.drawable.ic_menu_today, "#F59E0B"));
-            habits.add(new Habit("6", "Workout", "Fitness", "Hard", android.R.drawable.ic_lock_power_off, "#EF4444"));
+            habits.add(new Habit("6", "No Sugar", "Health", "Hard", android.R.drawable.btn_star, "#EF4444"));
+            habits.add(new Habit("7", "Push-ups", "Fitness", "Medium", android.R.drawable.ic_menu_compass, "#6366F1"));
+            habits.add(new Habit("8", "Stretch", "Health", "Easy", android.R.drawable.ic_menu_directions, "#10B981"));
             return habits;
         }
     }
 
-    public static class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.VH> {
+    // --- Adapter for Discover Page ---
+    public static class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHolder> {
         private List<Habit> habits;
+
         public HabitAdapter(List<Habit> habits) { this.habits = habits; }
+
         public void updateList(List<Habit> newList) {
             this.habits = newList;
             notifyDataSetChanged();
         }
-        @NonNull @Override public VH onCreateViewHolder(@NonNull ViewGroup p, int t) {
-            return new VH(LayoutInflater.from(p.getContext()).inflate(R.layout.item_habit_discover, p, false));
+
+        @NonNull @Override
+        public HabitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_habit_discover, parent, false);
+            return new HabitViewHolder(v);
         }
-        @Override public void onBindViewHolder(@NonNull VH h, int p) {
-            Habit hb = habits.get(p);
-            h.title.setText(hb.getTitle());
-            h.category.setText(hb.getCategory());
-            h.icon.setImageResource(hb.getIconRes());
-            h.container.setCardBackgroundColor(android.graphics.Color.parseColor(hb.getColor()));
-            
-            h.itemView.setOnClickListener(v -> {
-                Toast.makeText(v.getContext(), hb.getTitle() + " selected", Toast.LENGTH_SHORT).show();
-            });
+
+        @Override
+        public void onBindViewHolder(@NonNull HabitViewHolder holder, int position) {
+            Habit h = habits.get(position);
+            holder.tvTitle.setText(h.getTitle());
+            holder.tvCategory.setText(h.getCategory());
+            holder.tvDifficulty.setText(h.getDifficulty());
+            holder.ivIcon.setImageResource(h.getIconRes());
+
+            int color = Color.parseColor(h.getColor());
+            holder.ivIcon.setImageTintList(ColorStateList.valueOf(color));
+            holder.cvIconContainer.setCardBackgroundColor(Color.argb(30, Color.red(color), Color.green(color), Color.blue(color)));
+
+            // Style Difficulty Badge
+            int diffBg, diffText;
+            switch (h.getDifficulty()) {
+                case "Easy":
+                    diffBg = holder.itemView.getContext().getColor(R.color.difficulty_easy_bg);
+                    diffText = holder.itemView.getContext().getColor(R.color.difficulty_easy_text);
+                    break;
+                case "Hard":
+                    diffBg = holder.itemView.getContext().getColor(R.color.difficulty_hard_bg);
+                    diffText = holder.itemView.getContext().getColor(R.color.difficulty_hard_text);
+                    break;
+                default: // Medium
+                    diffBg = holder.itemView.getContext().getColor(R.color.difficulty_medium_bg);
+                    diffText = holder.itemView.getContext().getColor(R.color.difficulty_medium_text);
+                    break;
+            }
+            holder.tvDifficulty.setBackgroundTintList(ColorStateList.valueOf(diffBg));
+            holder.tvDifficulty.setTextColor(diffText);
+
+            holder.btnAdd.setOnClickListener(v -> 
+                Toast.makeText(v.getContext(), h.getTitle() + " added!", Toast.LENGTH_SHORT).show()
+            );
         }
+
         @Override public int getItemCount() { return habits.size(); }
-        public static class VH extends RecyclerView.ViewHolder {
-            TextView title, category;
-            ImageView icon;
-            CardView container;
-            public VH(View v) {
+
+        static class HabitViewHolder extends RecyclerView.ViewHolder {
+            TextView tvTitle, tvCategory, tvDifficulty;
+            ImageView ivIcon;
+            CardView cvIconContainer;
+            Button btnAdd;
+            HabitViewHolder(View v) {
                 super(v);
-                title = v.findViewById(R.id.tv_habit_title);
-                category = v.findViewById(R.id.tv_habit_category);
-                icon = v.findViewById(R.id.iv_habit_icon);
-                container = v.findViewById(R.id.cv_habit_container);
+                tvTitle = v.findViewById(R.id.tv_habit_title);
+                tvCategory = v.findViewById(R.id.tv_habit_category);
+                tvDifficulty = v.findViewById(R.id.tv_difficulty);
+                ivIcon = v.findViewById(R.id.iv_habit_icon);
+                cvIconContainer = v.findViewById(R.id.cv_icon_container);
+                btnAdd = v.findViewById(R.id.btn_add_habit);
             }
         }
     }
