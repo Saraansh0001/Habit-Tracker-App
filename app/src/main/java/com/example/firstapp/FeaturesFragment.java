@@ -47,7 +47,6 @@ public class FeaturesFragment extends Fragment {
         features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_nav_home, "#EEF2FF"));
         features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_nav_home, "#FFF1F2"));
         features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_nav_home, "#F0FDFA"));
-        features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_nav_home, "#FFFBEB"));
         features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_home, "#FDF2F8"));
 
         for (ProfileFeature feature : features) {

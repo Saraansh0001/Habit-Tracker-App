@@ -177,7 +177,6 @@
     <string name="user_rank">Warrior 🎖️</string>
     <string name="streak_count">%1$d streak</string>
     <string name="xp_count">%1$s XP</string>
-    <string name="badges_title">🏅 Badges (%1$d)</string>
     <string name="your_features_title">✨ Your Features</string>
     <string name="all_features_link">All features</string>
     <string name="your_stats_title">📊 Your Stats</string>

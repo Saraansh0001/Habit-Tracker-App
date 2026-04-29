@@ -43,8 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.rl_account_settings).setOnClickListener(v -> 
-            Toast.makeText(this, "Account Settings Clicked", Toast.LENGTH_SHORT).show());
+        findViewById(R.id.rl_account_settings).setOnClickListener(v -> {});
 
         findViewById(R.id.btn_logout).setOnClickListener(v -> {
             Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();

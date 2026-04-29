@@ -54,8 +54,8 @@ public class ProfileFragment extends Fragment {
         LinearLayout actionsContainer = view.findViewById(R.id.actions_container);
         if (actionsContainer == null) return;
 
-        String[] titles = {"Edit Profile", "Settings", "Help & Support", "About Discipline Arena"};
-        int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info, R.drawable.ic_info, R.drawable.ic_info};
+        String[] titles = {"Edit Profile", "Settings", "About Discipline Arena"};
+        int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info, R.drawable.ic_info};
 
         for (int i = 0; i < titles.length; i++) {
             final String titleText = titles[i];
@@ -70,8 +70,10 @@ public class ProfileFragment extends Fragment {
             itemView.setOnClickListener(v -> {
                 if (titleText.equals("Settings")) {
                     startActivity(new Intent(getContext(), SettingsActivity.class));
-                } else {
-                    Toast.makeText(getContext(), titleText + " clicked", Toast.LENGTH_SHORT).show();
+                } else if (titleText.equals("About Discipline Arena")) {
+                    if (getActivity() instanceof HomeActivity) {
+                        ((HomeActivity) getActivity()).loadFragment(new AboutFragment());
+                    }
                 }
             });
             actionsContainer.addView(itemView);
@@ -98,7 +100,6 @@ public class ProfileFragment extends Fragment {
         features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_edit, "#EEF2FF"));
         features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_nav_analytics, "#FFF1F2"));
         features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_social, "#F0FDFA"));
-        features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_badge_1, "#FFFBEB"));
         features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_analytics, "#FDF2F8"));
 
         for (ProfileFeature feature : features) {
@@ -141,7 +142,6 @@ public class ProfileFragment extends Fragment {
                         targetFragment = new AnalyticsFragment();
                         break;
                     default:
-                        Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 
@@ -158,11 +158,10 @@ public class ProfileFragment extends Fragment {
         if (statsContainer == null) return;
 
         List<ProfileStat> stats = new ArrayList<>();
-        stats.add(new ProfileStat("Best Streak", "18 days", R.drawable.ic_bolt));
-        stats.add(new ProfileStat("Total XP Earned", "8,240 XP", R.drawable.ic_badge_1));
-        stats.add(new ProfileStat("Challenges Won", "7", R.drawable.ic_nav_arena));
-        stats.add(new ProfileStat("Focus Minutes", "80 min", R.drawable.ic_nav_analytics));
-        stats.add(new ProfileStat("Badges Earned", "4", R.drawable.ic_badge_1));
+        stats.add(new ProfileStat("Best Streak", "0 days", R.drawable.ic_bolt));
+        stats.add(new ProfileStat("Total XP Earned", "0 XP", R.drawable.ic_nav_analytics));
+        stats.add(new ProfileStat("Challenges Won", "0", R.drawable.ic_nav_arena));
+        stats.add(new ProfileStat("Focus Minutes", "0 min", R.drawable.ic_nav_analytics));
 
         for (int i = 0; i < stats.size(); i++) {
             ProfileStat stat = stats.get(i);
