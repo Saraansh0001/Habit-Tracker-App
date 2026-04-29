@@ -11,8 +11,10 @@
 
     <!-- Auth -->
     <string name="welcome_back">Welcome Back</string>
+    <string name="sign_up">Sign Up</string>
     <string name="signup_prompt">Don\'t have an account? Sign Up</string>
-    <string name="register_btn">Register</string>
+    <string name="full_name_hint">Enter your name</string>
+    <string name="register_btn">Create Account</string>
     <string name="login_prompt">Already have an account? Log In</string>
 
     <!-- Main Page -->
