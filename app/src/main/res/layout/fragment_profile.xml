@@ -189,136 +189,71 @@
                 android:padding="20dp"
                 app:layout_constraintTop_toBottomOf="@id/stats_row">
 
+                <!-- Features Grid -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Settings"
+                    android:text="Explore Features"
                     android:textColor="@color/text_dark"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginTop="12dp" />
 
-                <!-- Settings Items -->
+                <GridLayout
+                    android:id="@+id/features_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:alignmentMode="alignMargins"
+                    android:layout_marginTop="12dp" />
+
+                <!-- Stats Container -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your Statistics"
+                    android:textColor="@color/text_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="24dp" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
                     app:cardBackgroundColor="@color/bg_white">
                     <LinearLayout
+                        android:id="@+id/stats_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="4dp" />
+                </androidx.cardview.widget.CardView>
 
-                        <!-- Account Settings -->
-                        <RelativeLayout
-                            android:id="@+id/rl_profile_account_settings"
-                            android:layout_width="match_parent"
-                            android:layout_height="64dp"
-                            android:paddingHorizontal="20dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:background="?attr/selectableItemBackground">
-                            <ImageView
-                                android:id="@+id/iv_icon_account"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_nav_profile"
-                                android:layout_centerVertical="true"
-                                app:tint="@color/purple_primary" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Account Settings"
-                                android:textColor="@color/text_dark"
-                                android:layout_toEndOf="@id/iv_icon_account"
-                                android:layout_marginStart="16dp"
-                                android:layout_centerVertical="true" />
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/ic_back"
-                                android:rotation="180"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                app:tint="@color/text_hint" />
-                        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Account &amp; Actions"
+                    android:textColor="@color/text_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="24dp" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/bg_light"
-                            android:layout_marginHorizontal="20dp" />
-
-                        <!-- Notifications -->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="64dp"
-                            android:paddingHorizontal="20dp">
-                            <ImageView
-                                android:id="@+id/iv_icon_notifications"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_nav_home"
-                                android:layout_centerVertical="true"
-                                app:tint="@color/purple_primary" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Notifications"
-                                android:textColor="@color/text_dark"
-                                android:layout_toEndOf="@id/iv_icon_notifications"
-                                android:layout_marginStart="16dp"
-                                android:layout_centerVertical="true" />
-                            <com.google.android.material.switchmaterial.SwitchMaterial
-                                android:id="@+id/switch_notifications_profile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:checked="true"
-                                app:thumbTint="@color/purple_primary"
-                                app:trackTint="@color/purple_light" />
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/bg_light"
-                            android:layout_marginHorizontal="20dp" />
-
-                        <!-- Dark Mode -->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="64dp"
-                            android:paddingHorizontal="20dp">
-                            <ImageView
-                                android:id="@+id/iv_icon_dark_mode"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_nav_analytics"
-                                android:layout_centerVertical="true"
-                                app:tint="@color/purple_primary" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Dark Mode"
-                                android:textColor="@color/text_dark"
-                                android:layout_toEndOf="@id/iv_icon_dark_mode"
-                                android:layout_marginStart="16dp"
-                                android:layout_centerVertical="true" />
-                            <com.google.android.material.switchmaterial.SwitchMaterial
-                                android:id="@+id/switch_dark_mode_profile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:checked="false"
-                                app:thumbTint="@color/purple_primary"
-                                app:trackTint="@color/purple_light" />
-                        </RelativeLayout>
-                    </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/bg_white">
+                    <LinearLayout
+                        android:id="@+id/actions_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="4dp" />
                 </androidx.cardview.widget.CardView>
 
                 <!-- Logout -->

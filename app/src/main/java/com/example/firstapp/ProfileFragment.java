@@ -1,5 +1,6 @@
 package com.example.firstapp;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -37,6 +38,43 @@ public class ProfileFragment extends Fragment {
             Toast.makeText(getContext(), "Logging out...", Toast.LENGTH_SHORT).show());
             
         return view;
+    }
+
+    private void setupActions(View view, LayoutInflater inflater) {
+        LinearLayout actionsContainer = view.findViewById(R.id.actions_container);
+        if (actionsContainer == null) return;
+
+        String[] titles = {"Edit Profile", "Settings", "Help & Support", "About Discipline Arena"};
+        int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info, R.drawable.ic_info, R.drawable.ic_info};
+
+        for (int i = 0; i < titles.length; i++) {
+            final String titleText = titles[i];
+            View itemView = inflater.inflate(R.layout.item_profile_action, actionsContainer, false);
+            
+            TextView title = itemView.findViewById(R.id.tv_action_title);
+            ImageView icon = itemView.findViewById(R.id.iv_action_icon);
+
+            title.setText(titleText);
+            icon.setImageResource(icons[i]);
+
+            itemView.setOnClickListener(v -> {
+                if (titleText.equals("Settings")) {
+                    startActivity(new Intent(getContext(), SettingsActivity.class));
+                } else {
+                    Toast.makeText(getContext(), titleText + " clicked", Toast.LENGTH_SHORT).show();
+                }
+            });
+            actionsContainer.addView(itemView);
+            
+            if (i < titles.length - 1) {
+                View divider = new View(getContext());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
+                lp.setMargins(48, 0, 0, 0);
+                divider.setLayoutParams(lp);
+                divider.setBackgroundColor(Color.parseColor("#F1F5F9"));
+                actionsContainer.addView(divider);
+            }
+        }
     }
 
     private void setupFeatures(View view, LayoutInflater inflater) {
@@ -113,34 +151,4 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void setupActions(View view, LayoutInflater inflater) {
-        LinearLayout actionsContainer = view.findViewById(R.id.actions_container);
-        if (actionsContainer == null) return;
-
-        String[] titles = {"Edit Profile", "Notifications", "Privacy & Security", "About Discipline Arena"};
-        int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info, R.drawable.ic_info, R.drawable.ic_info};
-
-        for (int i = 0; i < titles.length; i++) {
-            final String titleText = titles[i];
-            View itemView = inflater.inflate(R.layout.item_profile_action, actionsContainer, false);
-            
-            TextView title = itemView.findViewById(R.id.tv_action_title);
-            ImageView icon = itemView.findViewById(R.id.iv_action_icon);
-
-            title.setText(titleText);
-            icon.setImageResource(icons[i]);
-
-            itemView.setOnClickListener(v -> Toast.makeText(getContext(), titleText + " clicked", Toast.LENGTH_SHORT).show());
-            actionsContainer.addView(itemView);
-            
-            if (i < titles.length - 1) {
-                View divider = new View(getContext());
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
-                lp.setMargins(48, 0, 0, 0);
-                divider.setLayoutParams(lp);
-                divider.setBackgroundColor(Color.parseColor("#F1F5F9"));
-                actionsContainer.addView(divider);
-            }
-        }
-    }
 }

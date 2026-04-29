@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
         setupFeatureClicks(view);
 
         view.findViewById(R.id.tv_all_features).setOnClickListener(v -> {
-            loadFragment(new NavigationFragments.FeaturesFragment());
+            loadFragment(new FeaturesFragment());
         });
 
         view.findViewById(R.id.tv_see_all_habits).setOnClickListener(v -> {
@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
         FloatingActionButton fab = view.findViewById(R.id.fab_add_habit);
         fab.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(new NavigationFragments.CreateChallengeFragment());
+                ((HomeActivity) getActivity()).loadFragment(new CreateChallengeFragment());
             }
         });
 

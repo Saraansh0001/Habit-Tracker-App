@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
             if (itemId == R.id.navigation_home) {
                 selectedFragment = new HomeFragment();
             } else if (itemId == R.id.navigation_search) {
-                selectedFragment = new NavigationFragments.SearchFragment();
+                selectedFragment = new DiscoverFragment();
             } else if (itemId == R.id.navigation_arena) {
                 selectedFragment = new ArenaFragment();
             } else if (itemId == R.id.navigation_analytics) {

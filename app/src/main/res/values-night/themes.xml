@@ -10,7 +10,9 @@
         <item name="android:windowLightStatusBar">false</item>
         <!-- Add standard colors for night theme -->
         <item name="colorSurface">@color/bg_white</item>
+        <item name="colorOnSurface">@color/text_dark</item>
         <item name="android:textColorPrimary">@color/text_dark</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
     </style>
 
 </resources>

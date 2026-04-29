@@ -1,58 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_light">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btn_back"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                android:clickable="true"
-                android:focusable="true">
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_back"
-                    app:tint="@color/text_dark" />
-            </androidx.cardview.widget.CardView>
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_back">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/settings_title"
+                android:text="Settings"
                 android:textColor="@color/text_dark"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/settings_scroll_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/bg_light"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,93 +40,22 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Profile Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/account_section"
+                android:text="General"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
-                android:layout_marginBottom="12dp" />
+                android:letterSpacing="0.05" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/bg_white">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <RelativeLayout
-                        android:id="@+id/rl_edit_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true">
-                        <ImageView
-                            android:id="@+id/iv_profile_icon"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_nav_profile"
-                            app:tint="@color/purple_primary"
-                            android:background="@drawable/bg_tab_container"
-                            android:padding="8dp" />
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_toEndOf="@id/iv_profile_icon"
-                            android:layout_marginStart="16dp"
-                            android:layout_centerVertical="true">
-                            <TextView
-                                android:id="@+id/tv_settings_user_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/user_name_default"
-                                android:textColor="@color/text_dark"
-                                android:textStyle="bold" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/edit_profile_name"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_edit"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            app:tint="@color/text_hint" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Preferences Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/preferences_section"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="12dp" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:cardBackgroundColor="@color/bg_white">
 
                 <LinearLayout
@@ -154,15 +63,65 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <!-- Account Settings -->
                     <RelativeLayout
+                        android:id="@+id/rl_account_settings"
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
-                        android:paddingHorizontal="16dp">
+                        android:paddingHorizontal="20dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground">
+                        <ImageView
+                            android:id="@+id/iv_icon_account"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_nav_profile"
+                            android:layout_centerVertical="true"
+                            app:tint="@color/purple_primary" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/notifications"
+                            android:text="Account Settings"
                             android:textColor="@color/text_dark"
+                            android:layout_toEndOf="@id/iv_icon_account"
+                            android:layout_marginStart="16dp"
+                            android:layout_centerVertical="true" />
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_back"
+                            android:rotation="180"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            app:tint="@color/text_hint" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/bg_light"
+                        android:layout_marginHorizontal="20dp" />
+
+                    <!-- Notifications -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:paddingHorizontal="20dp">
+                        <ImageView
+                            android:id="@+id/iv_icon_notifications"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_nav_home"
+                            android:layout_centerVertical="true"
+                            app:tint="@color/purple_primary" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Notifications"
+                            android:textColor="@color/text_dark"
+                            android:layout_toEndOf="@id/iv_icon_notifications"
+                            android:layout_marginStart="16dp"
                             android:layout_centerVertical="true" />
                         <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/switch_notifications"
@@ -179,17 +138,27 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/bg_light"
-                        android:layout_marginHorizontal="16dp" />
+                        android:layout_marginHorizontal="20dp" />
 
+                    <!-- Dark Mode -->
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
-                        android:paddingHorizontal="16dp">
+                        android:paddingHorizontal="20dp">
+                        <ImageView
+                            android:id="@+id/iv_icon_dark_mode"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_nav_analytics"
+                            android:layout_centerVertical="true"
+                            app:tint="@color/purple_primary" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/dark_mode"
+                            android:text="Dark Mode"
                             android:textColor="@color/text_dark"
+                            android:layout_toEndOf="@id/iv_icon_dark_mode"
+                            android:layout_marginStart="16dp"
                             android:layout_centerVertical="true" />
                         <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/switch_dark_mode"
@@ -200,53 +169,26 @@
                             app:thumbTint="@color/purple_primary"
                             app:trackTint="@color/purple_light" />
                     </RelativeLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/bg_light"
-                        android:layout_marginHorizontal="16dp" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:paddingHorizontal="16dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/reminder_time"
-                            android:textColor="@color/text_dark"
-                            android:layout_centerVertical="true" />
-                        <TextView
-                            android:id="@+id/tv_reminder_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:text="08:00 AM"
-                            android:textColor="@color/purple_primary"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Support Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/support_section"
+                android:text="Support"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:textAllCaps="true"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="12dp" />
+                android:textAllCaps="true"
+                android:letterSpacing="0.05" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:cardBackgroundColor="@color/bg_white">
 
                 <LinearLayout
@@ -257,51 +199,37 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
-                        android:paddingHorizontal="16dp"
+                        android:paddingHorizontal="20dp"
                         android:clickable="true"
-                        android:focusable="true">
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/help_center"
+                            android:text="Privacy Policy"
                             android:textColor="@color/text_dark"
                             android:layout_centerVertical="true" />
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_back"
-                            android:rotation="180"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            app:tint="@color/text_hint" />
                     </RelativeLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/bg_light"
-                        android:layout_marginHorizontal="16dp" />
+                        android:layout_marginHorizontal="20dp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
-                        android:paddingHorizontal="16dp"
+                        android:paddingHorizontal="20dp"
                         android:clickable="true"
-                        android:focusable="true">
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/privacy_policy"
+                            android:text="Terms of Service"
                             android:textColor="@color/text_dark"
                             android:layout_centerVertical="true" />
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_back"
-                            android:rotation="180"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            app:tint="@color/text_hint" />
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -309,10 +237,9 @@
             <Button
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="64dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
-                android:text="@string/log_out"
+                android:text="Log Out"
                 android:textAllCaps="false"
                 android:textColor="#FF5252"
                 android:backgroundTint="@color/bg_white"
@@ -320,16 +247,7 @@
                 app:strokeColor="#FF5252"
                 app:strokeWidth="1dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_version_default"
-                android:textColor="@color/text_hint"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:paddingBottom="32dp" />
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
