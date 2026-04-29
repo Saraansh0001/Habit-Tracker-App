@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.firstapp.models.FocusSession;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +40,10 @@ public class DailyJournalFragment extends Fragment {
         RecyclerView rv = view.findViewById(R.id.rv_past_entries);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         
-        List<FocusTimerFragment.Session> pastEntries = new ArrayList<>();
-        pastEntries.add(new FocusTimerFragment.Session("Completed morning meditation", "Apr 4, 2026", "Mood: 😊", ""));
-        pastEntries.add(new FocusTimerFragment.Session("Had a super productive day", "Apr 3, 2026", "Mood: 🤩", ""));
-        pastEntries.add(new FocusTimerFragment.Session("Drank all 8 glasses of water", "Apr 2, 2026", "Mood: 🙂", ""));
+        List<FocusSession> pastEntries = new ArrayList<>();
+        pastEntries.add(new FocusSession("Completed morning meditation", 0, 0));
+        pastEntries.add(new FocusSession("Had a super productive day", 0, 0));
+        pastEntries.add(new FocusSession("Drank all 8 glasses of water", 0, 0));
 
         rv.setAdapter(new FocusTimerFragment.RecentSessionsAdapter(pastEntries));
     }
