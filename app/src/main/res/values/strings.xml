@@ -9,6 +9,12 @@
     <string name="google_sign_in">Google Sign-In coming soon</string>
     <string name="reset_password">Reset password link sent</string>
 
+    <!-- Auth -->
+    <string name="welcome_back">Welcome Back</string>
+    <string name="signup_prompt">Don\'t have an account? Sign Up</string>
+    <string name="register_btn">Register</string>
+    <string name="login_prompt">Already have an account? Log In</string>
+
     <!-- Main Page -->
     <string name="app_title">Discipline Arena</string>
     <string name="app_subtitle">Build Discipline. Build Yourself.</string>

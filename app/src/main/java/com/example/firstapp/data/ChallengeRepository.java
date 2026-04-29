@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -71,11 +73,16 @@ public class ChallengeRepository {
 
     public void updateLocalChallenge(Challenge updatedChallenge) {
         List<Challenge> challenges = getLocalChallenges();
+        boolean found = false;
         for (int i = 0; i < challenges.size(); i++) {
             if (challenges.get(i).getId().equals(updatedChallenge.getId())) {
                 challenges.set(i, updatedChallenge);
+                found = true;
                 break;
             }
+        }
+        if (!found) {
+            challenges.add(updatedChallenge);
         }
         String json = gson.toJson(challenges);
         prefs.edit().putString(CHALLENGES_KEY, json).apply();

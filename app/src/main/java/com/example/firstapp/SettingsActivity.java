@@ -74,11 +74,12 @@ public class SettingsActivity extends AppCompatActivity {
             recreate();
         });
 
-        findViewById(R.id.btn_logout).setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        });
+        // Logout functionality removed as per request to remove auth screens
+        View logoutBtn = findViewById(R.id.btn_logout);
+        if (logoutBtn != null) {
+            logoutBtn.setVisibility(View.GONE);
+        }
+
     }
 
     private void loadSettings() {
