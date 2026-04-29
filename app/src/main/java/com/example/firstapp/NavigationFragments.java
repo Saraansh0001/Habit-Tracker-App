@@ -4,27 +4,23 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.firstapp.data.HabitRepository;
 import com.example.firstapp.models.Habit;
-import com.example.firstapp.models.ProfileFeature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +28,10 @@ import java.util.stream.Collectors;
 
 public class NavigationFragments {
 
-    private static View createPlaceholder(LayoutInflater inflater, ViewGroup container, String text) {
-        View view = inflater.inflate(R.layout.fragment_placeholder, container, false);
-        TextView title = view.findViewById(R.id.placeholder_text);
-        if (title != null) title.setText(text);
-        return view;
-    }
+    public static class AnalyticsFragment extends Fragment {
+        private HabitRepository repository;
 
+<<<<<<< HEAD
     public static class CreateChallengeFragment extends Fragment {
         // Redundant - replaced by standalone CreateChallengeFragment.java
     }
@@ -56,52 +49,89 @@ public class NavigationFragments {
             if (btnBack != null) {
                 btnBack.setOnClickListener(v -> {
                     if (getActivity() != null) getActivity().onBackPressed();
+=======
+        @Nullable @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_analytics, container, false);
+            
+            repository = new HabitRepository(requireContext());
+            
+            // Mood tracker is currently a static UI demo as per Figma
+            view.findViewById(R.id.iv_back_mood).setOnClickListener(v -> {
+                if (getActivity() instanceof HomeActivity) {
+                    ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_home);
+                }
+            });
+
+            return view;
+        }
+    }
+
+    public static class ProfileFragment extends Fragment {
+        private com.google.android.material.switchmaterial.SwitchMaterial switchNotifications;
+        private com.google.android.material.switchmaterial.SwitchMaterial switchDarkMode;
+        private android.content.SharedPreferences prefs;
+
+        @Nullable @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_profile, container, false);
+            prefs = requireContext().getSharedPreferences("HabitTrackerPrefs", android.content.Context.MODE_PRIVATE);
+
+            // Connect XP/League to Arena
+            View xpContainer = view.findViewById(R.id.cv_xp_container);
+            if (xpContainer != null) {
+                xpContainer.setOnClickListener(v -> {
+                    if (getActivity() instanceof HomeActivity) {
+                        ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_arena);
+                    }
+>>>>>>> origin/Lakshya-branch
                 });
             }
 
-            setupFeatures(view, inflater);
+            // Link the Account Settings RelativeLayout to SettingsActivity
+            View accountSettings = view.findViewById(R.id.rl_profile_account_settings);
+            if (accountSettings != null) {
+                accountSettings.setOnClickListener(v -> {
+                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                    startActivity(intent);
+                });
+            }
+
+            // Initialize Switches
+            switchNotifications = view.findViewById(R.id.switch_notifications_profile);
+            switchDarkMode = view.findViewById(R.id.switch_dark_mode_profile);
+
+            loadSettings();
+            setupListeners(view);
 
             return view;
         }
 
-        private void setupFeatures(View view, LayoutInflater inflater) {
-            LinearLayout container = view.findViewById(R.id.features_container);
-            if (container == null) return;
-            container.removeAllViews();
+        private void loadSettings() {
+            if (switchNotifications != null) {
+                switchNotifications.setChecked(prefs.getBoolean("notifications_enabled", true));
+            }
+            if (switchDarkMode != null) {
+                switchDarkMode.setChecked(prefs.getBoolean("dark_mode", false));
+            }
+        }
 
-            List<ProfileFeature> features = new ArrayList<>();
-            features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_nav_home, "#F3F0FF"));
-            features.add(new ProfileFeature("Focus Timer", "Deep focus on one habit at a time", R.drawable.ic_bolt, "#FFF7ED"));
-            features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_bolt, "#F0FDF4"));
-            features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_bolt, "#EEF2FF"));
-            features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_bolt, "#FFF1F2"));
-            features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_bolt, "#F0FDFA"));
-            features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_badge_1, "#FEFCE8"));
-            features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_analytics, "#FDF2F8"));
+        private void setupListeners(View view) {
+            if (switchNotifications != null) {
+                switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    prefs.edit().putBoolean("notifications_enabled", isChecked).apply();
+                });
+            }
 
-            for (ProfileFeature feature : features) {
-                try {
-                    View itemView = inflater.inflate(R.layout.item_profile_feature, container, false);
-                    
-                    TextView title = itemView.findViewById(R.id.tv_feature_title);
-                    TextView desc = itemView.findViewById(R.id.tv_feature_desc);
-                    ImageView icon = itemView.findViewById(R.id.iv_feature_icon);
-                    CardView iconContainer = itemView.findViewById(R.id.cv_feature_icon_container);
-
-                    if (title != null) title.setText(feature.getTitle());
-                    if (desc != null) desc.setText(feature.getDescription());
-                    if (icon != null) icon.setImageResource(feature.getIconRes());
-                    
-                    int bgColor = Color.parseColor(feature.getBackgroundColor());
-                    if (iconContainer != null) iconContainer.setCardBackgroundColor(bgColor);
-
-                    if (icon != null) {
-                        float[] hsv = new float[3];
-                        Color.colorToHSV(bgColor, hsv);
-                        hsv[2] *= 0.5f; 
-                        hsv[1] = Math.min(1.0f, hsv[1] * 2.0f); 
-                        icon.setImageTintList(ColorStateList.valueOf(Color.HSVToColor(hsv)));
+            if (switchDarkMode != null) {
+                switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    prefs.edit().putBoolean("dark_mode", isChecked).apply();
+                    if (isChecked) {
+                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                    } else {
+                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
                     }
+<<<<<<< HEAD
 
                     itemView.setOnClickListener(v -> {
                         if ("Streak Calendar".equals(feature.getTitle())) {
@@ -123,89 +153,23 @@ public class NavigationFragments {
                     spacer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 16));
                     container.addView(spacer);
                 } catch (Exception e) {}
+=======
+                    if (getActivity() != null) {
+                        getActivity().recreate();
+                    }
+                });
+>>>>>>> origin/Lakshya-branch
             }
-        }
 
-        private void loadFragment(Fragment fragment) {
-            if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(fragment);
+            View logoutBtn = view.findViewById(R.id.btn_logout);
+            if (logoutBtn != null) {
+                logoutBtn.setOnClickListener(v -> {
+                    Toast.makeText(getContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
             }
-        }
-    }
-
-    public static class SearchFragment extends Fragment {
-        private HabitAdapter adapter;
-        private List<Habit> allHabits;
-        private String currentCategory = "All";
-
-        @Nullable @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_discover, container, false);
-            
-            allHabits = getMockHabits();
-            RecyclerView rvPopular = view.findViewById(R.id.rv_popular_habits);
-            rvPopular.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            
-            adapter = new HabitAdapter(new ArrayList<>(allHabits));
-            rvPopular.setAdapter(adapter);
-
-            setupFeatures(view);
-            
-            return view;
-        }
-
-        private void setupFeatures(View view) {
-            // Search Feature
-            EditText etSearch = view.findViewById(R.id.et_search);
-            etSearch.addTextChangedListener(new TextWatcher() {
-                @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-                @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    filterHabits(s.toString());
-                }
-                @Override public void afterTextChanged(Editable s) {}
-            });
-
-            // Category Selection
-            view.findViewById(R.id.cat_fitness).setOnClickListener(v -> toggleCategory("Fitness"));
-            view.findViewById(R.id.cat_study).setOnClickListener(v -> toggleCategory("Study"));
-            view.findViewById(R.id.cat_meditation).setOnClickListener(v -> toggleCategory("Meditation"));
-
-            // View All
-            view.findViewById(R.id.tv_view_all).setOnClickListener(v -> {
-                currentCategory = "All";
-                etSearch.setText("");
-                adapter.updateList(allHabits);
-            });
-        }
-
-        private void toggleCategory(String category) {
-            if (currentCategory.equals(category)) {
-                currentCategory = "All";
-            } else {
-                currentCategory = category;
-            }
-            filterHabits("");
-        }
-
-        private void filterHabits(String query) {
-            List<Habit> filtered = allHabits.stream()
-                .filter(h -> (currentCategory.equals("All") || h.getCategory().equalsIgnoreCase(currentCategory)))
-                .filter(h -> h.getTitle().toLowerCase().contains(query.toLowerCase()))
-                .collect(Collectors.toList());
-            adapter.updateList(filtered);
-        }
-
-        private List<Habit> getMockHabits() {
-            List<Habit> habits = new ArrayList<>();
-            habits.add(new Habit("1", "Morning Run", "Fitness", "Medium", android.R.drawable.ic_menu_compass, "#6366F1"));
-            habits.add(new Habit("2", "Read Books", "Study", "Easy", android.R.drawable.ic_menu_edit, "#8B5CF6"));
-            habits.add(new Habit("3", "Meditate", "Meditation", "Easy", android.R.drawable.ic_menu_info_details, "#06B6D4"));
-            habits.add(new Habit("4", "Cold Shower", "Health", "Hard", android.R.drawable.btn_star_big_on, "#10B981"));
-            habits.add(new Habit("5", "Journal", "Productivity", "Easy", android.R.drawable.ic_menu_today, "#F59E0B"));
-            habits.add(new Habit("6", "No Sugar", "Health", "Hard", android.R.drawable.btn_star, "#EF4444"));
-            habits.add(new Habit("7", "Push-ups", "Fitness", "Medium", android.R.drawable.ic_menu_compass, "#6366F1"));
-            habits.add(new Habit("8", "Stretch", "Health", "Easy", android.R.drawable.ic_menu_directions, "#10B981"));
-            return habits;
         }
     }
 
@@ -232,7 +196,7 @@ public class NavigationFragments {
             holder.tvTitle.setText(h.getTitle());
             holder.tvCategory.setText(h.getCategory());
             holder.tvDifficulty.setText(h.getDifficulty());
-            holder.ivIcon.setImageResource(h.getIconRes());
+            holder.ivIcon.setImageResource(h.getIconRes() != 0 ? h.getIconRes() : R.drawable.ic_nav_home);
 
             int color = Color.parseColor(h.getColor());
             holder.ivIcon.setImageTintList(ColorStateList.valueOf(color));
@@ -258,7 +222,9 @@ public class NavigationFragments {
             holder.tvDifficulty.setTextColor(diffText);
 
             holder.btnAdd.setOnClickListener(v -> {
-                // Habit added
+                HabitRepository repository = new HabitRepository(v.getContext());
+                repository.addHabit(new Habit(h.getTitle(), h.getCategory(), h.getDifficulty(), h.getColor(), h.getIconRes()));
+                Toast.makeText(v.getContext(), v.getContext().getString(R.string.habit_added, h.getTitle()), Toast.LENGTH_SHORT).show();
             });
         }
 
