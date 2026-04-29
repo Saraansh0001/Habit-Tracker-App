@@ -1,12 +1,12 @@
 package com.example.firstapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -89,7 +89,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs.edit().putBoolean("notifications_enabled", isChecked).apply();
-            Toast.makeText(this, isChecked ? "Notifications Enabled" : "Notifications Disabled", Toast.LENGTH_SHORT).show();
         });
 
         switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -101,13 +100,12 @@ public class SettingsActivity extends AppCompatActivity {
             }
             // Forces activity to restart to apply theme immediately
             recreate();
-            Toast.makeText(this, "Theme updated", Toast.LENGTH_SHORT).show();
         });
 
         findViewById(R.id.btn_logout).setOnClickListener(v -> {
-            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
-            // Logic to clear session and go to WelcomeActivity would go here
-            finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         });
     }
 
@@ -136,7 +134,6 @@ public class SettingsActivity extends AppCompatActivity {
             if (!newName.isEmpty()) {
                 prefs.edit().putString("user_name", newName).apply();
                 tvUserName.setText(newName);
-                Toast.makeText(this, "Name updated!", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());

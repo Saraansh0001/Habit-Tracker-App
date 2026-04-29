@@ -82,7 +82,6 @@ public class AnalyticsFragment extends Fragment {
             catView.setOnClickListener(v -> {
                 currentCategory = category;
                 filterHistory();
-                showToast("Filter: " + category);
             });
         }
     }
@@ -100,20 +99,22 @@ public class AnalyticsFragment extends Fragment {
     private void setupClickListeners(View view) {
         View cardStreak = view.findViewById(R.id.card_streak);
         if (cardStreak != null) {
-            cardStreak.setOnClickListener(v -> 
-                showToast("Streak details coming soon!"));
+            cardStreak.setOnClickListener(v -> {
+                // Streak details
+            });
         }
         
         TextView tvThisWeek = view.findViewById(R.id.tv_this_week);
         if (tvThisWeek != null) {
-            tvThisWeek.setOnClickListener(v -> 
-                showToast("Weekly range selector"));
+            tvThisWeek.setOnClickListener(v -> {
+                // Weekly range selector
+            });
         }
 
         // Add more click listeners as needed for mock items
     }
 
     private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        // Toast removed
     }
 }

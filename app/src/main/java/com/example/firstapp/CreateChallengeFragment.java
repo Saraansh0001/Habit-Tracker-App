@@ -46,7 +46,6 @@ public class CreateChallengeFragment extends Fragment {
             String participantsStr = etParticipants.getText().toString();
             
             if (name.isEmpty()) {
-                Toast.makeText(getContext(), R.string.error_challenge_name, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -85,8 +84,6 @@ public class CreateChallengeFragment extends Fragment {
             );
 
             repository.addChallenge(newChallenge);
-
-            Toast.makeText(getContext(), getString(R.string.challenge_created, name), Toast.LENGTH_LONG).show();
             
             if (getActivity() != null) {
                 getActivity().onBackPressed();

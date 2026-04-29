@@ -145,7 +145,6 @@ public class NavigationFragments {
                 currentCategory = "All";
                 etSearch.setText("");
                 adapter.updateList(allHabits);
-                Toast.makeText(getContext(), "Showing all habits", Toast.LENGTH_SHORT).show();
             });
         }
 
@@ -156,7 +155,6 @@ public class NavigationFragments {
                 currentCategory = category;
             }
             filterHabits("");
-            Toast.makeText(getContext(), "Filter: " + currentCategory, Toast.LENGTH_SHORT).show();
         }
 
         private void filterHabits(String query) {
@@ -229,9 +227,9 @@ public class NavigationFragments {
             holder.tvDifficulty.setBackgroundTintList(ColorStateList.valueOf(diffBg));
             holder.tvDifficulty.setTextColor(diffText);
 
-            holder.btnAdd.setOnClickListener(v -> 
-                Toast.makeText(v.getContext(), h.getTitle() + " added!", Toast.LENGTH_SHORT).show()
-            );
+            holder.btnAdd.setOnClickListener(v -> {
+                // Habit added
+            });
         }
 
         @Override public int getItemCount() { return habits.size(); }

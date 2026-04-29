@@ -64,7 +64,6 @@ public class DiscoverFragment extends Fragment {
             currentCategory = "All";
             etSearch.setText("");
             adapter.updateList(allHabits);
-            Toast.makeText(getContext(), R.string.showing_all_habits, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -75,7 +74,6 @@ public class DiscoverFragment extends Fragment {
             currentCategory = category;
         }
         filterHabits("");
-        Toast.makeText(getContext(), getString(R.string.filter_message, currentCategory), Toast.LENGTH_SHORT).show();
     }
 
     private void filterHabits(String query) {

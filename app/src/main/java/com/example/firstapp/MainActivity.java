@@ -107,14 +107,12 @@ public class MainActivity extends AppCompatActivity {
             String password = et_password.getText() != null ? et_password.getText().toString() : "";
             
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, R.string.fill_fields, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (!isLoginMode) {
                 String name = et_name.getText() != null ? et_name.getText().toString().trim() : "";
                 if (name.isEmpty()) {
-                    Toast.makeText(this, R.string.enter_name, Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
@@ -125,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btn_google.setOnClickListener(v -> {
-            Toast.makeText(this, R.string.google_sign_in, Toast.LENGTH_SHORT).show();
+            // Google Sign-In logic
         });
 
         tv_forgot_password.setOnClickListener(v -> {
-            Toast.makeText(this, R.string.reset_password, Toast.LENGTH_SHORT).show();
+            // Reset password logic
         });
     }
 }
