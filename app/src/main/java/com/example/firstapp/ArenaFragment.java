@@ -142,9 +142,10 @@ public class ArenaFragment extends Fragment {
             challengeRepository.getAllChallenges().observeForever(allChallenges -> {
                 if (allChallenges == null) return;
                 
-                java.util.Set<String> joinedIds = prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>());
-                UserRank rank = new UserRank(42, 15); // Mock rank
+                // For rank, we'd ideally have an API call too, but we'll keep it mock for now or use profile
+                UserRank rank = new UserRank(42, 15); 
                 
+                java.util.Set<String> joinedIds = prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>());
                 List<Challenge> ongoing = new ArrayList<>();
                 List<Challenge> available = new ArrayList<>();
 
@@ -153,7 +154,6 @@ public class ArenaFragment extends Fragment {
                         c.setActive(true);
                         ongoing.add(c);
                     }
-                    // Keep in available list even if joined, but marked as active
                     available.add(c);
                 }
                 
@@ -162,7 +162,36 @@ public class ArenaFragment extends Fragment {
         }
 
         public void joinChallenge(Challenge challenge) {
-            // OFFLINE: Bypass API call
+            challengeRepository.joinChallenge(challenge.getId(), new retrofit2.Callback<Challenge>() {
+                @Override
+                public void onResponse(retrofit2.Call<Challenge> call, retrofit2.Response<Challenge> response) {
+                    if (response.isSuccessful()) {
+                        android.widget.Toast.makeText(getApplication(), "Joined " + challenge.getTitle(), android.widget.Toast.LENGTH_SHORT).show();
+                        persistJoinLocally(challenge);
+                        loadData();
+                    } else {
+                        handleJoinError(challenge, new Exception("Server returned " + response.code()));
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<Challenge> call, Throwable t) {
+                    handleJoinError(challenge, t);
+                }
+            });
+        }
+
+        private void handleJoinError(Challenge challenge, Throwable t) {
+            if (t instanceof java.io.IOException || t instanceof java.net.UnknownHostException || t instanceof java.net.ConnectException) {
+                android.widget.Toast.makeText(getApplication(), "Offline: Action saved locally", android.widget.Toast.LENGTH_SHORT).show();
+                persistJoinLocally(challenge);
+                loadData();
+            } else {
+                android.widget.Toast.makeText(getApplication(), "Error: " + t.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        private void persistJoinLocally(Challenge challenge) {
             challenge.setParticipants(challenge.getParticipants() + 1);
             challenge.setActive(true);
             
@@ -173,9 +202,6 @@ public class ArenaFragment extends Fragment {
             java.util.Set<String> joinedIds = new java.util.HashSet<>(prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>()));
             joinedIds.add(challenge.getId());
             prefs.edit().putStringSet(JOINED_KEY, joinedIds).apply();
-            
-            android.widget.Toast.makeText(getApplication(), "Joined " + challenge.getTitle(), android.widget.Toast.LENGTH_SHORT).show();
-            loadData(); // reload UI
         }
     }
 

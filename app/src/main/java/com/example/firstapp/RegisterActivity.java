@@ -39,13 +39,35 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            // DEV MODE: Immediate registration without backend
-            SharedPreferences prefs = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
-            prefs.edit().putString("token", "fake-dev-token").apply();
+            AuthRequest request = new AuthRequest(name, email, password);
+            ApiClient.getService(this).register(request).enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        SharedPreferences prefs = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
+                        prefs.edit().putString("token", response.body().token).apply();
 
-            Toast.makeText(this, "DEV MODE: Registration bypassed", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-            finish();
+                        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                        finish();
+                    } else {
+                        String errorMessage = "Registration failed";
+                        try {
+                            if (response.errorBody() != null) {
+                                // Simple attempt to parse error if it's just a string or JSON with message
+                                errorMessage = response.errorBody().string();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Toast.makeText(RegisterActivity.this, "Cannot reach server", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
         tvLogin.setOnClickListener(v -> {

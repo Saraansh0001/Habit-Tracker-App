@@ -21,10 +21,12 @@ public class ChallengeRepository {
     private final ApiService apiService;
     private final SharedPreferences prefs;
     private final Gson gson;
+    private final Context context;
     private static final String PREFS_NAME = "local_challenges_prefs";
     private static final String CHALLENGES_KEY = "local_challenges";
 
     public ChallengeRepository(Context context) {
+        this.context = context;
         apiService = ApiClient.getService(context);
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         gson = new Gson();
@@ -44,6 +46,9 @@ public class ChallengeRepository {
 
             @Override
             public void onFailure(Call<List<Challenge>> call, Throwable t) {
+                if (t instanceof java.io.IOException) {
+                    android.widget.Toast.makeText(context, "Offline: Showing cached challenges", android.widget.Toast.LENGTH_SHORT).show();
+                }
                 data.postValue(getLocalChallenges());
             }
         });
@@ -78,5 +83,9 @@ public class ChallengeRepository {
 
     public void addChallenge(Challenge challenge, Callback<Challenge> callback) {
         apiService.createChallenge(challenge).enqueue(callback);
+    }
+
+    public void joinChallenge(String id, Callback<Challenge> callback) {
+        apiService.joinChallenge(id).enqueue(callback);
     }
 }

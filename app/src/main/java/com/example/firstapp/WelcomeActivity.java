@@ -21,13 +21,6 @@ public class WelcomeActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
-        SharedPreferences authPrefs = getSharedPreferences("auth_prefs", MODE_PRIVATE);
-        if (authPrefs.getString("token", null) != null) {
-            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-            finish();
-            return;
-        }
-
         super.onCreate(savedInstanceState);
 
         // Make status bar transparent and use light icons for the dark background

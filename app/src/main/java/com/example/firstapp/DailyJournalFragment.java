@@ -40,7 +40,11 @@ public class DailyJournalFragment extends Fragment {
                     }
                     @Override
                     public void onFailure(retrofit2.Call<com.example.firstapp.models.JournalEntry> call, Throwable t) {
-                        android.widget.Toast.makeText(getContext(), "Network error", android.widget.Toast.LENGTH_SHORT).show();
+                        if (t instanceof java.io.IOException) {
+                            android.widget.Toast.makeText(getContext(), "Offline: Entry saved locally (mock)", android.widget.Toast.LENGTH_SHORT).show();
+                        } else {
+                            android.widget.Toast.makeText(getContext(), "Error: " + t.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
+                        }
                         if (getActivity() != null) getActivity().onBackPressed();
                     }
                 });
@@ -61,14 +65,25 @@ public class DailyJournalFragment extends Fragment {
                 public void onResponse(retrofit2.Call<List<com.example.firstapp.models.JournalEntry>> call, retrofit2.Response<List<com.example.firstapp.models.JournalEntry>> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         rv.setAdapter(new JournalAdapter(response.body()));
+                    } else {
+                        showOfflineEntries(rv);
                     }
                 }
 
                 @Override
                 public void onFailure(retrofit2.Call<List<com.example.firstapp.models.JournalEntry>> call, Throwable t) {
-                    android.widget.Toast.makeText(getContext(), "Network error", android.widget.Toast.LENGTH_SHORT).show();
+                    if (t instanceof java.io.IOException) {
+                        android.widget.Toast.makeText(getContext(), "Showing offline journal entries", android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                    showOfflineEntries(rv);
                 }
             });
+    }
+
+    private void showOfflineEntries(RecyclerView rv) {
+        List<com.example.firstapp.models.JournalEntry> offline = new ArrayList<>();
+        offline.add(new com.example.firstapp.models.JournalEntry("Yesterday", "Happy", "This is an offline fallback entry."));
+        rv.setAdapter(new JournalAdapter(offline));
     }
 
     static class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.VH> {

@@ -37,13 +37,28 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            // DEV MODE: Immediate login without backend
-            SharedPreferences prefs = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
-            prefs.edit().putString("token", "fake-dev-token").apply();
+            AuthRequest request = new AuthRequest(email, password);
+            ApiClient.getService(this).login(request).enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        SharedPreferences prefs = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
+                        prefs.edit().putString("token", response.body().token).apply();
+                        
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        finish();
+                    } else if (response.code() == 401) {
+                        Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Server error: " + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-            Toast.makeText(this, "DEV MODE: Login bypassed", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Toast.makeText(LoginActivity.this, "Cannot reach server. Check connection and try again.", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
         tvRegister.setOnClickListener(v -> {
