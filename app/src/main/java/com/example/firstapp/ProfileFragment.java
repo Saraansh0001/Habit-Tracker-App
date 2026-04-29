@@ -50,7 +50,7 @@ public class ProfileFragment extends Fragment {
         if (statsContainer == null) return;
 
         List<ProfileStat> stats = new ArrayList<>();
-        stats.add(new ProfileStat("Best Streak", "18 days", R.drawable.ic_bolt));
+        stats.add(new ProfileStat("Best Streak", "18 days", R.drawable.ic_nav_arena));
         stats.add(new ProfileStat("Total XP Earned", "8,240 XP", R.drawable.ic_badge_1));
         stats.add(new ProfileStat("Challenges Won", "7", R.drawable.ic_nav_arena));
         stats.add(new ProfileStat("Focus Minutes", "80 min", R.drawable.ic_nav_analytics));

@@ -99,7 +99,7 @@ public class CreateChallengeFragment extends Fragment {
             case "Study": return R.drawable.ic_reading;
             case "Health": return R.drawable.ic_health;
             case "Sleep": return R.drawable.ic_sleep;
-            default: return R.drawable.ic_bolt;
+            default: return R.drawable.ic_nav_arena;
         }
     }
 

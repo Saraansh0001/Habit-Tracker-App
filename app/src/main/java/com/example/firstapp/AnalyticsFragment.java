@@ -103,7 +103,7 @@ public class AnalyticsFragment extends Fragment {
             });
         }
         
-        TextView tvThisWeek = view.findViewById(R.id.tv_this_week);
+        View tvThisWeek = view.findViewById(R.id.tv_this_week);
         if (tvThisWeek != null) {
             tvThisWeek.setOnClickListener(v -> {
                 // Weekly range selector

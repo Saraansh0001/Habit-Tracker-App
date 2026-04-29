@@ -70,7 +70,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_bolt"
+                    android:src="@drawable/ic_nav_arena"
                     app:tint="@android:color/white" />
 
             </androidx.cardview.widget.CardView>

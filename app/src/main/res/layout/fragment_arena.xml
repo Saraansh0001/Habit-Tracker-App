@@ -156,7 +156,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ongoing Challenges"
+                    android:text="@string/ongoing_challenges"
                     android:textColor="@color/text_dark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -165,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="See All"
+                    android:text="@string/see_all"
                     android:textColor="@color/purple_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -186,7 +186,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Available Challenges"
+                    android:text="@string/available_challenges"
                     android:textColor="@color/text_dark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -195,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="See All"
+                    android:text="@string/see_all"
                     android:textColor="@color/purple_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />

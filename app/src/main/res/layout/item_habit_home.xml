@@ -59,7 +59,7 @@
             android:id="@+id/iv_check"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_bolt"
+            android:src="@drawable/ic_nav_arena"
             android:clickable="true"
             android:focusable="true"
             android:padding="4dp" />

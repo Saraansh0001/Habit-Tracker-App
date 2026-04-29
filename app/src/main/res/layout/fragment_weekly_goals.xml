@@ -253,7 +253,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_bolt"
+                        android:src="@drawable/ic_nav_arena"
                         app:tint="@color/difficulty_easy_text" />
                     <TextView
                         android:layout_width="0dp"

@@ -271,7 +271,7 @@
                     android:text="@string/start_session"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:icon="@drawable/ic_bolt"
+                    app:icon="@drawable/ic_nav_analytics"
                     app:cornerRadius="16dp"
                     android:backgroundTint="@color/purple_primary" />
 

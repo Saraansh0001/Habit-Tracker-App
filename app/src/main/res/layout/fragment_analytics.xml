@@ -36,7 +36,7 @@
                         android:id="@+id/tv_analytics_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Analytics &amp; History"
+                        android:text="@string/analytics_title"
                         android:textColor="@android:color/white"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -44,7 +44,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Track your progress and mood"
+                        android:text="@string/analytics_subtitle"
                         android:textColor="#F0F0F0"
                         android:textSize="12sp"
                         android:layout_below="@id/tv_analytics_title"
@@ -83,7 +83,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Best Streak"
+                                android:text="@string/best_streak_label"
                                 android:textColor="#E0E0E0"
                                 android:textSize="10sp" />
                         </LinearLayout>
@@ -109,7 +109,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Completion"
+                                android:text="@string/completion_rate"
                                 android:textColor="#E0E0E0"
                                 android:textSize="10sp" />
                         </LinearLayout>
@@ -136,7 +136,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="This Week"
+                                android:text="@string/label_this_week"
                                 android:textColor="#E0E0E0"
                                 android:textSize="10sp" />
                         </LinearLayout>
@@ -156,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:background="@drawable/bg_search_input"
-                    android:hint="Search archived habits..."
+                    android:hint="@string/search_history_hint"
                     android:paddingHorizontal="20dp"
                     android:textSize="14sp"
                     android:textColor="@color/text_dark"
@@ -184,7 +184,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="All"
+                                android:text="@string/nav_home"
                                 android:paddingHorizontal="20dp"
                                 android:paddingVertical="10dp"
                                 android:textColor="@android:color/white"
@@ -201,7 +201,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Fitness"
+                                android:text="@string/cat_fitness_label"
                                 android:paddingHorizontal="20dp"
                                 android:paddingVertical="10dp"
                                 android:textColor="@color/category_fitness_text"
@@ -218,7 +218,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Health"
+                                android:text="@string/cat_health"
                                 android:paddingHorizontal="20dp"
                                 android:paddingVertical="10dp"
                                 android:textColor="@color/text_secondary"
@@ -235,7 +235,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Productivity"
+                                android:text="@string/cat_productivity"
                                 android:paddingHorizontal="20dp"
                                 android:paddingVertical="10dp"
                                 android:textColor="@color/text_secondary"
@@ -248,7 +248,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Habit History"
+                android:text="@string/habit_history_title"
                 android:textColor="@color/text_dark"
                 android:textSize="18sp"
                 android:textStyle="bold"

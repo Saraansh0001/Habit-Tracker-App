@@ -10,7 +10,7 @@
         android:id="@+id/iv_stat_icon"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/ic_bolt"
+        android:src="@drawable/ic_nav_arena"
         android:alpha="0.7"/>
 
     <TextView

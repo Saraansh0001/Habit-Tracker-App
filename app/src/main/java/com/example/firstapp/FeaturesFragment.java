@@ -44,11 +44,11 @@ public class FeaturesFragment extends Fragment {
 
         List<ProfileFeature> features = new ArrayList<>();
         features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_nav_home, "#F3F0FF"));
-        features.add(new ProfileFeature("Focus Timer", "Deep focus on one habit at a time", R.drawable.ic_bolt, "#FFF7ED"));
-        features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_bolt, "#F0FDF4"));
-        features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_bolt, "#EEF2FF"));
-        features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_bolt, "#FFF1F2"));
-        features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_bolt, "#F0FDFA"));
+        features.add(new ProfileFeature("Focus Timer", "Deep focus on one habit at a time", R.drawable.ic_nav_analytics, "#FFF7ED"));
+        features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_badge_1, "#F0FDF4"));
+        features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_edit, "#EEF2FF"));
+        features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_meditation, "#FFF1F2"));
+        features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_social, "#F0FDFA"));
         features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_badge_1, "#FEFCE8"));
         features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_analytics, "#FDF2F8"));
 
