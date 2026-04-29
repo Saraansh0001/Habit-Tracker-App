@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,50 +32,17 @@ public class ProfileFragment extends Fragment {
         setupStats(view, inflater);
         setupActions(view, inflater);
         
-        view.findViewById(R.id.btn_logout).setOnClickListener(v -> 
-            Toast.makeText(getContext(), "Logging out...", Toast.LENGTH_SHORT).show());
-            
+        view.findViewById(R.id.btn_logout).setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(getContext(), MainActivity.class);
+            intent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK | android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+
         return view;
     }
 
     private void setupFeatures(View view, LayoutInflater inflater) {
-        ViewGroup featuresGrid = view.findViewById(R.id.features_grid);
-        if (featuresGrid == null) return;
-
-        List<ProfileFeature> features = new ArrayList<>();
-        features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_nav_home, "#F5F3FF"));
-        features.add(new ProfileFeature("Focus Timer", "Deep work session", R.drawable.ic_nav_home, "#FFF7ED"));
-        features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_nav_home, "#ECFDF5"));
-        features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_nav_home, "#EEF2FF"));
-        features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_nav_home, "#FFF1F2"));
-        features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_nav_home, "#F0FDFA"));
-        features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_nav_home, "#FFFBEB"));
-        features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_home, "#FDF2F8"));
-
-        for (ProfileFeature feature : features) {
-            View itemView = inflater.inflate(R.layout.item_profile_feature, featuresGrid, false);
-            
-            TextView title = itemView.findViewById(R.id.tv_feature_title);
-            TextView desc = itemView.findViewById(R.id.tv_feature_desc);
-            ImageView icon = itemView.findViewById(R.id.iv_feature_icon);
-            CardView iconContainer = itemView.findViewById(R.id.cv_feature_icon_container);
-
-            title.setText(feature.getTitle());
-            desc.setText(feature.getDescription());
-            icon.setImageResource(feature.getIconRes());
-            iconContainer.setCardBackgroundColor(Color.parseColor(feature.getBackgroundColor()));
-            
-            // Generate a darker shade for the icon tint based on background
-            int bgColor = Color.parseColor(feature.getBackgroundColor());
-            float[] hsv = new float[3];
-            Color.colorToHSV(bgColor, hsv);
-            hsv[2] *= 0.6f; // Darken
-            hsv[1] = Math.min(1.0f, hsv[1] * 1.5f); // Saturate
-            icon.setImageTintList(ColorStateList.valueOf(Color.HSVToColor(hsv)));
-
-            itemView.setOnClickListener(v -> Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show());
-            featuresGrid.addView(itemView);
-        }
+        // Feature grid removed or replaced with stats/actions
     }
 
     private void setupStats(View view, LayoutInflater inflater) {
@@ -130,7 +96,17 @@ public class ProfileFragment extends Fragment {
             title.setText(titleText);
             icon.setImageResource(icons[i]);
 
-            itemView.setOnClickListener(v -> Toast.makeText(getContext(), titleText + " clicked", Toast.LENGTH_SHORT).show());
+            itemView.setOnClickListener(v -> {
+                if (titleText.equals("Edit Profile")) {
+                    if (getActivity() instanceof HomeActivity) {
+                        ((HomeActivity) getActivity()).loadFragment(new EditProfileFragment());
+                    }
+                } else if (titleText.equals("Notifications") || titleText.equals("Privacy & Security") || titleText.equals("About Discipline Arena")) {
+                    // Navigate to settings or specific detail
+                    android.content.Intent intent = new android.content.Intent(getContext(), SettingsActivity.class);
+                    startActivity(intent);
+                }
+            });
             actionsContainer.addView(itemView);
             
             if (i < titles.length - 1) {

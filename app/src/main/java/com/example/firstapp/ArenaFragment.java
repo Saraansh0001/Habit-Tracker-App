@@ -79,13 +79,13 @@ public class ArenaFragment extends Fragment {
 
         btnCreate.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(new NavigationFragments.CreateChallengeFragment());
+                ((HomeActivity) getActivity()).loadFragment(new CreateChallengeFragment());
             }
         });
 
         btnLeaderboard.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(new NavigationFragments.LeaderboardFragment());
+                ((HomeActivity) getActivity()).loadFragment(new LeaderboardFragment());
             }
         });
     }

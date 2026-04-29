@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,90 +40,11 @@ public class NavigationFragments {
     }
 
     public static class CreateChallengeFragment extends Fragment {
-        @Nullable @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_create_challenge, container, false);
-            
-            view.findViewById(R.id.btn_back).setOnClickListener(v -> {
-                if (getActivity() != null) getActivity().onBackPressed();
-            });
-
-            Button btnCreate = view.findViewById(R.id.btn_create_final);
-            btnCreate.setOnClickListener(v -> {
-                EditText etName = view.findViewById(R.id.et_challenge_name);
-                String name = etName.getText().toString();
-                if (name.isEmpty()) {
-                    Toast.makeText(getContext(), "Please enter a challenge name", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "Challenge '" + name + "' created successfully!", Toast.LENGTH_LONG).show();
-                    if (getActivity() != null) getActivity().onBackPressed();
-                }
-            });
-
-            return view;
-        }
+        // Redundant - replaced by standalone CreateChallengeFragment.java
     }
 
     public static class LeaderboardFragment extends Fragment {
-        @Nullable @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
-            
-            view.findViewById(R.id.btn_back).setOnClickListener(v -> {
-                if (getActivity() != null) getActivity().onBackPressed();
-            });
-
-            RecyclerView rv = view.findViewById(R.id.rv_leaderboard);
-            rv.setLayoutManager(new LinearLayoutManager(getContext()));
-            rv.setAdapter(new LeaderboardAdapter(getMockLeaderboard()));
-
-            return view;
-        }
-
-        private List<LeaderboardUser> getMockLeaderboard() {
-            List<LeaderboardUser> users = new ArrayList<>();
-            users.add(new LeaderboardUser("4", "Aayush Rathore", "3890 XP", "🔥 28"));
-            users.add(new LeaderboardUser("5", "Shejal Kushwaha", "3650 XP", "🔥 25"));
-            users.add(new LeaderboardUser("6", "Priya Das", "3420 XP", "🔥 22"));
-            users.add(new LeaderboardUser("7", "Romi", "3200 XP", "🔥 20"));
-            users.add(new LeaderboardUser("8", "Sachin Singh", "2980 XP", "🔥 18"));
-            users.add(new LeaderboardUser("9", "Aryan", "2750 XP", "🔥 15"));
-            users.add(new LeaderboardUser("10", "Zoya Ansari", "2600 XP", "🔥 14"));
-            return users;
-        }
-
-        static class LeaderboardUser {
-            String rank, name, xp, streak;
-            LeaderboardUser(String r, String n, String x, String s) {
-                rank = r; name = n; xp = x; streak = s;
-            }
-        }
-
-        static class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.VH> {
-            List<LeaderboardUser> users;
-            LeaderboardAdapter(List<LeaderboardUser> u) { users = u; }
-            @NonNull @Override public VH onCreateViewHolder(@NonNull ViewGroup p, int t) {
-                return new VH(LayoutInflater.from(p.getContext()).inflate(R.layout.item_leaderboard_user, p, false));
-            }
-            @Override public void onBindViewHolder(@NonNull VH h, int p) {
-                LeaderboardUser u = users.get(p);
-                h.rank.setText(u.rank);
-                h.name.setText(u.name);
-                h.xp.setText(u.xp);
-                h.streak.setText(u.streak);
-            }
-            @Override public int getItemCount() { return users.size(); }
-            static class VH extends RecyclerView.ViewHolder {
-                TextView rank, name, xp, streak;
-                VH(View v) {
-                    super(v);
-                    rank = v.findViewById(R.id.tv_rank);
-                    name = v.findViewById(R.id.tv_name);
-                    xp = v.findViewById(R.id.tv_xp);
-                    streak = v.findViewById(R.id.tv_streak);
-                }
-            }
-        }
+        // Redundant - replaced by standalone LeaderboardFragment.java
     }
 
     public static class FeaturesFragment extends Fragment {
@@ -193,7 +113,7 @@ public class NavigationFragments {
                         } else if ("Weekly Goals".equals(feature.getTitle())) {
                             loadFragment(new WeeklyGoalsFragment());
                         } else {
-                            Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
+                            // Handle other feature clicks
                         }
                     });
                     container.addView(itemView);

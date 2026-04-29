@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,7 +104,6 @@ public class FocusTimerFragment extends Fragment {
             chip.setOnClickListener(v -> {
                 selectedHabit = habitName;
                 tvSelectedHabitTimer.setText(habitName);
-                Toast.makeText(getContext(), "Selected: " + habitName, Toast.LENGTH_SHORT).show();
             });
 
             habitSelectionContainer.addView(chip);
@@ -146,7 +144,6 @@ public class FocusTimerFragment extends Fragment {
             public void onFinish() {
                 timerRunning = false;
                 btnStartSession.setText("Start Session");
-                Toast.makeText(getContext(), "Focus Session Finished!", Toast.LENGTH_LONG).show();
                 // Add to recent sessions
                 addSessionToHistory();
             }
