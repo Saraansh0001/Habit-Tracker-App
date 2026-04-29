@@ -87,14 +87,14 @@ public class DiscoverFragment extends Fragment {
     private List<Habit> getMockHabits() {
         List<Habit> habits = new ArrayList<>();
         // Using constructor: Habit(String title, String category, String difficulty, String color, int iconRes)
-        habits.add(new Habit("Morning Run", "Fitness", "Medium", "#6366F1", R.drawable.ic_nav_arena));
-        habits.add(new Habit("Read Books", "Study", "Easy", "#8B5CF6", R.drawable.ic_nav_search));
-        habits.add(new Habit("Meditate", "Meditation", "Easy", "#06B6D4", R.drawable.ic_nav_profile));
-        habits.add(new Habit("Cold Shower", "Health", "Hard", "#10B981", R.drawable.ic_bolt));
-        habits.add(new Habit("Journal", "Productivity", "Easy", "#F59E0B", R.drawable.ic_nav_home));
-        habits.add(new Habit("No Sugar", "Health", "Hard", "#EF4444", R.drawable.ic_bolt));
-        habits.add(new Habit("Push-ups", "Fitness", "Medium", "#6366F1", R.drawable.ic_nav_arena));
-        habits.add(new Habit("Stretch", "Health", "Easy", "#10B981", R.drawable.ic_bolt));
+        habits.add(new Habit("Morning Run", "Fitness", "Medium", "#6366F1", R.drawable.ic_workout));
+        habits.add(new Habit("Read Books", "Study", "Easy", "#8B5CF6", R.drawable.ic_reading));
+        habits.add(new Habit("Meditate", "Meditation", "Easy", "#06B6D4", R.drawable.ic_meditation));
+        habits.add(new Habit("Cold Shower", "Health", "Hard", "#10B981", R.drawable.ic_health));
+        habits.add(new Habit("Journal", "Productivity", "Easy", "#F59E0B", R.drawable.ic_edit));
+        habits.add(new Habit("No Sugar", "Health", "Hard", "#EF4444", R.drawable.ic_health));
+        habits.add(new Habit("Push-ups", "Fitness", "Medium", "#6366F1", R.drawable.ic_workout));
+        habits.add(new Habit("Stretch", "Health", "Easy", "#10B981", R.drawable.ic_workout));
         return habits;
     }
 }

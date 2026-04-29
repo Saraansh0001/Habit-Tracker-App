@@ -92,14 +92,14 @@ public class ProfileFragment extends Fragment {
         if (featuresGrid == null) return;
 
         List<ProfileFeature> features = new ArrayList<>();
-        features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_nav_home, "#F5F3FF"));
-        features.add(new ProfileFeature("Focus Timer", "Deep work session", R.drawable.ic_nav_home, "#FFF7ED"));
-        features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_nav_home, "#ECFDF5"));
-        features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_nav_home, "#EEF2FF"));
-        features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_nav_home, "#FFF1F2"));
-        features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_nav_home, "#F0FDFA"));
-        features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_nav_home, "#FFFBEB"));
-        features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_home, "#FDF2F8"));
+        features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_bolt, "#F5F3FF"));
+        features.add(new ProfileFeature("Focus Timer", "Deep work session", R.drawable.ic_meditation, "#FFF7ED"));
+        features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_nav_arena, "#ECFDF5"));
+        features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_edit, "#EEF2FF"));
+        features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_nav_analytics, "#FFF1F2"));
+        features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_social, "#F0FDFA"));
+        features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_badge_1, "#FFFBEB"));
+        features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_analytics, "#FDF2F8"));
 
         for (ProfileFeature feature : features) {
             View itemView = inflater.inflate(R.layout.item_profile_feature, featuresGrid, false);

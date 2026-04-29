@@ -45,9 +45,9 @@ public class HabitRepository {
 
     private List<Habit> getDefaultHabits() {
         List<Habit> defaults = new ArrayList<>();
-        defaults.add(new Habit("Morning Meditation", "Mindfulness", "Easy", "#6B3FD4", 0));
-        defaults.add(new Habit("Read 30 Minutes", "Productivity", "Medium", "#38BDF8", 0));
-        defaults.add(new Habit("Drink 2L Water", "Health", "Easy", "#10B981", 0));
+        defaults.add(new Habit("Morning Meditation", "Mindfulness", "Easy", "#6B3FD4", com.example.firstapp.R.drawable.ic_meditation));
+        defaults.add(new Habit("Read 30 Minutes", "Productivity", "Medium", "#38BDF8", com.example.firstapp.R.drawable.ic_reading));
+        defaults.add(new Habit("Drink 2L Water", "Health", "Easy", "#10B981", com.example.firstapp.R.drawable.ic_health));
         return defaults;
     }
 }

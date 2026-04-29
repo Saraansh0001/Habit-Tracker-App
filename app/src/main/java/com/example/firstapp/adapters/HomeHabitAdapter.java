@@ -91,6 +91,13 @@ public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.Habi
             tvTitle.setText(habit.getTitle());
             tvCategory.setText(habit.getCategory());
             
+            // Set the specific icon from the habit object
+            if (habit.getIconRes() != 0) {
+                ivIcon.setImageResource(habit.getIconRes());
+            } else {
+                ivIcon.setImageResource(R.drawable.ic_bolt); // Default fallback
+            }
+            
             try {
                 int color = Color.parseColor(habit.getColor());
                 cvIconContainer.setCardBackgroundColor(adjustAlpha(color, 0.1f));
