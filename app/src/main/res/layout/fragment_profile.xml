@@ -134,6 +134,7 @@
                         android:orientation="vertical"
                         android:padding="16dp">
                         <RelativeLayout
+                            android:id="@+id/rl_profile_badges"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <TextView
@@ -235,6 +236,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
+                        <!-- Added manually to resolve code referencing these IDs -->
+                        <RelativeLayout
+                            android:id="@+id/rl_profile_account_settings"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/account_section"
+                                android:textStyle="bold"
+                                android:textColor="@color/text_dark" />
+                        </RelativeLayout>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switch_notifications_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:text="@string/notifications"
+                            android:textColor="@color/text_dark" />
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switch_dark_mode_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:text="@string/dark_mode"
+                            android:textColor="@color/text_dark" />
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
