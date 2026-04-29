@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "270068805949",
+    "project_id": "discipline-arena-c9a63",
+    "storage_bucket": "discipline-arena-c9a63.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270068805949:android:bdd3bf003d308910859554",
+        "android_client_info": {
+          "package_name": "com.example.firstapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270068805949-ml24dojcddl13185p2vhrcu6ou8ohg3r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firstapp",
+            "certificate_hash": "e9cd1e542c6c27bcf0b128d85516a6767adfffe8"
+          }
+        },
+        {
+          "client_id": "270068805949-pbh0uj5bvr3red8a4d3clnmns09rkdk4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-IyFeneTEdlxG7Za4t5-Pr7w1q5L9Y4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270068805949-pbh0uj5bvr3red8a4d3clnmns09rkdk4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,9 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.firstapp.models.ProfileStat;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -61,6 +61,9 @@ public class ProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateProfileDisplay();
+        if (getView() != null) {
+            setupProfilePic(getView());
+        }
     }
 
     private void updateProfileDisplay() {
@@ -74,9 +77,18 @@ public class ProfileFragment extends Fragment {
 
     private void setupProfilePic(View view) {
         ImageView profilePic = view.findViewById(R.id.iv_profile_avatar);
-        if (profilePic != null) {
-            profilePic.setImageResource(R.drawable.ic_warrior_silhouette);
-            // We keep the white background set in XML for contrast
+        if (profilePic != null && prefs != null) {
+            String photoUrl = prefs.getString("profile_photo_url", null);
+            if (photoUrl != null && !photoUrl.isEmpty()) {
+                Glide.with(this)
+                        .load(photoUrl)
+                        .circleCrop()
+                        .placeholder(R.drawable.ic_warrior_silhouette)
+                        .error(R.drawable.ic_warrior_silhouette)
+                        .into(profilePic);
+            } else {
+                profilePic.setImageResource(R.drawable.ic_warrior_silhouette);
+            }
         }
     }
 
