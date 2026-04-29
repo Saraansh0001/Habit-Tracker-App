@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstapp.models.Habit;
+import com.example.firstapp.models.ProfileFeature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,73 +127,88 @@ public class NavigationFragments {
         }
     }
 
-    public static class ProfileFragment extends Fragment {
-        private com.google.android.material.switchmaterial.SwitchMaterial switchNotifications;
-        private com.google.android.material.switchmaterial.SwitchMaterial switchDarkMode;
-        private android.content.SharedPreferences prefs;
-
+    public static class FeaturesFragment extends Fragment {
         @Nullable @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_profile, container, false);
-            prefs = requireContext().getSharedPreferences("HabitTrackerPrefs", android.content.Context.MODE_PRIVATE);
-
-            // Link the Account Settings RelativeLayout to SettingsActivity
-            View accountSettings = view.findViewById(R.id.rl_profile_account_settings);
-            if (accountSettings != null) {
-                accountSettings.setOnClickListener(v -> {
-                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                    startActivity(intent);
+            View view = inflater.inflate(R.layout.fragment_features, container, false);
+            
+            View btnBack = view.findViewById(R.id.btn_back);
+            if (btnBack != null) {
+                btnBack.setOnClickListener(v -> {
+                    if (getActivity() != null) getActivity().onBackPressed();
                 });
             }
 
-            // Initialize Switches
-            switchNotifications = view.findViewById(R.id.switch_notifications_profile);
-            switchDarkMode = view.findViewById(R.id.switch_dark_mode_profile);
-
-            loadSettings();
-            setupListeners(view);
+            setupFeatures(view, inflater);
 
             return view;
         }
 
-        private void loadSettings() {
-            if (switchNotifications != null) {
-                switchNotifications.setChecked(prefs.getBoolean("notifications_enabled", true));
-            }
-            if (switchDarkMode != null) {
-                switchDarkMode.setChecked(prefs.getBoolean("dark_mode", false));
+        private void setupFeatures(View view, LayoutInflater inflater) {
+            LinearLayout container = view.findViewById(R.id.features_container);
+            if (container == null) return;
+            container.removeAllViews();
+
+            List<ProfileFeature> features = new ArrayList<>();
+            features.add(new ProfileFeature("Streak Calendar", "Visual habit history", R.drawable.ic_nav_home, "#F3F0FF"));
+            features.add(new ProfileFeature("Focus Timer", "Deep focus on one habit at a time", R.drawable.ic_bolt, "#FFF7ED"));
+            features.add(new ProfileFeature("Weekly Goals", "Set habit target", R.drawable.ic_bolt, "#F0FDF4"));
+            features.add(new ProfileFeature("Daily Journal", "Reflect & grow", R.drawable.ic_bolt, "#EEF2FF"));
+            features.add(new ProfileFeature("Mood Tracker", "Track how you feel", R.drawable.ic_bolt, "#FFF1F2"));
+            features.add(new ProfileFeature("Friends", "Social accountability", R.drawable.ic_bolt, "#F0FDFA"));
+            features.add(new ProfileFeature("Rewards", "Badges & milestone", R.drawable.ic_badge_1, "#FEFCE8"));
+            features.add(new ProfileFeature("Weekly Report", "Sunday summary", R.drawable.ic_nav_analytics, "#FDF2F8"));
+
+            for (ProfileFeature feature : features) {
+                try {
+                    View itemView = inflater.inflate(R.layout.item_profile_feature, container, false);
+                    
+                    TextView title = itemView.findViewById(R.id.tv_feature_title);
+                    TextView desc = itemView.findViewById(R.id.tv_feature_desc);
+                    ImageView icon = itemView.findViewById(R.id.iv_feature_icon);
+                    CardView iconContainer = itemView.findViewById(R.id.cv_feature_icon_container);
+
+                    if (title != null) title.setText(feature.getTitle());
+                    if (desc != null) desc.setText(feature.getDescription());
+                    if (icon != null) icon.setImageResource(feature.getIconRes());
+                    
+                    int bgColor = Color.parseColor(feature.getBackgroundColor());
+                    if (iconContainer != null) iconContainer.setCardBackgroundColor(bgColor);
+
+                    if (icon != null) {
+                        float[] hsv = new float[3];
+                        Color.colorToHSV(bgColor, hsv);
+                        hsv[2] *= 0.5f; 
+                        hsv[1] = Math.min(1.0f, hsv[1] * 2.0f); 
+                        icon.setImageTintList(ColorStateList.valueOf(Color.HSVToColor(hsv)));
+                    }
+
+                    itemView.setOnClickListener(v -> {
+                        if ("Streak Calendar".equals(feature.getTitle())) {
+                            loadFragment(new StreakCalendarFragment());
+                        } else if ("Focus Timer".equals(feature.getTitle())) {
+                            loadFragment(new FocusTimerFragment());
+                        } else if ("Daily Journal".equals(feature.getTitle())) {
+                            loadFragment(new DailyJournalFragment());
+                        } else if ("Weekly Goals".equals(feature.getTitle())) {
+                            loadFragment(new WeeklyGoalsFragment());
+                        } else {
+                            Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    container.addView(itemView);
+                    
+                    // Add a small spacer
+                    View spacer = new View(getContext());
+                    spacer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 16));
+                    container.addView(spacer);
+                } catch (Exception e) {}
             }
         }
 
-        private void setupListeners(View view) {
-            if (switchNotifications != null) {
-                switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    prefs.edit().putBoolean("notifications_enabled", isChecked).apply();
-                });
-            }
-
-            if (switchDarkMode != null) {
-                switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    prefs.edit().putBoolean("dark_mode", isChecked).apply();
-                    if (isChecked) {
-                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
-                    } else {
-                        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
-                    }
-                    if (getActivity() != null) {
-                        getActivity().recreate();
-                    }
-                });
-            }
-
-            View logoutBtn = view.findViewById(R.id.btn_logout);
-            if (logoutBtn != null) {
-                logoutBtn.setOnClickListener(v -> {
-                    Toast.makeText(getContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
-                    if (getActivity() != null) {
-                        getActivity().finish();
-                    }
-                });
+        private void loadFragment(Fragment fragment) {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).loadFragment(fragment);
             }
         }
     }

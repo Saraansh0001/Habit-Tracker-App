@@ -229,15 +229,27 @@
             </RelativeLayout>
 
             <GridLayout
+                android:id="@+id/gl_features"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:columnCount="4"
                 android:alignmentMode="alignMargins">
 
-                <!-- Feature Items (Mocked) -->
+                <!-- Feature Items -->
                 <!-- Streaks -->
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:gravity="center" android:layout_marginBottom="16dp" tools:ignore="UseCompoundDrawables">
+                <LinearLayout
+                    android:id="@+id/ll_feature_streaks"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    tools:ignore="UseCompoundDrawables">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="16dp" app:cardBackgroundColor="@android:color/white" app:cardElevation="2dp">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="@color/purple_primary" android:contentDescription="@string/feature_streaks" />
                     </androidx.cardview.widget.CardView>
@@ -245,7 +257,17 @@
                 </LinearLayout>
 
                 <!-- Timer -->
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:gravity="center" tools:ignore="UseCompoundDrawables">
+                <LinearLayout
+                    android:id="@+id/ll_feature_timer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    tools:ignore="UseCompoundDrawables">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="16dp" app:cardBackgroundColor="@android:color/white" app:cardElevation="2dp">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="#FF5252" android:contentDescription="@string/feature_timer" />
                     </androidx.cardview.widget.CardView>
@@ -253,7 +275,17 @@
                 </LinearLayout>
 
                 <!-- Goals -->
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:gravity="center" tools:ignore="UseCompoundDrawables">
+                <LinearLayout
+                    android:id="@+id/ll_feature_goals"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    tools:ignore="UseCompoundDrawables">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="16dp" app:cardBackgroundColor="@android:color/white" app:cardElevation="2dp">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="#4CAF50" android:contentDescription="@string/feature_goals" />
                     </androidx.cardview.widget.CardView>
@@ -261,7 +293,17 @@
                 </LinearLayout>
 
                 <!-- Journal -->
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:gravity="center" tools:ignore="UseCompoundDrawables">
+                <LinearLayout
+                    android:id="@+id/ll_feature_journal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    tools:ignore="UseCompoundDrawables">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="16dp" app:cardBackgroundColor="@android:color/white" app:cardElevation="2dp">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/ic_bolt" app:tint="#2196F3" android:contentDescription="@string/feature_journal" />
                     </androidx.cardview.widget.CardView>
