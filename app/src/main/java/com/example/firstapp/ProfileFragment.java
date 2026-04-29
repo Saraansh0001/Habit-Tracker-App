@@ -28,6 +28,7 @@ import java.util.List;
 public class ProfileFragment extends Fragment {
 
     private SharedPreferences prefs;
+    private TextView tvName, tvRank;
 
     @Nullable
     @Override
@@ -38,6 +39,10 @@ public class ProfileFragment extends Fragment {
             prefs = getContext().getSharedPreferences("HabitTrackerPrefs", Context.MODE_PRIVATE);
         }
 
+        tvName = view.findViewById(R.id.tv_profile_name);
+        tvRank = view.findViewById(R.id.tv_profile_rank);
+
+        updateProfileDisplay();
         setupProfilePic(view);
         setupBadges(view);
         setupStats(view, inflater);
@@ -52,11 +57,26 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateProfileDisplay();
+    }
+
+    private void updateProfileDisplay() {
+        if (prefs != null) {
+            String name = prefs.getString("profile_name", "Team MAD 👋");
+            String rank = prefs.getString("profile_rank", "Warrior 🎖️");
+            if (tvName != null) tvName.setText(name);
+            if (tvRank != null) tvRank.setText(rank);
+        }
+    }
+
     private void setupProfilePic(View view) {
         ImageView profilePic = view.findViewById(R.id.iv_profile_avatar);
         if (profilePic != null) {
-            profilePic.setImageResource(R.drawable.user_avatar_placeholder);
-            profilePic.setBackgroundColor(Color.parseColor("#6B3FD4")); 
+            profilePic.setImageResource(R.drawable.ic_warrior_silhouette);
+            // We keep the white background set in XML for contrast
         }
     }
 
@@ -153,8 +173,9 @@ public class ProfileFragment extends Fragment {
             addDivider(actionsContainer);
         } catch (Exception e) {}
 
-        String[] titles = {getString(R.string.edit_profile), getString(R.string.notifications), getString(R.string.privacy_security), getString(R.string.about_app)};
-        int[] icons = {R.drawable.ic_bolt, R.drawable.ic_bolt, R.drawable.ic_bolt, R.drawable.ic_bolt};
+        String editProfileStr = getString(R.string.edit_profile);
+        String[] titles = {editProfileStr, getString(R.string.notifications), getString(R.string.privacy_security), getString(R.string.about_app)};
+        int[] icons = {R.drawable.ic_edit, R.drawable.ic_bolt, R.drawable.ic_bolt, R.drawable.ic_bolt};
 
         for (int i = 0; i < titles.length; i++) {
             final String titleText = titles[i];
@@ -169,7 +190,13 @@ public class ProfileFragment extends Fragment {
                     icon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#94A3B8")));
                 }
 
-                itemView.setOnClickListener(v -> Toast.makeText(getContext(), titleText + " clicked", Toast.LENGTH_SHORT).show());
+                itemView.setOnClickListener(v -> {
+                    if (titleText.equals(editProfileStr)) {
+                        loadFragment(new EditProfileFragment());
+                    } else {
+                        Toast.makeText(getContext(), titleText + " clicked", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 actionsContainer.addView(itemView);
                 
                 if (i < titles.length - 1) {
