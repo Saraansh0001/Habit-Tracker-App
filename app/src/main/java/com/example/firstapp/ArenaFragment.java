@@ -79,13 +79,13 @@ public class ArenaFragment extends Fragment {
 
         btnCreate.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(new CreateChallengeFragment());
+                ((HomeActivity) getActivity()).loadFragment(new NavigationFragments.CreateChallengeFragment());
             }
         });
 
         btnLeaderboard.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(new LeaderboardFragment());
+                ((HomeActivity) getActivity()).loadFragment(new NavigationFragments.LeaderboardFragment());
             }
         });
     }
@@ -117,13 +117,11 @@ public class ArenaFragment extends Fragment {
         private static final String PREFS_NAME = "arena_prefs";
         private static final String JOINED_KEY = "joined_challenges";
         private final android.content.SharedPreferences prefs;
-        private final HabitRepository habitRepository;
         private final ChallengeRepository challengeRepository;
 
         public ArenaViewModel(@NonNull android.app.Application application) {
             super(application);
             prefs = application.getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE);
-            habitRepository = new HabitRepository(application);
             challengeRepository = new ChallengeRepository(application);
             loadData();
         }

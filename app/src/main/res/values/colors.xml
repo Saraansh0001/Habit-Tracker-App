@@ -34,4 +34,10 @@
     <color name="difficulty_medium_text">#F97316</color>
     <color name="difficulty_hard_bg">#FEF2F2</color>
     <color name="difficulty_hard_text">#EF4444</color>
+
+    <!-- Dark Mode Colors -->
+    <color name="bg_dark">#121212</color>
+    <color name="surface_dark">#1E1E1E</color>
+    <color name="text_light">#E1E1E1</color>
+    <color name="text_secondary_dark">#A0A0A0</color>
 </resources>

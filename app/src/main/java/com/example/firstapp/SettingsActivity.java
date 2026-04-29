@@ -11,11 +11,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -36,40 +31,17 @@ public class SettingsActivity extends AppCompatActivity {
         }
         
         super.onCreate(savedInstanceState);
-
-        // Edge-to-edge: let content draw behind system bars
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        getWindow().setStatusBarColor(android.graphics.Color.TRANSPARENT);
-        getWindow().setNavigationBarColor(android.graphics.Color.TRANSPARENT);
-
         setContentView(R.layout.activity_settings);
 
-        // Apply insets: toolbar gets top padding, scroll area gets bottom padding
-        View rootView = findViewById(android.R.id.content);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        androidx.core.widget.NestedScrollView scrollView =
-                findViewById(R.id.settings_scroll_view);
-
-        ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, windowInsets) -> {
-            Insets bars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            if (toolbar != null) {
-                toolbar.setPadding(
-                        toolbar.getPaddingLeft(),
-                        bars.top,
-                        toolbar.getPaddingRight(),
-                        toolbar.getPaddingBottom()
-                );
-            }
-            if (scrollView != null) {
-                scrollView.setPadding(
-                        scrollView.getPaddingLeft(),
-                        scrollView.getPaddingTop(),
-                        scrollView.getPaddingRight(),
-                        bars.bottom
-                );
-            }
-            return WindowInsetsCompat.CONSUMED;
-        });
+        // Update status bar icons based on theme
+        if (prefs.getBoolean("dark_mode", false)) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        } else {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+        getWindow().setStatusBarColor(android.graphics.Color.TRANSPARENT);
 
         initViews();
         setupListeners();

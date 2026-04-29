@@ -1,5 +1,6 @@
 package com.example.firstapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,11 +53,10 @@ public class HomeFragment extends Fragment {
         setupRecyclerView();
         setupSearchAndFilters();
         updateOverallProgress();
+        setupFeatureClicks(view);
 
         view.findViewById(R.id.tv_all_features).setOnClickListener(v -> {
-            if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).navigateToTab(R.id.navigation_analytics);
-            }
+            loadFragment(new NavigationFragments.FeaturesFragment());
         });
 
         view.findViewById(R.id.tv_see_all_habits).setOnClickListener(v -> {
@@ -68,11 +68,39 @@ public class HomeFragment extends Fragment {
         FloatingActionButton fab = view.findViewById(R.id.fab_add_habit);
         fab.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
-                ((HomeActivity) getActivity()).loadFragment(new CreateChallengeFragment());
+                ((HomeActivity) getActivity()).loadFragment(new NavigationFragments.CreateChallengeFragment());
             }
         });
 
         return view;
+    }
+
+    private void setupFeatureClicks(View view) {
+        View streaks = view.findViewById(R.id.ll_feature_streaks);
+        if (streaks != null) {
+            streaks.setOnClickListener(v -> loadFragment(new StreakCalendarFragment()));
+        }
+
+        View timer = view.findViewById(R.id.ll_feature_timer);
+        if (timer != null) {
+            timer.setOnClickListener(v -> loadFragment(new FocusTimerFragment()));
+        }
+
+        View goals = view.findViewById(R.id.ll_feature_goals);
+        if (goals != null) {
+            goals.setOnClickListener(v -> loadFragment(new WeeklyGoalsFragment()));
+        }
+
+        View journal = view.findViewById(R.id.ll_feature_journal);
+        if (journal != null) {
+            journal.setOnClickListener(v -> loadFragment(new DailyJournalFragment()));
+        }
+    }
+
+    private void loadFragment(Fragment fragment) {
+        if (getActivity() instanceof HomeActivity) {
+            ((HomeActivity) getActivity()).loadFragment(fragment);
+        }
     }
 
     private void setupSearchAndFilters() {
@@ -111,7 +139,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onHabitDetailClick(Habit habit) {
-                android.content.Intent intent = new android.content.Intent(requireContext(), HabitDetailActivity.class);
+                Intent intent = new Intent(requireContext(), HabitDetailActivity.class);
                 intent.putExtra(HabitDetailActivity.EXTRA_HABIT, habit);
                 startActivity(intent);
             }

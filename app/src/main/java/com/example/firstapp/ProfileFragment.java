@@ -1,6 +1,5 @@
 package com.example.firstapp;
 
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,13 +33,8 @@ public class ProfileFragment extends Fragment {
         setupStats(view, inflater);
         setupActions(view, inflater);
         
-        view.findViewById(R.id.btn_logout).setOnClickListener(v -> {
-            if (getActivity() != null) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
+        view.findViewById(R.id.btn_logout).setOnClickListener(v -> 
+            Toast.makeText(getContext(), "Logging out...", Toast.LENGTH_SHORT).show());
             
         return view;
     }
@@ -79,9 +74,7 @@ public class ProfileFragment extends Fragment {
             hsv[1] = Math.min(1.0f, hsv[1] * 1.5f); // Saturate
             icon.setImageTintList(ColorStateList.valueOf(Color.HSVToColor(hsv)));
 
-            itemView.setOnClickListener(v -> {
-                // Feature clicked
-            });
+            itemView.setOnClickListener(v -> Toast.makeText(getContext(), feature.getTitle() + " clicked", Toast.LENGTH_SHORT).show());
             featuresGrid.addView(itemView);
         }
     }
@@ -137,9 +130,7 @@ public class ProfileFragment extends Fragment {
             title.setText(titleText);
             icon.setImageResource(icons[i]);
 
-            itemView.setOnClickListener(v -> {
-                // Action clicked
-            });
+            itemView.setOnClickListener(v -> Toast.makeText(getContext(), titleText + " clicked", Toast.LENGTH_SHORT).show());
             actionsContainer.addView(itemView);
             
             if (i < titles.length - 1) {

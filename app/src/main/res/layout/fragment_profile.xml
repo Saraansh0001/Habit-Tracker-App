@@ -11,7 +11,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +37,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="24dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="40dp">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/iv_profile_avatar"
@@ -69,7 +68,7 @@
                             android:id="@+id/tv_profile_rank"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/profile_rank_default"
+                            android:text="@string/user_rank"
                             android:textColor="@color/purple_light"
                             android:textSize="14sp" />
 
@@ -152,7 +151,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
-                                android:text="@string/see_all"
+                                android:text="@string/see_all_link"
                                 android:textColor="@color/purple_primary"
                                 android:textStyle="bold"/>
                         </RelativeLayout>
@@ -170,35 +169,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Features Section -->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/your_features"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/text_dark"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:text="@string/all_features"
-                        android:textColor="@color/purple_primary"
-                        android:textStyle="bold"/>
-                </RelativeLayout>
-
-                <GridLayout
-                    android:id="@+id/features_grid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:layout_marginBottom="24dp">
-                </GridLayout>
-
                 <!-- Stats Section -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -215,7 +185,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/your_stats"
+                            android:text="@string/your_stats_title"
                             android:textStyle="bold"
                             android:textColor="@color/text_dark"
                             android:layout_marginBottom="16dp"/>
