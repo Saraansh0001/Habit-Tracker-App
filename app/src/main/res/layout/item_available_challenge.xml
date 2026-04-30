@@ -21,7 +21,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:cardCornerRadius="12dp"
-            app:cardBackgroundColor="#F0F9FF"
+            app:cardBackgroundColor="@color/blue_bg"
             app:cardElevation="0dp">
 
             <ImageView
@@ -30,7 +30,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@android:drawable/ic_menu_search"
-                app:tint="#0EA5E9" />
+                app:tint="@color/blue_primary" />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
@@ -64,7 +64,7 @@
             android:layout_height="44dp"
             android:text="Join"
             android:padding="0dp"
-            android:backgroundTint="#38BDF8"
+            android:backgroundTint="@color/blue_accent"
             android:textColor="@android:color/white"
             android:textAllCaps="false"
             android:textStyle="bold"

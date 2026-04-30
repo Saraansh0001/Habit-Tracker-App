@@ -43,8 +43,8 @@
                         app:icon="@drawable/ic_back"
                         app:iconGravity="textStart"
                         app:iconSize="20dp"
-                        app:iconTint="#FFFFFF"
-                        app:backgroundTint="#33FFFFFF"
+                        app:iconTint="@android:color/white"
+                        app:backgroundTint="@color/white_translucent_20"
                         app:cornerRadius="24dp"
                         app:strokeWidth="0dp"
                         android:contentDescription="@string/submit_btn" />
@@ -60,7 +60,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/focus_timer_title"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="22sp"
                             android:textStyle="bold" />
 
@@ -68,7 +68,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/focus_timer_subtitle"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -85,7 +85,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#22FFFFFF"
+                        android:background="@color/white_translucent_15"
                         android:padding="12dp"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -94,14 +94,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/journal_default_entries"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sessions_label"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginHorizontal="8dp"
-                        android:background="#22FFFFFF"
+                        android:background="@color/white_translucent_15"
                         android:padding="12dp"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -119,7 +119,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="80"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
@@ -127,7 +127,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/minutes_focused_label"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -135,7 +135,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#22FFFFFF"
+                        android:background="@color/white_translucent_15"
                         android:padding="12dp"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -144,7 +144,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="+160"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
@@ -152,7 +152,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/xp_earned_label"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>

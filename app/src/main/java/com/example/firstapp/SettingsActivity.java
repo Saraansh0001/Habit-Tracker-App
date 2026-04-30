@@ -23,18 +23,14 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        prefs = getSharedPreferences("HabitTrackerPrefs", MODE_PRIVATE);
-        if (prefs.getBoolean("dark_mode", false)) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        prefs = getSharedPreferences("HabitTrackerPrefs", MODE_PRIVATE);
+        boolean isDarkMode = prefs.getBoolean("dark_mode", false);
+        
         // Update status bar icons based on theme
-        if (prefs.getBoolean("dark_mode", false)) {
+        if (isDarkMode) {
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         } else {
@@ -70,8 +66,6 @@ public class SettingsActivity extends AppCompatActivity {
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
-            // Forces activity to restart to apply theme immediately
-            recreate();
         });
 
         // Logout functionality removed as per request to remove auth screens

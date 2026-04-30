@@ -22,6 +22,11 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
+import com.example.firstapp.network.ApiClient;
+import com.example.firstapp.network.UserProfileResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
@@ -72,7 +77,29 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        loadUserProfile(view);
+
         return view;
+    }
+
+    private void loadUserProfile(View view) {
+        ApiClient.getService(getContext()).getProfile().enqueue(new Callback<UserProfileResponse>() {
+            @Override
+            public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserProfileResponse profile = response.body();
+                    TextView tvUserName = view.findViewById(R.id.tv_user_name);
+                    TextView tvStreak = view.findViewById(R.id.tv_streak_val);
+                    if (tvUserName != null) tvUserName.setText(profile.name);
+                    if (tvStreak != null) tvStreak.setText(String.valueOf(profile.streak));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserProfileResponse> call, Throwable t) {
+                // Ignore failure for now
+            }
+        });
     }
 
     private void setupFeatureClicks(View view) {

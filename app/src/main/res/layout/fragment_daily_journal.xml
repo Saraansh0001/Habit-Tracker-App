@@ -43,8 +43,8 @@
                         app:icon="@drawable/ic_back"
                         app:iconGravity="textStart"
                         app:iconSize="20dp"
-                        app:iconTint="#FFFFFF"
-                        app:backgroundTint="#33FFFFFF"
+                        app:iconTint="@android:color/white"
+                        app:backgroundTint="@color/white_translucent_20"
                         app:cornerRadius="24dp"
                         app:strokeWidth="0dp" />
 
@@ -59,7 +59,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/journal_title"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="22sp"
                             android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/journal_subtitle"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -83,7 +83,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#22FFFFFF"
+                        android:background="@color/white_translucent_15"
                         android:padding="12dp"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -91,14 +91,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/journal_default_entries"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/journal_entries_label"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginHorizontal="8dp"
-                        android:background="#22FFFFFF"
+                        android:background="@color/white_translucent_15"
                         android:padding="12dp"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -115,14 +115,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/journal_default_words"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/journal_words_label"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -130,7 +130,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#22FFFFFF"
+                        android:background="@color/white_translucent_15"
                         android:padding="12dp"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -138,14 +138,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/journal_default_mood"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/journal_mood_label"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -342,8 +342,8 @@
                         app:icon="@drawable/ic_chevron_right"
                         app:iconGravity="textEnd"
                         android:backgroundTint="@color/purple_primary"
-                        android:textColor="#FFFFFF"
-                        app:iconTint="#FFFFFF" />
+                        android:textColor="@android:color/white"
+                        app:iconTint="@android:color/white" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

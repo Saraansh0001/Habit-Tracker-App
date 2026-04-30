@@ -69,4 +69,10 @@ public interface ApiService {
 
     @GET("profile")
     Call<UserProfileResponse> getProfile();
+
+    @PUT("profile")
+    Call<UserProfileResponse> updateProfile(@Body UpdateProfileRequest request);
+
+    @GET("stats")
+    Call<StatsResponse> getStats();
 }

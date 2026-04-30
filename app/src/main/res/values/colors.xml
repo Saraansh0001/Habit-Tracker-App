@@ -38,6 +38,31 @@
     <color name="difficulty_hard_bg">#FEF2F2</color>
     <color name="difficulty_hard_text">#EF4444</color>
 
+    <!-- Translucent Backgrounds -->
+    <color name="white_translucent_20">#33FFFFFF</color>
+    <color name="white_translucent_30">#4DFFFFFF</color>
+    <color name="white_translucent_15">#26FFFFFF</color>
+
+    <!-- Semantic Semantic Tints and Backgrounds -->
+    <color name="blue_bg">#F0F9FF</color>
+    <color name="blue_primary">#0EA5E9</color>
+    <color name="blue_accent">#38BDF8</color>
+
+    <color name="purple_bg_subtle">#F5F3FF</color>
+
+    <color name="yellow_bg_subtle">#FFF9DB</color>
+    <color name="yellow_primary">#F59E0B</color>
+    <color name="yellow_accent">#FFEB3B</color>
+
+    <color name="orange_bg_subtle">#FFF7ED</color>
+    <color name="orange_primary">#F97316</color>
+
+    <color name="green_primary">#4CAF50</color>
+    <color name="red_primary">#FF5252</color>
+
+    <color name="neutral_bg_subtle">#F8F9FA</color>
+    <color name="neutral_bg_alt">#F0F5FF</color>
+
     <!-- Dark Mode Colors -->
     <color name="bg_dark">#121212</color>
     <color name="surface_dark">#1E1E1E</color>

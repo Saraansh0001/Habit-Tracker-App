@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="4dp"
         android:background="@drawable/bg_stat_badge"
-        android:backgroundTint="@color/difficulty_hard_bg"
+        android:backgroundTint="@color/orange_bg_subtle"
         android:paddingHorizontal="12dp"
         android:paddingVertical="12dp"
         android:gravity="center"
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rough"
-            android:textColor="@color/difficulty_hard_text"
+            android:textColor="@color/orange_primary"
             android:textSize="10sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="4dp"
         android:background="@drawable/bg_stat_badge"
-        android:backgroundTint="@color/difficulty_medium_bg"
+        android:backgroundTint="@color/yellow_bg_subtle"
         android:paddingHorizontal="12dp"
         android:paddingVertical="12dp"
         android:gravity="center"
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Meh"
-            android:textColor="@color/difficulty_medium_text"
+            android:textColor="@color/yellow_primary"
             android:textSize="10sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="4dp"
         android:background="@drawable/bg_stat_badge"
-        android:backgroundTint="@color/bg_light"
+        android:backgroundTint="@color/neutral_bg_subtle"
         android:paddingHorizontal="12dp"
         android:paddingVertical="12dp"
         android:gravity="center"
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Good"
-            android:textColor="@color/difficulty_easy_text"
+            android:textColor="@color/green_primary"
             android:textSize="10sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -107,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="4dp"
         android:background="@drawable/bg_stat_badge"
-        android:backgroundTint="@color/category_fitness_bg"
+        android:backgroundTint="@color/blue_bg"
         android:paddingHorizontal="12dp"
         android:paddingVertical="12dp"
         android:gravity="center"
@@ -121,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Amazing"
-            android:textColor="@color/category_fitness_text"
+            android:textColor="@color/blue_primary"
             android:textSize="10sp"
             android:textStyle="bold" />
     </LinearLayout>

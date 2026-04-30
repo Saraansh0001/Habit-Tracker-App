@@ -44,8 +44,8 @@
                         app:icon="@drawable/ic_back"
                         app:iconGravity="textStart"
                         app:iconSize="20dp"
-                        app:iconTint="#FFFFFF"
-                        app:backgroundTint="#33FFFFFF"
+                        app:iconTint="@android:color/white"
+                        app:backgroundTint="@color/white_translucent_20"
                         app:cornerRadius="24dp"
                         app:strokeWidth="0dp" />
 
@@ -60,7 +60,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/weekly_goals_title"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="22sp"
                             android:textStyle="bold" />
 
@@ -68,7 +68,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/weekly_goals_subtitle"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -80,7 +80,7 @@
                     android:layout_marginTop="32dp"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:cardBackgroundColor="#22FFFFFF">
+                    app:cardBackgroundColor="@color/white_translucent_15">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -95,14 +95,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/this_weeks_progress"
-                                android:textColor="#FFFFFF"
+                                android:textColor="@android:color/white"
                                 android:textStyle="bold" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:text="@string/weekly_date_range"
-                                android:textColor="#E2E8F0"
+                                android:textColor="@color/white_translucent_15"
                                 android:textSize="12sp" />
                         </RelativeLayout>
 
@@ -125,7 +125,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0 / 29 completions"
-                                android:textColor="#E2E8F0"
+                                android:textColor="@color/white_translucent_15"
                                 android:textSize="12sp"
                                 tools:ignore="HardcodedText" />
                             <TextView
@@ -134,7 +134,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:text="0%"
-                                android:textColor="#FFFFFF"
+                                android:textColor="@android:color/white"
                                 android:textStyle="bold"
                                 android:textSize="14sp"
                                 tools:ignore="HardcodedText" />
@@ -155,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="8dp"
-                        android:background="#22FFFFFF"
+                        android:background="@color/white_translucent_15"
                         android:padding="16dp"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -164,7 +164,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
@@ -172,7 +172,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/goals_met_label"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -181,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:background="#22FFFFFF"
+                        android:background="@color/white_translucent_15"
                         android:padding="16dp"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -190,7 +190,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@android:color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
@@ -198,7 +198,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/in_progress_label"
-                            android:textColor="#E2E8F0"
+                            android:textColor="@color/white_translucent_15"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>

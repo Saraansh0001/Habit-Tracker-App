@@ -12,6 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.example.firstapp.network.ApiClient;
+import com.example.firstapp.network.ApiService;
+import com.example.firstapp.network.UserProfileResponse;
+import com.example.firstapp.network.UpdateProfileRequest;
+import android.widget.Toast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EditProfileFragment extends Fragment {
 
@@ -29,7 +37,7 @@ public class EditProfileFragment extends Fragment {
         etRank = view.findViewById(R.id.et_profile_rank);
         etEmail = view.findViewById(R.id.et_profile_email);
 
-        loadProfileData();
+        loadProfileDataFromBackend();
 
         view.findViewById(R.id.btn_back).setOnClickListener(v -> {
             if (getActivity() != null) getActivity().onBackPressed();
@@ -42,14 +50,23 @@ public class EditProfileFragment extends Fragment {
         return view;
     }
 
-    private void loadProfileData() {
-        String name = prefs.getString("profile_name", "Team MAD");
-        String rank = prefs.getString("profile_rank", "Warrior 🎖️");
-        String email = prefs.getString("profile_email", "you@email.com");
+    private void loadProfileDataFromBackend() {
+        ApiClient.getService(getContext()).getProfile().enqueue(new Callback<UserProfileResponse>() {
+            @Override
+            public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserProfileResponse profile = response.body();
+                    if (etName != null) etName.setText(profile.name);
+                    if (etEmail != null) etEmail.setText(profile.email);
+                    if (etRank != null) etRank.setText(profile.rank);
+                }
+            }
 
-        if (etName != null) etName.setText(name);
-        if (etRank != null) etRank.setText(rank);
-        if (etEmail != null) etEmail.setText(email);
+            @Override
+            public void onFailure(Call<UserProfileResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Failed to load profile from server", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void saveProfileData() {
@@ -58,17 +75,36 @@ public class EditProfileFragment extends Fragment {
         String email = etEmail.getText().toString().trim();
 
         if (name.isEmpty()) {
+            Toast.makeText(getContext(), "Name cannot be empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        prefs.edit()
-                .putString("profile_name", name)
-                .putString("profile_rank", rank)
-                .putString("profile_email", email)
-                .apply();
+        UpdateProfileRequest request = new UpdateProfileRequest(name, "", rank); // avatarUrl empty for now
+        
+        ApiClient.getService(getContext()).updateProfile(request).enqueue(new Callback<UserProfileResponse>() {
+            @Override
+            public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
+                if (response.isSuccessful()) {
+                    // Also save to prefs for offline/quick access
+                    prefs.edit()
+                            .putString("profile_name", name)
+                            .putString("profile_rank", rank)
+                            .putString("profile_email", email)
+                            .apply();
+                    
+                    Toast.makeText(getContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                    if (getActivity() != null) {
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Failed to update profile", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        if (getActivity() != null) {
-            getActivity().getSupportFragmentManager().popBackStack();
-        }
+            @Override
+            public void onFailure(Call<UserProfileResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

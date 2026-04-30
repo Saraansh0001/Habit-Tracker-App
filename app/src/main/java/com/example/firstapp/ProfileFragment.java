@@ -47,8 +47,10 @@ public class ProfileFragment extends Fragment {
                     if (response.isSuccessful() && response.body() != null) {
                         TextView tvName = view.findViewById(R.id.tv_profile_name);
                         TextView tvEmail = view.findViewById(R.id.tv_email);
+                        TextView tvRank = view.findViewById(R.id.tv_profile_rank);
                         if (tvName != null) tvName.setText(response.body().name);
                         if (tvEmail != null) tvEmail.setText(response.body().email);
+                        if (tvRank != null) tvRank.setText(response.body().rank);
                     }
                 }
 

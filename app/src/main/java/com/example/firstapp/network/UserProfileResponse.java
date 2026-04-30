@@ -6,4 +6,6 @@ public class UserProfileResponse {
     public String email;
     public int xp;
     public int streak;
+    public String avatarUrl;
+    public String rank;
 }

@@ -23,6 +23,12 @@ import com.google.android.material.chip.ChipGroup;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.example.firstapp.network.ApiClient;
+import com.example.firstapp.network.StatsResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import android.widget.Toast;
 
 public class AnalyticsFragment extends Fragment {
 
@@ -39,8 +45,34 @@ public class AnalyticsFragment extends Fragment {
         setupClickListeners(view);
         setupHistory(view);
         setupSearchAndFilters(view);
+        loadStats(view);
         
         return view;
+    }
+
+    private void loadStats(View view) {
+        ApiClient.getService(getContext()).getStats().enqueue(new Callback<StatsResponse>() {
+            @Override
+            public void onResponse(Call<StatsResponse> call, Response<StatsResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    StatsResponse stats = response.body();
+                    TextView tvBestStreak = view.findViewById(R.id.tv_best_streak);
+                    TextView tvCompletionRate = view.findViewById(R.id.tv_completion_rate);
+                    
+                    if (tvBestStreak != null) tvBestStreak.setText(String.valueOf(stats.longestStreak));
+                    
+                    if (tvCompletionRate != null) {
+                        int rate = stats.totalHabits > 0 ? (stats.completedToday * 100 / stats.totalHabits) : 0;
+                        tvCompletionRate.setText(rate + "%");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StatsResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Failed to load stats", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setupHistory(View view) {

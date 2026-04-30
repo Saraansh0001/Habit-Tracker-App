@@ -69,9 +69,10 @@
                         android:textColor="#E2E8F0"
                         android:textSize="14sp" />
                     <TextView
+                        android:id="@+id/tv_profile_rank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Diamond League · #142"
+                        android:text="Warrior 🎖️"
                         android:textColor="@color/purple_light"
                         android:textSize="13sp"
                         android:layout_marginTop="2dp" />
