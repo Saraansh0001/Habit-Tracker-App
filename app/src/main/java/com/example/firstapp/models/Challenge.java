@@ -33,6 +33,7 @@ public class Challenge {
     public String getType() { return type; }
     public String getColor() { return color; }
 
+    public void setParticipants(int participants) { this.participants = participants; }
     public void setActive(boolean active) { isActive = active; }
     public void setColor(String color) { this.color = color; }
 }
