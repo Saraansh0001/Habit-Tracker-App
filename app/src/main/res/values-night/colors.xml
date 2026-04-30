@@ -2,7 +2,7 @@
 <resources>
     <color name="purple_primary">#9D7CFF</color> <!-- Lighter purple for dark mode -->
     <color name="purple_dark">#6B3FD4</color>
-    <color name="purple_light">#2D1F52</color>
+    <color name="purple_light">#D1C4E9</color> <!-- Lighter purple for highlights in dark mode -->
     <color name="bg_light">#0F0F1A</color> <!-- Deep navy background -->
     <color name="bg_white">#1E1E2E</color> <!-- Card background in dark mode -->
     <color name="text_dark">#F0F0FF</color> <!-- Almost white text -->

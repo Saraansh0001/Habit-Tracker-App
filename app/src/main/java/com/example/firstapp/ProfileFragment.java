@@ -40,27 +40,45 @@ public class ProfileFragment extends Fragment {
 
 
         // Load profile data
+        loadProfileData(view);
+
+        return view;
+    }
+
+    private void loadProfileData(View view) {
+        TextView tvName = view.findViewById(R.id.tv_profile_name);
+        TextView tvEmail = view.findViewById(R.id.tv_email);
+        TextView tvRank = view.findViewById(R.id.tv_profile_rank);
+
+        // Load cached data first
+        android.content.SharedPreferences prefs = requireContext().getSharedPreferences("HabitTrackerPrefs", android.content.Context.MODE_PRIVATE);
+        if (tvName != null) tvName.setText(prefs.getString("profile_name", "Team MAD"));
+        if (tvEmail != null) tvEmail.setText(prefs.getString("profile_email", "user@example.com"));
+        if (tvRank != null) tvRank.setText(prefs.getString("profile_rank", "Warrior 🎖️"));
+
         com.example.firstapp.network.ApiClient.getService(getContext()).getProfile()
             .enqueue(new retrofit2.Callback<com.example.firstapp.network.UserProfileResponse>() {
                 @Override
                 public void onResponse(retrofit2.Call<com.example.firstapp.network.UserProfileResponse> call, retrofit2.Response<com.example.firstapp.network.UserProfileResponse> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        TextView tvName = view.findViewById(R.id.tv_profile_name);
-                        TextView tvEmail = view.findViewById(R.id.tv_email);
-                        TextView tvRank = view.findViewById(R.id.tv_profile_rank);
+                    if (isAdded() && response.isSuccessful() && response.body() != null) {
                         if (tvName != null) tvName.setText(response.body().name);
                         if (tvEmail != null) tvEmail.setText(response.body().email);
                         if (tvRank != null) tvRank.setText(response.body().rank);
+                        
+                        // Update cache
+                        prefs.edit()
+                            .putString("profile_name", response.body().name)
+                            .putString("profile_email", response.body().email)
+                            .putString("profile_rank", response.body().rank)
+                            .apply();
                     }
                 }
 
                 @Override
                 public void onFailure(retrofit2.Call<com.example.firstapp.network.UserProfileResponse> call, Throwable t) {
-                    android.widget.Toast.makeText(getContext(), "Failed to load profile", android.widget.Toast.LENGTH_SHORT).show();
+                    // Fail silently or show cached data
                 }
             });
-
-        return view;
     }
 
     private void setupFeatures(View view, LayoutInflater inflater) {

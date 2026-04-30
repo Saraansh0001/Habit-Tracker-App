@@ -59,8 +59,9 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_warrior_silhouette"
                     app:shapeAppearanceOverlay="@style/CircleAppearance"
-                    android:background="@android:color/white"
-                    android:padding="10dp"/>
+                    android:background="@color/bg_white"
+                    android:padding="10dp"
+                    app:tint="@color/purple_primary"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:layout_width="wrap_content"
@@ -139,7 +140,9 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@android:color/white"
         app:cornerRadius="16dp"
+        android:backgroundTint="@color/purple_primary"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

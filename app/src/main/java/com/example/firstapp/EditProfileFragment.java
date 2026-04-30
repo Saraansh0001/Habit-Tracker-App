@@ -51,20 +51,32 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void loadProfileDataFromBackend() {
+        // Load cached data first for immediate visibility
+        if (etName != null) etName.setText(prefs.getString("profile_name", ""));
+        if (etEmail != null) etEmail.setText(prefs.getString("profile_email", ""));
+        if (etRank != null) etRank.setText(prefs.getString("profile_rank", ""));
+
         ApiClient.getService(getContext()).getProfile().enqueue(new Callback<UserProfileResponse>() {
             @Override
             public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (isAdded() && response.isSuccessful() && response.body() != null) {
                     UserProfileResponse profile = response.body();
                     if (etName != null) etName.setText(profile.name);
                     if (etEmail != null) etEmail.setText(profile.email);
                     if (etRank != null) etRank.setText(profile.rank);
+                    
+                    // Update cache
+                    prefs.edit()
+                        .putString("profile_name", profile.name)
+                        .putString("profile_email", profile.email)
+                        .putString("profile_rank", profile.rank)
+                        .apply();
                 }
             }
 
             @Override
             public void onFailure(Call<UserProfileResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to load profile from server", Toast.LENGTH_SHORT).show();
+                // Fail silently, user sees cached data
             }
         });
     }

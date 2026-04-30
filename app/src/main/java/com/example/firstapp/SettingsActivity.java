@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -20,6 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView tvUserName;
     private SwitchMaterial switchNotifications;
     private SwitchMaterial switchDarkMode;
+    private View toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +44,26 @@ public class SettingsActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(android.graphics.Color.TRANSPARENT);
 
         initViews();
+        handleWindowInsets();
         setupListeners();
         loadSettings();
     }
 
     private void initViews() {
+        toolbar = findViewById(R.id.toolbar);
         tvUserName = findViewById(R.id.tv_settings_user_name);
         switchNotifications = findViewById(R.id.switch_notifications);
         switchDarkMode = findViewById(R.id.switch_dark_mode);
         
         findViewById(R.id.btn_back).setOnClickListener(v -> finish());
+    }
+
+    private void handleWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(v.getPaddingLeft(), systemBars.top, v.getPaddingRight(), v.getPaddingBottom());
+            return insets;
+        });
     }
 
     private void setupListeners() {
@@ -59,7 +73,8 @@ public class SettingsActivity extends AppCompatActivity {
             prefs.edit().putBoolean("notifications_enabled", isChecked).apply();
         });
 
-        switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        switchDarkMode.setOnClickListener(v -> {
+            boolean isChecked = switchDarkMode.isChecked();
             prefs.edit().putBoolean("dark_mode", isChecked).apply();
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -73,7 +88,6 @@ public class SettingsActivity extends AppCompatActivity {
         if (logoutBtn != null) {
             logoutBtn.setVisibility(View.GONE);
         }
-
     }
 
     private void loadSettings() {

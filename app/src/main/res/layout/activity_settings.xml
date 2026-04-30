@@ -23,6 +23,7 @@
                 android:layout_height="40dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/bg_white"
                 android:clickable="true"
                 android:focusable="true">
                 <ImageView
@@ -178,7 +179,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/bg_light"
+                        android:background="@color/input_border"
                         android:layout_marginHorizontal="16dp" />
 
                     <RelativeLayout
@@ -204,7 +205,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/bg_light"
+                        android:background="@color/input_border"
                         android:layout_marginHorizontal="16dp" />
 
                     <RelativeLayout
@@ -279,7 +280,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/bg_light"
+                        android:background="@color/input_border"
                         android:layout_marginHorizontal="16dp" />
 
                     <RelativeLayout
