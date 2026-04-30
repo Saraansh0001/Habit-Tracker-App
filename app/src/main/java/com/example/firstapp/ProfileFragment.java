@@ -95,7 +95,7 @@ public class ProfileFragment extends Fragment {
             if (i < stats.size() - 1) {
                 View divider = new View(getContext());
                 divider.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1));
-                divider.setBackgroundColor(Color.parseColor("#F1F5F9"));
+                divider.setBackgroundColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.input_border));
                 statsContainer.addView(divider);
             }
         }
@@ -136,7 +136,7 @@ public class ProfileFragment extends Fragment {
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
                 lp.setMargins(48, 0, 0, 0);
                 divider.setLayoutParams(lp);
-                divider.setBackgroundColor(Color.parseColor("#F1F5F9"));
+                divider.setBackgroundColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.input_border));
                 actionsContainer.addView(divider);
             }
         }

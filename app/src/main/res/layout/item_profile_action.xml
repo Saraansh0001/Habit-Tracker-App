@@ -14,6 +14,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/ic_edit_profile"
+        app:tint="@color/text_dark"
         android:alpha="0.7"/>
 
     <TextView
@@ -31,5 +32,6 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_chevron_right"
+        app:tint="@color/text_hint"
         android:alpha="0.3"/>
 </LinearLayout>
