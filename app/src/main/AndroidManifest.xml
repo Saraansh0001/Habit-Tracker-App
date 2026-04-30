@@ -14,12 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
 
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".LoginActivity" android:exported="false" />
-        <activity android:name=".RegisterActivity" android:exported="false" />
-
-        <activity
-            android:name=".WelcomeActivity"
+        <activity 
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,20 +23,24 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
 
         <activity
             android:name=".HabitDetailActivity"
             android:exported="false" />
 
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:theme="@style/Theme.MyApplication" />
+
 
     </application>
 

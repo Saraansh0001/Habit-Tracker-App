@@ -22,13 +22,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstapp.data.ChallengeRepository;
-import com.example.firstapp.data.HabitRepository;
 import com.example.firstapp.models.ArenaUiState;
 import com.example.firstapp.models.Challenge;
 import com.example.firstapp.models.UserRank;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.net.ConnectException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ArenaFragment extends Fragment {
 
@@ -162,9 +168,9 @@ public class ArenaFragment extends Fragment {
         }
 
         public void joinChallenge(Challenge challenge) {
-            challengeRepository.joinChallenge(challenge.getId(), new retrofit2.Callback<Challenge>() {
+            challengeRepository.joinChallenge(challenge.getId(), new Callback<Challenge>() {
                 @Override
-                public void onResponse(retrofit2.Call<Challenge> call, retrofit2.Response<Challenge> response) {
+                public void onResponse(Call<Challenge> call, Response<Challenge> response) {
                     if (response.isSuccessful()) {
                         android.widget.Toast.makeText(getApplication(), "Joined " + challenge.getTitle(), android.widget.Toast.LENGTH_SHORT).show();
                         persistJoinLocally(challenge);
@@ -175,14 +181,14 @@ public class ArenaFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(retrofit2.Call<Challenge> call, Throwable t) {
+                public void onFailure(Call<Challenge> call, Throwable t) {
                     handleJoinError(challenge, t);
                 }
             });
         }
 
         private void handleJoinError(Challenge challenge, Throwable t) {
-            if (t instanceof java.io.IOException || t instanceof java.net.UnknownHostException || t instanceof java.net.ConnectException) {
+            if (t instanceof IOException || t instanceof UnknownHostException || t instanceof ConnectException) {
                 android.widget.Toast.makeText(getApplication(), "Offline: Action saved locally", android.widget.Toast.LENGTH_SHORT).show();
                 persistJoinLocally(challenge);
                 loadData();

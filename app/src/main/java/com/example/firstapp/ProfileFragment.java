@@ -32,14 +32,12 @@ public class ProfileFragment extends Fragment {
         setupStats(view, inflater);
         setupActions(view, inflater);
         
-        view.findViewById(R.id.btn_logout).setOnClickListener(v -> {
-            android.content.SharedPreferences prefs = getContext().getSharedPreferences("auth_prefs", android.content.Context.MODE_PRIVATE);
-            prefs.edit().remove("token").apply();
+        // Logout functionality removed as per request to remove auth screens
+        View logoutBtn = view.findViewById(R.id.btn_logout);
+        if (logoutBtn != null) {
+            logoutBtn.setVisibility(View.GONE);
+        }
 
-            android.content.Intent intent = new android.content.Intent(getContext(), LoginActivity.class);
-            intent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK | android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        });
 
         // Load profile data
         com.example.firstapp.network.ApiClient.getService(getContext()).getProfile()

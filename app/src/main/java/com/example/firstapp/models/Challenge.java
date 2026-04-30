@@ -36,4 +36,5 @@ public class Challenge {
     public void setParticipants(int participants) { this.participants = participants; }
     public void setActive(boolean active) { isActive = active; }
     public void setColor(String color) { this.color = color; }
+    public void setParticipants(int participants) { this.participants = participants; }
 }
