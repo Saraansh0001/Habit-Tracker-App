@@ -8,4 +8,11 @@ public class UserProfileResponse {
     public int streak;
     public String avatarUrl;
     public String rank;
+    public UserSettings settings;
+
+    public static class UserSettings {
+        public boolean notificationsEnabled;
+        public boolean darkMode;
+        public String reminderTime;
+    }
 }

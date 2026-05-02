@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.example.firstapp.models.ProfileFeature;
 import com.example.firstapp.models.ProfileStat;
 
 import java.util.ArrayList;
@@ -28,17 +27,9 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         
-        setupFeatures(view, inflater);
         setupStats(view, inflater);
         setupActions(view, inflater);
         
-        // Logout functionality removed as per request to remove auth screens
-        View logoutBtn = view.findViewById(R.id.btn_logout);
-        if (logoutBtn != null) {
-            logoutBtn.setVisibility(View.GONE);
-        }
-
-
         // Load profile data
         loadProfileData(view);
 
@@ -81,10 +72,6 @@ public class ProfileFragment extends Fragment {
             });
     }
 
-    private void setupFeatures(View view, LayoutInflater inflater) {
-        // Feature grid removed or replaced with stats/actions
-    }
-
     private void setupStats(View view, LayoutInflater inflater) {
         LinearLayout statsContainer = view.findViewById(R.id.stats_container);
         if (statsContainer == null) return;
@@ -123,8 +110,8 @@ public class ProfileFragment extends Fragment {
         LinearLayout actionsContainer = view.findViewById(R.id.actions_container);
         if (actionsContainer == null) return;
 
-        String[] titles = {"Edit Profile", "Notifications", "Privacy & Security", "About Discipline Arena"};
-        int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info, R.drawable.ic_info, R.drawable.ic_info};
+        String[] titles = {"Edit Profile", "Settings"};
+        int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info};
 
         for (int i = 0; i < titles.length; i++) {
             final String titleText = titles[i];
@@ -141,8 +128,7 @@ public class ProfileFragment extends Fragment {
                     if (getActivity() instanceof HomeActivity) {
                         ((HomeActivity) getActivity()).loadFragment(new EditProfileFragment());
                     }
-                } else if (titleText.equals("Notifications") || titleText.equals("Privacy & Security") || titleText.equals("About Discipline Arena")) {
-                    // Navigate to settings or specific detail
+                } else if (titleText.equals("Settings")) {
                     android.content.Intent intent = new android.content.Intent(getContext(), SettingsActivity.class);
                     startActivity(intent);
                 }

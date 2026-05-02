@@ -61,76 +61,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Profile Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/account_section"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:layout_marginBottom="12dp" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/bg_white">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <RelativeLayout
-                        android:id="@+id/rl_edit_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true">
-                        <ImageView
-                            android:id="@+id/iv_profile_icon"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_nav_profile"
-                            app:tint="@color/purple_primary"
-                            android:background="@drawable/bg_tab_container"
-                            android:padding="8dp" />
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_toEndOf="@id/iv_profile_icon"
-                            android:layout_marginStart="16dp"
-                            android:layout_centerVertical="true">
-                            <TextView
-                                android:id="@+id/tv_settings_user_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/user_name_default"
-                                android:textColor="@color/text_dark"
-                                android:textStyle="bold" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/edit_profile_name"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_edit"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            app:tint="@color/text_hint" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
             <!-- Preferences Section -->
             <TextView
                 android:layout_width="wrap_content"
@@ -307,19 +237,19 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="56dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
                 android:text="@string/log_out"
-                android:textAllCaps="false"
-                android:textColor="#FF5252"
-                android:backgroundTint="@color/bg_white"
+                android:textColor="@color/red_primary"
+                app:backgroundTint="@color/white"
+                app:strokeColor="@color/red_primary"
+                app:strokeWidth="1dp"
                 app:cornerRadius="16dp"
-                app:strokeColor="#FF5252"
-                app:strokeWidth="1dp" />
+                android:textAllCaps="false"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -328,6 +258,7 @@
                 android:textColor="@color/text_hint"
                 android:textSize="12sp"
                 android:gravity="center"
+                android:paddingTop="32dp"
                 android:paddingBottom="32dp" />
 
         </LinearLayout>

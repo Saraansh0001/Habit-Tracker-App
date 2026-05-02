@@ -34,7 +34,22 @@ public interface ApiService {
         public String email;
         public int xp;
         public int streak;
+        public String avatarUrl;
+        public String rank;
+        public Settings settings;
     }
+
+    class Settings {
+        public boolean notificationsEnabled;
+        public boolean darkMode;
+        public String reminderTime;
+    }
+
+    @GET("profile")
+    Call<UserData> getProfile();
+
+    @PUT("profile")
+    Call<UserData> updateProfile(@Body UserData user);
 
     @POST("auth/register")
     Call<AuthResponse> register(@Body AuthRequest req);

@@ -16,8 +16,14 @@ import com.example.firstapp.network.LoginResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import android.view.View;
 
 public class LoginActivity extends AppCompatActivity {
+    private TextView tvEmailError;
+    private TextView tvPasswordError;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +33,13 @@ public class LoginActivity extends AppCompatActivity {
         EditText etPassword = findViewById(R.id.et_password);
         Button btnLogin = findViewById(R.id.btn_login);
         TextView tvRegister = findViewById(R.id.tv_register);
+        tvEmailError = findViewById(R.id.tv_email_error);
+        tvPasswordError = findViewById(R.id.tv_password_error);
 
         btnLogin.setOnClickListener(v -> {
+            // Reset errors
+            tvEmailError.setVisibility(View.GONE);
+            tvPasswordError.setVisibility(View.GONE);
             String email = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
 
@@ -47,10 +58,22 @@ public class LoginActivity extends AppCompatActivity {
                         
                         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                         finish();
-                    } else if (response.code() == 401) {
-                        Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Server error: " + response.code(), Toast.LENGTH_SHORT).show();
+                        try {
+                            String errorJson = response.errorBody().string();
+                            JsonObject errorObj = new Gson().fromJson(errorJson, JsonObject.class);
+                            String message = errorObj.get("message").getAsString();
+
+                            if (message.contains("User not found")) {
+                                tvEmailError.setVisibility(View.VISIBLE);
+                            } else if (message.contains("Incorrect password")) {
+                                tvPasswordError.setVisibility(View.VISIBLE);
+                            } else {
+                                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(LoginActivity.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
 

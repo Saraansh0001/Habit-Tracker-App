@@ -137,20 +137,6 @@
                         android:padding="8dp" />
                 </androidx.cardview.widget.CardView>
 
-                <!-- Logout -->
-                <Button
-                    android:id="@+id/btn_logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginTop="32dp"
-                    android:text="Log Out"
-                    android:textAllCaps="false"
-                    android:textColor="#FF5252"
-                    android:backgroundTint="@color/bg_white"
-                    app:cornerRadius="16dp"
-                    app:strokeColor="#FF5252"
-                    app:strokeWidth="1dp" />
-
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

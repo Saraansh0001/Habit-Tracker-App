@@ -154,6 +154,18 @@
                 app:layout_constraintTop_toBottomOf="@id/lbl_email" />
 
             <TextView
+                android:id="@+id/tv_email_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Email doesn't exist"
+                android:textColor="@color/red_primary"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_email" />
+
+            <TextView
                 android:id="@+id/lbl_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -162,7 +174,7 @@
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_email" />
+                app:layout_constraintTop_toBottomOf="@id/tv_email_error" />
 
             <EditText
                 android:id="@+id/et_password"
@@ -178,6 +190,18 @@
                 app:layout_constraintTop_toBottomOf="@id/lbl_password" />
 
             <TextView
+                android:id="@+id/tv_password_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Incorrect password"
+                android:textColor="@color/red_primary"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_password" />
+
+            <TextView
                 android:id="@+id/tv_forgot_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -186,7 +210,7 @@
                 android:textColor="#6366F1"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_password" />
+                app:layout_constraintTop_toBottomOf="@id/tv_password_error" />
 
             <Button
                 android:id="@+id/btn_login"
