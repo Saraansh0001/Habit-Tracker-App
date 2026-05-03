@@ -26,6 +26,7 @@ public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.Habi
     public interface OnHabitClickListener {
         void onHabitClick(Habit habit);
         void onHabitDetailClick(Habit habit);
+        void onDeleteClick(Habit habit);
     }
 
     public HomeHabitAdapter(List<Habit> habits, OnHabitClickListener listener) {
@@ -76,6 +77,7 @@ public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.Habi
         private final TextView tvCategory;
         private final ImageView ivIcon;
         private final ImageView ivCheck;
+        private final ImageView ivDelete;
         private final CardView cvIconContainer;
 
         public HabitViewHolder(@NonNull View itemView) {
@@ -84,6 +86,7 @@ public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.Habi
             tvCategory = itemView.findViewById(R.id.tv_habit_category);
             ivIcon = itemView.findViewById(R.id.iv_habit_icon);
             ivCheck = itemView.findViewById(R.id.iv_check);
+            ivDelete = itemView.findViewById(R.id.iv_delete);
             cvIconContainer = itemView.findViewById(R.id.cv_icon_container);
         }
 
@@ -108,6 +111,7 @@ public class HomeHabitAdapter extends RecyclerView.Adapter<HomeHabitAdapter.Habi
             }
 
             ivCheck.setOnClickListener(v -> listener.onHabitClick(habit));
+            ivDelete.setOnClickListener(v -> listener.onDeleteClick(habit));
             itemView.setOnClickListener(v -> listener.onHabitDetailClick(habit));
         }
 

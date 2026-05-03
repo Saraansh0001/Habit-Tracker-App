@@ -170,6 +170,21 @@ public class HomeFragment extends Fragment {
                 intent.putExtra(HabitDetailActivity.EXTRA_HABIT, habit);
                 startActivity(intent);
             }
+
+            @Override
+            public void onDeleteClick(Habit habit) {
+                new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setTitle("Delete Habit")
+                    .setMessage("Are you sure you want to delete this habit?")
+                    .setPositiveButton("Delete", (dialog, which) -> {
+                        habitRepository.deleteHabit(habit);
+                        userHabits = habitRepository.getUserHabits();
+                        updateAdapterData();
+                        updateOverallProgress();
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
+            }
         });
         rvHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvHabits.setAdapter(habitAdapter);

@@ -88,6 +88,16 @@ public class HabitRepository {
         habitDao.archiveHabit(id);
     }
 
+    public void deleteHabit(Habit habit) {
+        new Thread(() -> habitDao.delete(habit)).start();
+        apiService.deleteHabit(habit.getId()).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {}
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {}
+        });
+    }
+
     private List<Habit> getDefaultHabits() {
         List<Habit> defaults = new ArrayList<>();
         defaults.add(new Habit("Morning Meditation", "Mindfulness", "Easy", "#6B3FD4", 0));
