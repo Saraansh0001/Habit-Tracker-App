@@ -77,6 +77,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setupListeners() {
         findViewById(R.id.btn_back).setOnClickListener(v -> finish());
+        findViewById(R.id.btn_logout).setOnClickListener(v -> handleLogout());
 
         switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (currentUser != null && currentUser.settings != null) {
@@ -201,8 +202,12 @@ public class SettingsActivity extends AppCompatActivity {
                 .setTitle("Logout")
                 .setMessage("Are you sure you want to logout?")
                 .setPositiveButton("Logout", (dialog, which) -> {
-                    // Clear preferences
+                    // Clear app preferences
                     prefs.edit().clear().apply();
+
+                    // Clear auth token
+                    com.example.firstapp.api.AuthManager authManager = new com.example.firstapp.api.AuthManager(this);
+                    authManager.clearToken();
                     
                     // Navigate to LoginActivity
                     Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
