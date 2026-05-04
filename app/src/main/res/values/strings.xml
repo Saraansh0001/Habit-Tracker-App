@@ -6,7 +6,7 @@
     <string name="create_account">Create Account</string>
     <string name="fill_fields">Please fill all fields</string>
     <string name="enter_name">Please enter your name</string>
-    <string name="google_sign_in">Google Sign-In coming soon</string>
+
     <string name="reset_password">Reset password link sent</string>
 
     <!-- Auth -->
@@ -23,12 +23,12 @@
     <string name="email_hint">you@email.com</string>
     <string name="password_hint">Enter password</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="google_continue">Continue with Google</string>
+
     <string name="terms_policy">By continuing, you agree to our Terms &amp; Privacy Policy</string>
     <string name="full_name_label">Full Name</string>
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
-    <string name="or_continue">or continue with</string>
+
 
     <!-- Home Page -->
     <string name="greeting">Good Morning</string>
