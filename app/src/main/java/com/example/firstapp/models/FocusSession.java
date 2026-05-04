@@ -11,6 +11,7 @@ import java.util.UUID;
 public class FocusSession {
     @PrimaryKey
     @NonNull
+    @com.google.gson.annotations.SerializedName("_id")
     private String id;
     private String title;
     private long timestamp;

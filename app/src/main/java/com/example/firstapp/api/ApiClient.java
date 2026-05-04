@@ -11,8 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 
 public class ApiClient {
-    // Note: 10.0.2.2 is the special alias to your host loopback interface (127.0.0.1) on the emulator
-    private static final String BASE_URL = "http://10.0.2.2:5000/api/";
+    // Using local network IP for server access
+    private static final String BASE_URL = "http://10.7.30.90:5000/api/";
     private static Retrofit retrofit = null;
 
     public static ApiService getService(Context context) {

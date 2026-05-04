@@ -1,6 +1,9 @@
 package com.example.firstapp.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Challenge {
+    @SerializedName("_id")
     private String id;
     private String title;
     private int participants;
