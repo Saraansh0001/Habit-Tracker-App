@@ -1,13 +1,17 @@
 package com.example.firstapp;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -71,11 +75,22 @@ public class NavigationFragments {
             holder.tvDifficulty.setTextColor(diffText);
 
             holder.btnAdd.setOnClickListener(v -> {
-                HabitRepository repo = new HabitRepository(v.getContext());
-                repo.addHabit(new Habit(h.getTitle(), h.getCategory(), h.getDifficulty(), h.getColor(), h.getIconRes()));
-                if (v.getContext() instanceof HomeActivity) {
-                    ((HomeActivity) v.getContext()).onBackPressed();
-                }
+                final Context ctx = v.getContext();
+                final String title = h.getTitle();
+                new Thread(() -> {
+                    HabitRepository repo = new HabitRepository(ctx);
+                    if (repo.existsByTitle(title)) {
+                        new Handler(Looper.getMainLooper()).post(() ->
+                                Toast.makeText(ctx, "Already added", Toast.LENGTH_SHORT).show());
+                    } else {
+                        repo.addHabit(new Habit(h.getTitle(), h.getCategory(), h.getDifficulty(), h.getColor(), h.getIconRes()));
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            if (ctx instanceof HomeActivity) {
+                                ((HomeActivity) ctx).onBackPressed();
+                            }
+                        });
+                    }
+                }).start();
             });
         }
 

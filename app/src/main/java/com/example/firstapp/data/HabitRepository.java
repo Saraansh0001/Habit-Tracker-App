@@ -51,6 +51,10 @@ public class HabitRepository {
         return habitDao.getAllHabitsLive();
     }
 
+    public boolean existsByTitle(String title) {
+        return habitDao.countByTitle(title) > 0;
+    }
+
     public void addHabit(Habit habit) {
         // Optimistic UI update
         new Thread(() -> habitDao.insert(habit)).start();

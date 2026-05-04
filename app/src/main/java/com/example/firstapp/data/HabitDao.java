@@ -40,4 +40,7 @@ public interface HabitDao {
 
     @Delete
     void delete(Habit habit);
+
+    @Query("SELECT COUNT(*) FROM habits WHERE LOWER(title) = LOWER(:title) AND isArchived = 0")
+    int countByTitle(String title);
 }
