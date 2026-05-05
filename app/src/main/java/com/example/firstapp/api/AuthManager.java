@@ -7,6 +7,14 @@ public class AuthManager {
     private static final String PREF_NAME = "auth_prefs";
     private static final String KEY_TOKEN = "token";
     private final SharedPreferences prefs;
+    private static AuthManager instance;
+
+    public static synchronized AuthManager getInstance(Context context) {
+        if (instance == null) {
+            instance = new AuthManager(context);
+        }
+        return instance;
+    }
 
     public AuthManager(Context context) {
         // Use application context to prevent memory leaks and ensure consistency
@@ -23,6 +31,10 @@ public class AuthManager {
 
     public void clearToken() {
         prefs.edit().remove(KEY_TOKEN).apply();
+    }
+
+    public void clearSession() {
+        clearToken();
     }
 
     public boolean isLoggedIn() {
