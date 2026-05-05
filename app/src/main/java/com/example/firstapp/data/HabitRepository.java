@@ -3,8 +3,8 @@ package com.example.firstapp.data;
 import android.content.Context;
 import androidx.lifecycle.LiveData;
 import com.example.firstapp.models.Habit;
-import com.example.firstapp.api.ApiClient;
-import com.example.firstapp.api.ApiService;
+import com.example.firstapp.network.ApiClient;
+import com.example.firstapp.network.ApiService;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -56,15 +56,26 @@ public class HabitRepository {
     }
 
     public void addHabit(Habit habit) {
-        // Optimistic UI update
+        // Optimistic UI update - insert with temporary ID
         new Thread(() -> habitDao.insert(habit)).start();
         
         // Network call
         apiService.createHabit(habit).enqueue(new Callback<Habit>() {
             @Override
-            public void onResponse(Call<Habit> call, Response<Habit> response) {}
+            public void onResponse(Call<Habit> call, Response<Habit> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    new Thread(() -> {
+                        // Backend returned the habit with its official ID (e.g. MongoDB _id)
+                        // Remove the temporary client-side habit and insert the official one
+                        habitDao.delete(habit);
+                        habitDao.insert(response.body());
+                    }).start();
+                }
+            }
             @Override
-            public void onFailure(Call<Habit> call, Throwable t) {}
+            public void onFailure(Call<Habit> call, Throwable t) {
+                // In a real app, you might want to retry or mark for sync
+            }
         });
     }
 

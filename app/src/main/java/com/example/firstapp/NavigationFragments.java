@@ -77,11 +77,19 @@ public class NavigationFragments {
             holder.btnAdd.setOnClickListener(v -> {
                 final Context ctx = v.getContext();
                 final String title = h.getTitle();
+                
+                // Disable button immediately to prevent double-clicks
+                holder.btnAdd.setEnabled(false);
+                holder.btnAdd.setText("Adding...");
+
                 new Thread(() -> {
                     HabitRepository repo = new HabitRepository(ctx);
                     if (repo.existsByTitle(title)) {
-                        new Handler(Looper.getMainLooper()).post(() ->
-                                Toast.makeText(ctx, "Already added", Toast.LENGTH_SHORT).show());
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            Toast.makeText(ctx, "Already added", Toast.LENGTH_SHORT).show();
+                            holder.btnAdd.setEnabled(true);
+                            holder.btnAdd.setText("Add");
+                        });
                     } else {
                         repo.addHabit(new Habit(h.getTitle(), h.getCategory(), h.getDifficulty(), h.getColor(), h.getIconRes()));
                         new Handler(Looper.getMainLooper()).post(() -> {

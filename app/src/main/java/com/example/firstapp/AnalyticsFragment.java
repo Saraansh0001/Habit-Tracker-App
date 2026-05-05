@@ -58,12 +58,26 @@ public class AnalyticsFragment extends Fragment {
                     StatsResponse stats = response.body();
                     TextView tvBestStreak = view.findViewById(R.id.tv_best_streak);
                     TextView tvCompletionRate = view.findViewById(R.id.tv_completion_rate);
+                    TextView tvTotalFocus = view.findViewById(R.id.tv_total_focus);
+                    TextView tvInsight = view.findViewById(R.id.tv_insight_text);
                     
                     if (tvBestStreak != null) tvBestStreak.setText(String.valueOf(stats.longestStreak));
                     
                     if (tvCompletionRate != null) {
                         int rate = stats.totalHabits > 0 ? (stats.completedToday * 100 / stats.totalHabits) : 0;
                         tvCompletionRate.setText(rate + "%");
+                    }
+
+                    if (tvTotalFocus != null) {
+                        tvTotalFocus.setText(String.valueOf(stats.totalFocusMinutes));
+                    }
+
+                    if (tvInsight != null) {
+                        if (stats.completedToday > 0) {
+                            tvInsight.setText("Great job! You've completed " + stats.completedToday + " habits today. Keep the momentum going!");
+                        } else {
+                            tvInsight.setText("You haven't completed any habits today. Start small to build your streak!");
+                        }
                     }
                 }
             }
