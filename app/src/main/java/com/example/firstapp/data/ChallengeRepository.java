@@ -95,4 +95,8 @@ public class ChallengeRepository {
     public void joinChallenge(String id, Callback<Challenge> callback) {
         apiService.joinChallenge(id).enqueue(callback);
     }
+
+    public void leaveChallenge(String id, Callback<Void> callback) {
+        apiService.leaveChallenge(id).enqueue(callback);
+    }
 }

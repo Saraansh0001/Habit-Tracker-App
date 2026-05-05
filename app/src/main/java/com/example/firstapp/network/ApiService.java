@@ -56,6 +56,9 @@ public interface ApiService {
     @POST("challenges/{id}/join")
     Call<Challenge> joinChallenge(@Path("id") String id);
 
+    @POST("challenges/{id}/leave")
+    Call<Void> leaveChallenge(@Path("id") String id);
+
     // Journal
     @GET("journal")
     Call<List<JournalEntry>> getJournalEntries();

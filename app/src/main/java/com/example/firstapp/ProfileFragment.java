@@ -110,8 +110,8 @@ public class ProfileFragment extends Fragment {
         LinearLayout actionsContainer = view.findViewById(R.id.actions_container);
         if (actionsContainer == null) return;
 
-        String[] titles = {"Edit Profile", "Settings"};
-        int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info};
+        String[] titles = {"Edit Profile", "Settings", "Logout"};
+        int[] icons = {R.drawable.ic_edit_profile, R.drawable.ic_info, R.drawable.ic_nav_profile};
 
         for (int i = 0; i < titles.length; i++) {
             final String titleText = titles[i];
@@ -123,6 +123,11 @@ public class ProfileFragment extends Fragment {
             title.setText(titleText);
             icon.setImageResource(icons[i]);
 
+            if (titleText.equals("Logout")) {
+                title.setTextColor(Color.parseColor("#FF4B4B"));
+                icon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FF4B4B")));
+            }
+
             itemView.setOnClickListener(v -> {
                 if (titleText.equals("Edit Profile")) {
                     if (getActivity() instanceof HomeActivity) {
@@ -131,6 +136,12 @@ public class ProfileFragment extends Fragment {
                 } else if (titleText.equals("Settings")) {
                     android.content.Intent intent = new android.content.Intent(getContext(), SettingsActivity.class);
                     startActivity(intent);
+                } else if (titleText.equals("Logout")) {
+                    com.example.firstapp.api.AuthManager.getInstance(requireContext()).clearSession();
+                    android.content.Intent intent = new android.content.Intent(getContext(), LoginActivity.class);
+                    intent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK | android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    if (getActivity() != null) getActivity().finish();
                 }
             });
             actionsContainer.addView(itemView);

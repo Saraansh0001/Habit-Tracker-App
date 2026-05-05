@@ -116,8 +116,28 @@ public class ArenaFragment extends Fragment {
     private void setupRecyclerViews(View view) {
         RecyclerView rvOngoing = view.findViewById(R.id.rv_ongoing);
         RecyclerView rvAvailable = view.findViewById(R.id.rv_available);
-        ongoingAdapter = new ArenaAdapter(true, null);
-        availableAdapter = new ArenaAdapter(false, challenge -> viewModel.joinChallenge(challenge));
+        ongoingAdapter = new ArenaAdapter(true, new ArenaAdapter.OnChallengeClickListener() {
+            @Override
+            public void onJoinClick(Challenge challenge) {
+                // Not used for ongoing
+            }
+
+            @Override
+            public void onLeaveClick(Challenge challenge) {
+                viewModel.leaveChallenge(challenge);
+            }
+        });
+        availableAdapter = new ArenaAdapter(false, new ArenaAdapter.OnChallengeClickListener() {
+            @Override
+            public void onJoinClick(Challenge challenge) {
+                viewModel.joinChallenge(challenge);
+            }
+
+            @Override
+            public void onLeaveClick(Challenge challenge) {
+                // Not used for available
+            }
+        });
         rvOngoing.setLayoutManager(new LinearLayoutManager(getContext()));
         rvOngoing.setAdapter(ongoingAdapter);
         rvAvailable.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -197,6 +217,41 @@ public class ArenaFragment extends Fragment {
             }
         }
 
+        public void leaveChallenge(Challenge challenge) {
+            challengeRepository.leaveChallenge(challenge.getId(), new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        android.widget.Toast.makeText(getApplication(), "Left " + challenge.getTitle(), android.widget.Toast.LENGTH_SHORT).show();
+                        persistLeaveLocally(challenge);
+                        loadData();
+                    } else {
+                        android.widget.Toast.makeText(getApplication(), "Error: " + response.code(), android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    if (t instanceof IOException) {
+                        android.widget.Toast.makeText(getApplication(), "Offline: Action saved locally", android.widget.Toast.LENGTH_SHORT).show();
+                        persistLeaveLocally(challenge);
+                        loadData();
+                    } else {
+                        android.widget.Toast.makeText(getApplication(), "Error: " + t.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+        private void persistLeaveLocally(Challenge challenge) {
+            challenge.setParticipants(Math.max(0, challenge.getParticipants() - 1));
+            challenge.setActive(false);
+            challengeRepository.updateLocalChallenge(challenge);
+            java.util.Set<String> joinedIds = new java.util.HashSet<>(prefs.getStringSet(JOINED_KEY, new java.util.HashSet<>()));
+            joinedIds.remove(challenge.getId());
+            prefs.edit().putStringSet(JOINED_KEY, joinedIds).apply();
+        }
+
         private void persistJoinLocally(Challenge challenge) {
             challenge.setParticipants(challenge.getParticipants() + 1);
             challenge.setActive(true);
@@ -215,7 +270,10 @@ public class ArenaFragment extends Fragment {
         private List<Challenge> items = new ArrayList<>();
         private final boolean isOngoing;
         private final OnChallengeClickListener listener;
-        public interface OnChallengeClickListener { void onJoinClick(Challenge challenge); }
+        public interface OnChallengeClickListener { 
+            void onJoinClick(Challenge challenge); 
+            void onLeaveClick(Challenge challenge);
+        }
         public ArenaAdapter(boolean isOngoing, OnChallengeClickListener listener) { this.isOngoing = isOngoing; this.listener = listener; }
         public void setItems(List<Challenge> newItems) { this.items = newItems; notifyDataSetChanged(); }
         @Override
@@ -229,7 +287,7 @@ public class ArenaFragment extends Fragment {
         }
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            if (holder instanceof OngoingViewHolder) ((OngoingViewHolder) holder).bind(items.get(position));
+            if (holder instanceof OngoingViewHolder) ((OngoingViewHolder) holder).bind(items.get(position), listener);
             else if (holder instanceof AvailableViewHolder) ((AvailableViewHolder) holder).bind(items.get(position), listener);
         }
         @Override
@@ -237,14 +295,15 @@ public class ArenaFragment extends Fragment {
 
         static class OngoingViewHolder extends RecyclerView.ViewHolder {
             TextView tvTitle, tvParticipants, tvDuration; ProgressBar progressBar;
-            ImageView ivIcon; CardView cvIcon;
+            ImageView ivIcon; CardView cvIcon; Button btnLeave;
             OngoingViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tvTitle = itemView.findViewById(R.id.tv_title); tvParticipants = itemView.findViewById(R.id.tv_participants);
                 tvDuration = itemView.findViewById(R.id.tv_duration); progressBar = itemView.findViewById(R.id.progress_bar);
                 ivIcon = itemView.findViewById(R.id.iv_icon); cvIcon = itemView.findViewById(R.id.cv_icon_container);
+                btnLeave = itemView.findViewById(R.id.btn_leave);
             }
-            void bind(Challenge challenge) {
+            void bind(Challenge challenge, OnChallengeClickListener listener) {
                 tvTitle.setText(challenge.getTitle());
                 tvParticipants.setText(itemView.getContext().getString(R.string.participants_format, challenge.getParticipants()));
                 tvDuration.setText(itemView.getContext().getString(R.string.duration_format, challenge.getDuration()));
@@ -259,6 +318,9 @@ public class ArenaFragment extends Fragment {
                         cvIcon.setCardBackgroundColor(Color.argb(30, Color.red(c), Color.green(c), Color.blue(c)));
                     }
                     progressBar.setProgressTintList(ColorStateList.valueOf(c));
+                }
+                if (btnLeave != null) {
+                    btnLeave.setOnClickListener(v -> { if (listener != null) listener.onLeaveClick(challenge); });
                 }
             }
         }

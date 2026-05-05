@@ -177,18 +177,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_email" />
 
-            <EditText
-                android:id="@+id/et_password"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/bg_input_field"
-                android:hint="@string/password_hint"
-                android:inputType="textPassword"
-                android:padding="16dp"
-                android:textColor="@color/text_dark"
-                android:textColorHint="@color/text_hint"
-                app:layout_constraintTop_toBottomOf="@id/lbl_password" />
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:layout_constraintTop_toBottomOf="@id/lbl_password">
+
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_input_field"
+                    android:hint="@string/password_hint"
+                    android:inputType="textPassword"
+                    android:padding="16dp"
+                    android:textColor="@color/text_dark"
+                    android:textColorHint="@color/text_hint" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btn_register"
@@ -202,7 +210,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/et_password" />
+                app:layout_constraintTop_toBottomOf="@id/til_password" />
 
             <TextView
                 android:layout_width="wrap_content"
