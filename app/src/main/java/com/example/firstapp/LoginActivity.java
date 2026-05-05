@@ -1,32 +1,43 @@
-// DEV MODE: Auth bypassed, remove before production
 package com.example.firstapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.firstapp.api.AuthManager;
 import com.example.firstapp.network.ApiClient;
 import com.example.firstapp.network.AuthRequest;
 import com.example.firstapp.network.LoginResponse;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import android.view.View;
 
 public class LoginActivity extends AppCompatActivity {
     private TextView tvEmailError;
     private TextView tvPasswordError;
+    private AuthManager authManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Initialize AuthManager
+        authManager = new AuthManager(this);
+
+        // Check if user is already logged in
+        if (authManager.isLoggedIn()) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
         EditText etEmail = findViewById(R.id.et_email);
@@ -53,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        SharedPreferences prefs = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
-                        prefs.edit().putString("token", response.body().token).apply();
+                        // Use authManager to save the token
+                        authManager.saveToken(response.body().token);
                         
                         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                         finish();

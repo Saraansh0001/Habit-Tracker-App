@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.firstapp.api.AuthManager;
 import com.example.firstapp.network.ApiClient;
 import com.example.firstapp.network.AuthRequest;
 import com.example.firstapp.network.LoginResponse;
@@ -44,8 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        SharedPreferences prefs = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
-                        prefs.edit().putString("token", response.body().token).apply();
+                        AuthManager authManager = new AuthManager(RegisterActivity.this);
+                        authManager.saveToken(response.body().token);
 
                         startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                         finish();

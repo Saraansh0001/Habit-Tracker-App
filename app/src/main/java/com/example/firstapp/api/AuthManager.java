@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class AuthManager {
-    private static final String PREF_NAME = "AuthPrefs";
-    private static final String KEY_TOKEN = "jwt_token";
+    private static final String PREF_NAME = "auth_prefs";
+    private static final String KEY_TOKEN = "token";
     private final SharedPreferences prefs;
 
     public AuthManager(Context context) {
-        prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        // Use application context to prevent memory leaks and ensure consistency
+        prefs = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
     public void saveToken(String token) {
@@ -25,6 +26,7 @@ public class AuthManager {
     }
 
     public boolean isLoggedIn() {
-        return getToken() != null;
+        String token = getToken();
+        return token != null && !token.isEmpty();
     }
 }
